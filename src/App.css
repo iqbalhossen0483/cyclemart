@@ -133,6 +133,7 @@
   background: #fff;
   border-radius: 4px;
 }
+
 .scrollbar:hover::-webkit-scrollbar-thumb {
   background: #868a88;
   border-radius: 4px;
