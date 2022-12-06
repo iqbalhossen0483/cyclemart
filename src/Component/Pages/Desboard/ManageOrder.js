@@ -10,7 +10,7 @@ const ManageOrder = () => {
   const { userToken } = useFunc();
 
   useEffect(() => {
-    fetch("http://localhost:5000/cyclemart/orders", {
+    fetch("https://iqbal.diaryofmind.com/cyclemart/orders", {
       headers: {
         authorization: userToken(),
       },
@@ -31,7 +31,7 @@ const ManageOrder = () => {
       status: "Approved",
       id: id,
     };
-    fetch(`http://localhost:5000/cyclemart/orders`, {
+    fetch(`https://iqbal.diaryofmind.com/cyclemart/orders`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

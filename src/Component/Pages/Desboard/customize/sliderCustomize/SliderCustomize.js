@@ -13,7 +13,7 @@ function SliderCustomize() {
   const alart = useAlert();
 
   useEffect(() => {
-    fetch("http://localhost:5000/cyclemart/sliders")
+    fetch("https://iqbal.diaryofmind.com/cyclemart/sliders")
       .then((res) => res.json())
       .then((data) => setSliders(data));
   }, [update]);
@@ -24,7 +24,7 @@ function SliderCustomize() {
     formData.append("image", slider.image[0]);
     formData.append("url", slider.url);
 
-    fetch("http://localhost:5000/cyclemart/sliders", {
+    fetch("https://iqbal.diaryofmind.com/cyclemart/sliders", {
       method: "POST",
       headers: {
         authorization: userToken(),
@@ -48,7 +48,7 @@ function SliderCustomize() {
 
   //delete
   const deletSlider = (id) => {
-    fetch(`http://localhost:5000/cyclemart/sliders/${id}`, {
+    fetch(`https://iqbal.diaryofmind.com/cyclemart/sliders/${id}`, {
       method: "DELETE",
       headers: {
         authorization: userToken(),

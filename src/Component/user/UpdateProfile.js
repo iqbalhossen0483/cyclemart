@@ -24,7 +24,7 @@ function UpdateProfile() {
       formData.append("existingImg", user.imgId);
     }
 
-    fetch(`http://localhost:5000/cyclemart/users/updateUser`, {
+    fetch(`https://iqbal.diaryofmind.com/cyclemart/users/updateUser`, {
       method: "PUT",
       body: formData,
     })

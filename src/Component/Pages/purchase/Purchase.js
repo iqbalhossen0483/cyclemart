@@ -35,7 +35,7 @@ const Purchase = () => {
   //find triger products
   useEffect(() => {
     if (id.startsWith("&&")) {
-      fetch(`http://localhost:5000/cyclemart/products/${id}`)
+      fetch(`https://iqbal.diaryofmind.com/cyclemart/products/${id}`)
         .then((res) => res.json())
         .then((data) => {
           let totalPrice = 0;
@@ -56,7 +56,7 @@ const Purchase = () => {
           setIsLoading(false);
         });
     } else {
-      fetch(`http://localhost:5000/cyclemart/products/${id}`)
+      fetch(`https://iqbal.diaryofmind.com/cyclemart/products/${id}`)
         .then((res) => res.json())
         .then((data) => {
           setTotalPrice(data.price * quantity);
@@ -113,7 +113,7 @@ const Purchase = () => {
     }
     //post order
     if (cashOnDelivary) {
-      fetch("http://localhost:5000/cyclemart/orders", {
+      fetch("https://iqbal.diaryofmind.com/cyclemart/orders", {
         method: "POST",
         headers: {
           "content-type": "application/json",

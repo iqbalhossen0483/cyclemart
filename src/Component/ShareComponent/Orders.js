@@ -17,7 +17,7 @@ const Orders = ({ order, children, orders, setOrder, title }) => {
   const handleDelete = (id) => {
     const confirm = window.confirm("Are you sure to delete");
     if (confirm) {
-      fetch(`http://localhost:5000/cyclemart/orders/${id}`, {
+      fetch(`https://iqbal.diaryofmind.com/cyclemart/orders/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

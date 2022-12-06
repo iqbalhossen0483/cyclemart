@@ -7,7 +7,7 @@ const MakeAdmin = () => {
   const alert = useAlert();
 
   const onSubmit = (email) => {
-    fetch("http://localhost:5000/cyclemart/users/admin", {
+    fetch("https://iqbal.diaryofmind.com/cyclemart/users/admin", {
       method: "PUT",
       headers: {
         "content-type": "application/json",

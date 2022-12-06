@@ -41,13 +41,16 @@ const Product = (props) => {
             },
           ];
         }
-        fetch(`http://localhost:5000/cyclemart/users/carts/${user.email}`, {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(cart),
-        })
+        fetch(
+          `https://iqbal.diaryofmind.com/cyclemart/users/carts/${user.email}`,
+          {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(cart),
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.modifiedCount > 0) {

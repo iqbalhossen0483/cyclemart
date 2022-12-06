@@ -22,7 +22,7 @@ const addProduct = (product, userToken, alert, reset, setLoading) => {
     return alert.show("Gallery image should be less than 4");
   }
 
-  fetch("http://localhost:5000/cyclemart/products", {
+  fetch("https://iqbal.diaryofmind.com/cyclemart/products", {
     method: "POST",
     headers: {
       authorization: userToken(),

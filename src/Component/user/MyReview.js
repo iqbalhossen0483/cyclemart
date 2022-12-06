@@ -12,11 +12,14 @@ const MyReview = () => {
   const { user } = useFirebase();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/cyclemart/reviews?user_id=${user._id}`, {
-      headers: {
-        authorization: userToken(),
-      },
-    })
+    fetch(
+      `https://iqbal.diaryofmind.com/cyclemart/reviews?user_id=${user._id}`,
+      {
+        headers: {
+          authorization: userToken(),
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setReview(data);

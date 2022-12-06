@@ -16,7 +16,7 @@ const UpdateProduct = () => {
   const alert = useAlert();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/cyclemart/products/${id}`)
+    fetch(`https://iqbal.diaryofmind.com/cyclemart/products/${id}`)
       .then((res) => res.json())
       .then((data) => setProduct(data));
   }, [id, oneProductUpdate]);

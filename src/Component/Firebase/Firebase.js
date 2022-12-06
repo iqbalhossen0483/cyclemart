@@ -62,7 +62,7 @@ const Firebase = () => {
         imgUrl: null,
         imgId: null,
       };
-      const res = await fetch("http://localhost:5000/cyclemart/users", {
+      const res = await fetch("https://iqbal.diaryofmind.com/cyclemart/users", {
         method: "PUT",
         headers: {
           "content-type": "application/json",
@@ -80,7 +80,7 @@ const Firebase = () => {
   const checkUser = async (email) => {
     try {
       const res = await fetch(
-        `http://localhost:5000/cyclemart/users/login/${email}`
+        `https://iqbal.diaryofmind.com/cyclemart/users/login/${email}`
       );
       const data = await res.json();
       if (res.ok) {

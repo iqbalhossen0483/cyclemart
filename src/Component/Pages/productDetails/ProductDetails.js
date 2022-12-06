@@ -16,7 +16,7 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
-    fetch(`http://localhost:5000/cyclemart/products/${id}`)
+    fetch(`https://iqbal.diaryofmind.com/cyclemart/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setProductImgUrl(data.productImg.imgUrl);
@@ -57,13 +57,16 @@ const ProductDetails = () => {
             },
           ];
         }
-        fetch(`http://localhost:5000/cyclemart/users/carts/${user.email}`, {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(cart),
-        })
+        fetch(
+          `https://iqbal.diaryofmind.com/cyclemart/users/carts/${user.email}`,
+          {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(cart),
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.modifiedCount > 0) {

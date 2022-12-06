@@ -19,7 +19,7 @@ const CartProduct = () => {
             id += "&&" + cart.id;
           }
           const res = await fetch(
-            `http://localhost:5000/cyclemart/products/${id}`
+            `https://iqbal.diaryofmind.com/cyclemart/products/${id}`
           );
           const data = await res.json();
           setCartProducts(data);

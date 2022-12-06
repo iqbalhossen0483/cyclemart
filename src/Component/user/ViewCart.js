@@ -23,7 +23,7 @@ const ViewCart = () => {
     }
 
     if (allId) {
-      fetch(`http://localhost:5000/cyclemart/products/${url}`)
+      fetch(`https://iqbal.diaryofmind.com/cyclemart/products/${url}`)
         .then((res) => res.json())
         .then((data) => {
           data.forEach((product) => {
@@ -87,13 +87,16 @@ const ViewCart = () => {
         (product) => product._id !== id
       );
 
-      fetch(`http://localhost:5000/cyclemart/users/carts/${user.email}`, {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(remain),
-      })
+      fetch(
+        `https://iqbal.diaryofmind.com/cyclemart/users/carts/${user.email}`,
+        {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(remain),
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.modifiedCount > 0) {

@@ -9,7 +9,9 @@ const SearchBar = () => {
   function handleSearchText(searchText) {
     const text = searchText;
     if (!text) return setShowSearchProduct(false);
-    fetch(`http://localhost:5000/cyclemart/products/searchProduct/${text}`)
+    fetch(
+      `https://iqbal.diaryofmind.com/cyclemart/products/searchProduct/${text}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setShowSearchProduct(true);

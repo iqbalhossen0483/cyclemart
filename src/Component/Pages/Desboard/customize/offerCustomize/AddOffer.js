@@ -13,13 +13,13 @@ function AddOffer() {
   const alart = useAlert();
 
   useEffect(() => {
-    fetch("http://localhost:5000/cyclemart/offers")
+    fetch("https://iqbal.diaryofmind.com/cyclemart/offers")
       .then((res) => res.json())
       .then((data) => setOffers(data));
   }, [update]);
 
   const onSubmit = (offer) => {
-    fetch("http://localhost:5000/cyclemart/offers", {
+    fetch("https://iqbal.diaryofmind.com/cyclemart/offers", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -44,7 +44,7 @@ function AddOffer() {
 
   //delete
   const deletOffer = (id) => {
-    fetch(`http://localhost:5000/cyclemart/offers/${id}`, {
+    fetch(`https://iqbal.diaryofmind.com/cyclemart/offers/${id}`, {
       method: "DELETE",
       headers: {
         authorization: userToken(),

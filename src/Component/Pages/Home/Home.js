@@ -25,7 +25,7 @@ const Home = () => {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/cyclemart/products/home")
+    fetch("https://iqbal.diaryofmind.com/cyclemart/products/home")
       .then((res) => res.json())
       .then((data) => {
         setProduct(data);
@@ -35,7 +35,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/cyclemart/reviews")
+    fetch("https://iqbal.diaryofmind.com/cyclemart/reviews")
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
@@ -45,7 +45,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/cyclemart/news")
+    fetch("https://iqbal.diaryofmind.com/cyclemart/news")
       .then((res) => res.json())
       .then((data) => {
         setNews(data);
@@ -55,7 +55,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/cyclemart/offers")
+    fetch("https://iqbal.diaryofmind.com/cyclemart/offers")
       .then((res) => res.json())
       .then((data) => setOffers(data));
   }, []);
@@ -148,7 +148,7 @@ const Home = () => {
             </Slider>
           )}
         </div>
-        {/* <Massenger /> */}
+        <Massenger />
         {error && <p>{error}</p>}
       </div>
     </>

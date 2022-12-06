@@ -9,7 +9,7 @@ const HeaderPart = ({ categoryForm, setCategoryForm, setUpdate, update }) => {
   const alert = useAlert();
 
   const onSubmit = (menu) => {
-    fetch("http://localhost:5000/cyclemart/menus", {
+    fetch("https://iqbal.diaryofmind.com/cyclemart/menus", {
       method: "POST",
       headers: {
         "content-type": "application/json",

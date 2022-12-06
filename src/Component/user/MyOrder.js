@@ -12,7 +12,7 @@ const MyOrder = () => {
   const { userToken } = useFunc();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/cyclemart/orders/${user.email}`, {
+    fetch(`https://iqbal.diaryofmind.com/cyclemart/orders/${user.email}`, {
       headers: {
         authorization: userToken(),
       },
