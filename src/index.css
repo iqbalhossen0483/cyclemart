@@ -11,38 +11,38 @@
     @apply text-xl hover:text-white;
   }
   .input {
-    @apply border rounded py-1 px-3 my-1 text-xl focus:outline-none;
+    @apply border rounded py-1 px-3 my-1 text-base w-full focus:outline-none;
   }
   .category-menu-wrapper {
     @apply py-5 px-4 text-xl leading-10 border-r h-full;
   }
   .category-menu {
-    @apply cursor-pointer relative underline-offset-8;
+    @apply cursor-pointer relative text-lg;
   }
   .category-menu .menu {
-    @apply hover:text-green-500 hover:underline;
+    @apply hover:text-green-500 py-1;
   }
   .product {
-    @apply m-3 md:m-0 rounded-md bg-white leading-6 border;
+    @apply m-3 md:m-0 rounded-md bg-white leading-6 hover:shadow-md transition-all;
   }
   .header {
-    @apply text-3xl md:text-4xl font-semibold text-center mb-5;
+    @apply text-xl font-medium text-center mb-5;
   }
   .slider-header {
     @apply text-green-400;
   }
   .h1 {
-    @apply text-2xl md:text-3xl font-semibold ml-10 my-5;
+    @apply text-lg md:text-xl font-medium ml-10 my-5;
   }
   .page-header {
-    @apply text-2xl text-center mb-3 font-semibold;
+    @apply text-xl text-center mb-4 font-semibold;
   }
   .spinner-container {
     @apply h-screen flex justify-center items-center;
   }
   .alart {
-    @apply bg-green-100 font-semibold text-xl mb-5 mr-3 px-5 md:px-20 
-    py-1 rounded-r-md border-l-8 border-solid border-green-500;
+    @apply bg-green-100 font-semibold mb-5 mr-3 px-5 md:px-20 
+    py-1 rounded-r-md border-l-4 border-solid border-secondary;
   }
 
   .outlet {
@@ -71,10 +71,10 @@
     @apply hidden lg:flex col-span-4 justify-end;
   }
   .top-contact .icon {
-    @apply mx-2 text-green-400;
+    @apply mx-2 text-primary;
   }
   .header-menu {
-    @apply w-max py-3 pl-1 pr-2 top-[59px] z-20 absolute left-0 md:h-16 md:grid grid-cols-5 
+    @apply w-max py-3 pl-1 pr-2 top-[59px] z-20 absolute left-0 md:h-24 md:grid grid-cols-5 
     md:w-full md:sticky md:top-0 bg-white shadow-md md:shadow-none border-b;
   }
   .search-input {
@@ -100,7 +100,7 @@
 
   /* review component */
   .review-container {
-    @apply m-3 md:m-3 h-72 bg-white rounded-md text-center py-5 border;
+    @apply m-3 md:m-3 h-52 bg-white rounded text-center py-5 hover:shadow;
   }
 
   /* user info container */
@@ -110,10 +110,11 @@
 
   /* profile page */
   .profile-container {
-    @apply bg-white rounded lg:mx-5 py-10 z-0 text-xl lg:px-20 mb-5 leading-10 grid gap-2 lg:grid-cols-4 lg:border px-4;
+    @apply bg-white rounded lg:mx-5 py-10 z-0 lg:px-20 mb-5 leading-10 grid 
+    gap-2 lg:grid-cols-4 lg:border px-4 text-base;
   }
   .profile-img {
-    @apply rounded-full mx-auto my-3 md:my-5 w-40 h-40 hover:opacity-70;
+    @apply mx-auto my-3 md:my-5 w-24 h-24 hover:opacity-70 cursor-pointer;
   }
   .profile-container .item {
     @apply border rounded px-3 py-1 bg-gray-50 col-span-3;
@@ -126,7 +127,7 @@
   }
   .flesh-cart {
     @apply grid grid-cols-2 md:grid-cols-4 my-5 px-5 lg:px-10 gap-5 md:gap-2
-    lg:gap-10 text-center md:text-xl;
+    lg:gap-10 text-center;
   }
   .flesh-cart .item {
     @apply bg-white rounded-3xl py-2 border px-1;
@@ -135,7 +136,7 @@
     @apply md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:m-5;
   }
   .sub-menus {
-    @apply absolute top-0 left-36 bg-white shadow-md z-50 py-3 rounded hidden w-max;
+    @apply absolute top-0 left-36 bg-white text-base shadow-md z-50 py-3 rounded hidden w-max;
   }
 
   /* shop page */
@@ -161,25 +162,49 @@
     @apply md:hidden text-2xl text-green-500;
   }
   .menubar {
-    @apply z-20 md:z-10 w-36 md:w-full absolute md:static top-14 left-0 bg-white shadow-lg pl-3;
+    @apply z-20 md:z-10 md:w-full bg-white shadow-lg relative
+    pl-3;
   }
   .closebtn {
     @apply text-2xl md:hidden absolute top-3 right-3;
+  }
+  .myaccount-menus {
+    @apply flex flex-col pt-10 font-medium space-y-2 fixed top-20 left-3;
   }
 
   /* view cart page  */
   .view-cart-product {
     @apply p-3 grid md:grid-cols-4 justify-center items-center text-center;
   }
-  .calc {
-    @apply grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-center 
-    items-center;
+  .cart-product {
+    @apply bg-white shadow rounded-b;
   }
 
-  /* cart product */
-  .cart-product {
-    @apply top-full right-5 bg-white shadow-md z-20 max-h-96 
-    overflow-auto;
+  .google-btn {
+    @apply flex gap-2 items-center my-3 border rounded px-5 shadow;
+  }
+
+  table {
+    @apply bg-white w-full md:w-[80%] mx-auto rounded;
+  }
+  tr {
+    @apply border-b;
+  }
+  thead tr th {
+    @apply text-sm font-medium;
+  }
+  tbody tr:last-child {
+    @apply border-b-0;
+  }
+  tbody tr:nth-child(odd) {
+    @apply bg-gray-50;
+  }
+  tbody tr:nth-child(even) {
+    @apply hover:bg-gray-50;
+  }
+  td,
+  th {
+    @apply px-4 py-2 text-center;
   }
 }
 

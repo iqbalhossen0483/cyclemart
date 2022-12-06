@@ -12,7 +12,7 @@ const controller = () => {
       name: categoryName.current.value,
     };
 
-    fetch(`https://iqbal.diaryofmind.com/cyclemart/menus/${menuId}`, {
+    fetch(`http://localhost:5000/cyclemart/menus/${menuId}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -33,7 +33,7 @@ const controller = () => {
 
   //delete menus
   const deletCategoryMenu = (id, userToken, alart, update, setUpdate) => {
-    fetch(`https://iqbal.diaryofmind.com/cyclemart/menus/${id}`, {
+    fetch(`http://localhost:5000/cyclemart/menus/${id}`, {
       method: "DELETE",
       headers: {
         authorization: userToken(),
@@ -51,7 +51,7 @@ const controller = () => {
 
   //delete sub category menu
   function deleteSubCategoryMenu(menus, alart, update, setUpdate) {
-    fetch(`https://iqbal.diaryofmind.com/cyclemart/menus`, {
+    fetch(`http://localhost:5000/cyclemart/menus`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

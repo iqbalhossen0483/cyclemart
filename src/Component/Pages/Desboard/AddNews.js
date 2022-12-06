@@ -21,7 +21,7 @@ const AddNews = () => {
     formData.append("title", news.title);
     formData.append("description", news.description);
 
-    fetch("https://iqbal.diaryofmind.com/cyclemart/news", {
+    fetch("http://localhost:5000/cyclemart/news", {
       method: "POST",
       headers: {
         authorization: userToken(),

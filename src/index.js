@@ -1,15 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { BrowserRouter } from 'react-router-dom';
-import AlartProvider from './AllProvider/AlartProvider';
+import AlartProvider from "./AllProvider/AlartProvider";
+import { BrowserRouter } from "react-router-dom";
+import { createRoot } from "react-dom/client";
+import React from "react";
+import App from "./App";
+import "./index.css";
 
-ReactDOM.render(
-    <BrowserRouter>
-      <AlartProvider>
-        <App />
-      </AlartProvider>
-    </BrowserRouter>,
-  document.getElementById('root')
+const root = createRoot(document.getElementById("root"));
+root.render(
+  <BrowserRouter>
+    <AlartProvider>
+      <App />
+    </AlartProvider>
+  </BrowserRouter>
 );

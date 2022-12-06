@@ -1,15 +1,14 @@
 import ProductSkelator from "../../ShareComponent/skelator/ProductSkelator";
 import ReviewSkelator from "../../ShareComponent/skelator/ReviewSkelator";
 import NewsSkelator from "../../ShareComponent/skelator/NewsSkelator";
-import Footer from "../../ShareComponent/Footer/Footer";
 import React, { useEffect, useState } from "react";
 import Product from "../../ShareComponent/prooduct/Product";
 import useFirebase from "../../Hook/useFirebase";
 import SingleNews from "../News/singleNews";
 import { Link } from "react-router-dom";
 import PansySlider from "./PansySlider";
-import settings from "./sliderSetting";
 import Massenger from "./Massenger";
+import settings from "./sliderSetting";
 import Slider from "react-slick";
 import Reviews from "./Rviews";
 import Menus from "./Menus";
@@ -26,7 +25,7 @@ const Home = () => {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/products/home")
+    fetch("http://localhost:5000/cyclemart/products/home")
       .then((res) => res.json())
       .then((data) => {
         setProduct(data);
@@ -36,7 +35,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/reviews")
+    fetch("http://localhost:5000/cyclemart/reviews")
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
@@ -46,7 +45,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/news")
+    fetch("http://localhost:5000/cyclemart/news")
       .then((res) => res.json())
       .then((data) => {
         setNews(data);
@@ -56,7 +55,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/offers")
+    fetch("http://localhost:5000/cyclemart/offers")
       .then((res) => res.json())
       .then((data) => setOffers(data));
   }, []);
@@ -149,10 +148,9 @@ const Home = () => {
             </Slider>
           )}
         </div>
-        <Massenger />
+        {/* <Massenger /> */}
         {error && <p>{error}</p>}
       </div>
-      <Footer />
     </>
   );
 };

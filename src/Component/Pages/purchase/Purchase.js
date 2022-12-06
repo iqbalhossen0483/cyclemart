@@ -17,6 +17,7 @@ const Purchase = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [totalPrice, setTotalPrice] = useState(0);
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { quantity } = useFirebase();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -34,7 +35,7 @@ const Purchase = () => {
   //find triger products
   useEffect(() => {
     if (id.startsWith("&&")) {
-      fetch(`https://iqbal.diaryofmind.com/cyclemart/products/${id}`)
+      fetch(`http://localhost:5000/cyclemart/products/${id}`)
         .then((res) => res.json())
         .then((data) => {
           let totalPrice = 0;
@@ -55,7 +56,7 @@ const Purchase = () => {
           setIsLoading(false);
         });
     } else {
-      fetch(`https://iqbal.diaryofmind.com/cyclemart/products/${id}`)
+      fetch(`http://localhost:5000/cyclemart/products/${id}`)
         .then((res) => res.json())
         .then((data) => {
           setTotalPrice(data.price * quantity);
@@ -67,6 +68,7 @@ const Purchase = () => {
 
   // post order
   function onSubmit(order) {
+    setLoading(true);
     order.date = new Date().toLocaleDateString("en-us");
     order.status = "pending";
     order.name = customer.displayName;
@@ -111,7 +113,7 @@ const Purchase = () => {
     }
     //post order
     if (cashOnDelivary) {
-      fetch("https://iqbal.diaryofmind.com/cyclemart/orders", {
+      fetch("http://localhost:5000/cyclemart/orders", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -126,9 +128,12 @@ const Purchase = () => {
             navigate("/");
             if (!singleProduct.length) {
               setAddedProduct([]);
+              sessionStorage.removeItem("cart_product");
             }
           }
-        });
+        })
+        .catch((error) => alert.error(error.message))
+        .finally(() => setLoading(false));
     } else {
       setOderDetails(order);
       setShowPayment(true);
@@ -165,7 +170,7 @@ const Purchase = () => {
                           ? (sipping = 150)
                           : (sipping = 100)));
             return (
-              <div className='grid grid-cols-2 text-xl' key={product._id}>
+              <div key={product._id}>
                 <div className='col-span-2 flex justify-center'>
                   <img
                     className='w-36 h-32'
@@ -173,26 +178,42 @@ const Purchase = () => {
                     alt=''
                   />
                 </div>
-                <div>
-                  <p className='text-2xl font-semibold'>Product Name: </p>
-                  <hr className='mb-3 mt-1' />
-                  <p>Product Price:</p>
-                  <p>Product Quantity:</p>
-                  <p>Sub-total: </p>
-                  <p>Shipping Cost:</p>
-                  <hr className='mt-2' />
-                  <p>Total:</p>
-                </div>
-                <div>
-                  <p className='text-2xl font-semibold'>{product.name}</p>
-                  <hr className='mb-3 mt-1' />
-                  <p>{product.price}</p>
-                  <p>{quantity}</p>
-                  <p>{totalPrice} BDT</p>
-                  <p>{sipping} BDT</p>
-                  <hr className='mt-2' />
-                  <p>{totalPrice + sipping} BDT</p>
-                </div>
+                <table className='w-full border'>
+                  <thead>
+                    <tr>
+                      <th>
+                        <p className='font-medium text-base'>Product Name: </p>
+                      </th>
+                      <th>
+                        <p className='font-medium text-base'>{product.name}</p>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Product Price:</td>
+                      <td>{product.price}</td>
+                    </tr>
+                    <tr>
+                      <td>Product Quantity:</td>
+                      <td>{quantity}</td>
+                    </tr>
+                    <tr>
+                      <td>Sub-total:</td>
+                      <td>{totalPrice}</td>
+                    </tr>
+                    <tr>
+                      <td>Shipping Cost:</td>
+                      <td>{sipping}</td>
+                    </tr>
+                    <tr>
+                      <td>Total:</td>
+                      <td className='text-secondary font-medium'>
+                        {totalPrice + sipping}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             );
           })
@@ -211,27 +232,33 @@ const Purchase = () => {
               return (
                 <div key={product._id}>
                   <img
-                    className='w-32 h-32'
+                    className='h-20'
                     src={product.productImg?.imgUrl}
                     alt=''
                   />
                 </div>
               );
             })}
-            <div className='grid grid-cols-2 mt-5 text-xl font-semibold leading-10'>
-              <div>
-                <p>Sub-total: </p>
-                <p>Shipping Cost: </p>
-                <hr className='mt-3' />
-                <p>Total: </p>
-              </div>
-              <div className='text-green-500'>
-                <p>{totalPrice} BDT</p>
-                <p>{sipping} BDT</p>
-                <hr className='mt-3' />
-                <p>{totalPrice + sipping} BDT</p>
-              </div>
-            </div>
+            <table className='w-full border'>
+              <tbody>
+                <tr>
+                  <td>Sub-total:</td>
+                  <td className='font-medium text-secondary'>
+                    {totalPrice} BDT
+                  </td>
+                </tr>
+                <tr>
+                  <td>Shipping Cost: </td>
+                  <td className='font-medium text-red-400'>{sipping} BDT</td>
+                </tr>
+                <tr>
+                  <td>Total: </td>
+                  <td className='font-medium text-secondary'>
+                    {totalPrice + sipping} BDT
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         )}
       </div>
@@ -244,12 +271,12 @@ const Purchase = () => {
             customer?.policeStation &&
             customer?.rodeOrVillage &&
             customer?.phone && (
-              <p className='flex items-center text-xl mb-3'>
+              <p className='flex items-center text-base mb-3'>
                 <input
                   onClick={(e) => {
                     handleSameAsBilling(e);
                   }}
-                  className='mr-2'
+                  className='mr-2 block'
                   type='checkbox'
                 />
                 Same as billing address
@@ -301,7 +328,7 @@ const Purchase = () => {
             defaultValue={sameAsBilling ? customer?.phone : ""}
             placeholder='Enter your number'
           />
-          <p className='flex items-center text-xl'>
+          <p className='flex items-center text-base'>
             <input
               onClick={(e) => {
                 handleCashOndelivary(e);
@@ -319,11 +346,13 @@ const Purchase = () => {
                 value='Procced to Pay'
               />
             ) : (
-              <input
+              <button
+                disabled={loading}
                 className='button w-auto text-center'
                 type='submit'
-                value='Place order'
-              />
+              >
+                {loading ? "Lading..." : "Place order"}
+              </button>
             )}
           </div>
         </form>

@@ -54,75 +54,62 @@ const Firebase = () => {
   };
 
   //create user to database
-  const makeUser = (name, email) => {
-    const userInfo = {
-      displayName: name,
-      email: email,
-    };
-    fetch("https://iqbal.diaryofmind.com/cyclemart/users", {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(userInfo),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        localStorage.setItem("token", JSON.stringify(`Bearar ${data.token}`));
+  const makeUser = async (name, email) => {
+    try {
+      const userInfo = {
+        displayName: name,
+        email: email,
+        imgUrl: null,
+        imgId: null,
+      };
+      const res = await fetch("http://localhost:5000/cyclemart/users", {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userInfo),
       });
+      const data = await res.json();
+      localStorage.setItem("token", JSON.stringify(`Bearar ${data.token}`));
+    } catch (error) {
+      throw error;
+    }
   };
 
   // chect user is admin
-  const checkUser = (email) => {
-    fetch(`https://iqbal.diaryofmind.com/cyclemart/users/login/${email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.token) {
-          localStorage.setItem("token", JSON.stringify(`Bearar ${data.token}`));
-
-          if (data.admin) {
-            setIsAdmin(true);
-          } else {
-            setIsAdmin(false);
-          }
+  const checkUser = async (email) => {
+    try {
+      const res = await fetch(
+        `http://localhost:5000/cyclemart/users/login/${email}`
+      );
+      const data = await res.json();
+      if (res.ok) {
+        setUser(data.user);
+        localStorage.setItem("token", JSON.stringify(`Bearar ${data.token}`));
+        if (data.admin) {
+          setIsAdmin(true);
         } else {
-          setUser({});
-          alart.show("an unexpected error ocur");
+          setIsAdmin(false);
         }
-      });
-  };
-
-  const userToken = () => {
-    const gettoken = localStorage.getItem("token");
-    const token = JSON.parse(gettoken);
-    return token;
-  };
-  //get user
-  const getUser = (email, user) => {
-    fetch(`https://iqbal.diaryofmind.com/cyclemart/users/${email}`, {
-      headers: {
-        authorization: userToken(),
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const extendInfo = { ...user, ...data };
-        setUser(extendInfo);
-        setIsLoading(false);
-      });
+      } else throw Error(data.message);
+    } catch (error) {
+      setUser({});
+      alart.show(error.message);
+    }
   };
 
   //observe user
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        checkUser(user.email);
-        getUser(user.email, user);
+        await checkUser(user.email);
       } else {
         setUser({});
-        setIsLoading(false);
       }
+      setIsLoading(false);
     });
+    return () => unsub();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth, isAdmin]);
 
   return {

@@ -17,7 +17,7 @@ const SharedFunction = () => {
   //check user has token or not
   useEffect(() => {
     if (user.email && userToken()) {
-      fetch(`https://iqbal.diaryofmind.com/cyclemart/users/${user.email}`, {
+      fetch(`http://localhost:5000/cyclemart/users/${user.email}`, {
         headers: {
           authorization: userToken(),
         },

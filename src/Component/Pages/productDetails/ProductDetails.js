@@ -16,14 +16,16 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
-    fetch(`https://iqbal.diaryofmind.com/cyclemart/products/${id}`)
+    fetch(`http://localhost:5000/cyclemart/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setProductImgUrl(data.productImg.imgUrl);
         setProduct(data);
         setQuantity(1);
         setIsLoading(false);
-      });
+      })
+      .catch((err) => alert.error(err.message));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
   const { name, price, _id, stock, vendor, type, description, category } =
     product;
@@ -55,16 +57,13 @@ const ProductDetails = () => {
             },
           ];
         }
-        fetch(
-          `https://iqbal.diaryofmind.com/cyclemart/users/carts/${user.email}`,
-          {
-            method: "PUT",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(cart),
-          }
-        )
+        fetch(`http://localhost:5000/cyclemart/users/carts/${user.email}`, {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(cart),
+        })
           .then((res) => res.json())
           .then((data) => {
             if (data.modifiedCount > 0) {
@@ -93,19 +92,16 @@ const ProductDetails = () => {
   }
   return (
     <>
-      <div className='md:grid grid-cols-2 bg-white gap-3'>
+      <div className='flex justify-center flex-wrap bg-white gap-16 p-5'>
         <div>
-          <img src={productImgUrl} alt='' />
-          <div
-            style={{ width: `${176 * product.imgGallery.length}px` }}
-            className={`grid grid-cols-${product.imgGallery.length}  mx-auto gap-3`}
-          >
+          <img className='h-52' src={productImgUrl} alt='' />
+          <div className='flex justify-center gap-2'>
             {product.imgGallery &&
               product.imgGallery.map((img) => (
                 <img
                   key={img.imgId}
                   onClick={() => handleImg(img.imgUrl)}
-                  className={`w-44 border rounded`}
+                  className='h-16 border rounded'
                   src={img.imgUrl}
                   alt=''
                 />
@@ -113,54 +109,55 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        <div className='px-5 md:px-0 mt-8 text-xl md:text-2xl font-bold leading-10'>
-          <h1 className='text-4xl md:text-5xl font-semibold mb-7'>{name}</h1>
-          <p>
-            Price:{" "}
-            <span className='text-2xl font-semibold text-green-500'>
-              BDT {price * quantity}
-            </span>
-          </p>
-          <div className='product-color flex items-center my-3'>
-            Color:
-            <p className='bg-green-600'></p>
-            <p className='bg-red-600'></p>
-            <p className='bg-yellow-600'></p>
-          </div>
-          <p>
-            Vendor: <span className='text-xl font-semibold'>{vendor}</span>
-          </p>
-          <p className='my-3'>
-            Type: <span className='text-xl font-semibold'>{type}</span>
-          </p>
-          <p className='my-3'>
-            Category: <span className='text-xl font-semibold'>{category}</span>
-          </p>
-          <p>
-            Availability:
-            <span className='text-green-500 text-xl font-semibold ml-2'>
-              {parseInt(stock) > 0 && parseInt(stock) > quantity ? (
-                "In stock!"
-              ) : (
-                <span className='text-red-500'>Out of stock</span>
-              )}
-            </span>
-          </p>
+        <div className='px-5 md:px-0 mt-8 flex flex-wrap gap-10'>
           <div>
+            <h1 className='text-xl font-medium mb-7'>{name}</h1>
+            <p>
+              <span className='font-medium'>Price:</span>{" "}
+              <span className='text-secondary'>BDT {price * quantity}</span>
+            </p>
+            <div className='product-color flex items-center my-3'>
+              <span className='font-medium'> Color: </span>
+              <p className='bg-green-600'></p>
+              <p className='bg-red-600'></p>
+              <p className='bg-yellow-600'></p>
+            </div>
+            <p>
+              <span className='font-medium'>Vendor:</span> <span>{vendor}</span>
+            </p>
+            <p className='my-3'>
+              <span className='font-medium'>Type:</span> <span>{type}</span>
+            </p>
+            <p className='my-3'>
+              <span className='font-medium'>Category:</span>{" "}
+              <span>{category}</span>
+            </p>
+            <p>
+              <span className='font-medium'>Availability:</span>
+              <span className='text-secondary font-medium ml-2'>
+                {parseInt(stock) > 0 && parseInt(stock) > quantity ? (
+                  "In stock!"
+                ) : (
+                  <span className='text-red-500'>Out of stock</span>
+                )}
+              </span>
+            </p>
+          </div>
+          <div className='flex flex-col justify-center'>
             <div className='flex items-center mt-3 leading-4'>
-              <p className='mr-3'>Quantity: </p>
+              <span className='font-medium mr-2'>Quantity:</span>
               <button
                 onClick={handleMinus}
-                className='border rounded text-3xl px-5'
+                className='border rounded px-2 py-1'
               >
                 -
               </button>
-              <span className='mx-3 text-xl font-semibold'>{quantity}</span>
+              <span className='mx-3 text-lg font-medium'>{quantity}</span>
               <button
                 onClick={() => {
                   setQuantity(quantity + 1);
                 }}
-                className='border rounded text-3xl px-5'
+                className='border rounded px-2 py-1'
               >
                 +
               </button>
@@ -181,10 +178,9 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
-      <div className='bg-white py-8 px-2 md:px-0 text-justify text-xl'>
-        <div className='md:w-3/4 mx-auto border rounded-lg p-5'>
-          <p>{description}</p>
-        </div>
+      <div className='bg-white md:w-3/4 p-5 mx-auto my-14 text-lg rounded-lg'>
+        <p className='font-medium mb-3'>Product Details:</p>
+        <p className=''>{description}</p>
       </div>
     </>
   );

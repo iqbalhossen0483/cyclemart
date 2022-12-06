@@ -10,16 +10,29 @@ const CartProduct = () => {
   const { addedProduct } = useFunc();
 
   useEffect(() => {
-    let id = "";
-    for (const cart of addedProduct) {
-      id += "&&" + cart.id;
-    }
-    fetch(`https://iqbal.diaryofmind.com/cyclemart/products/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCartProducts(data);
-        setIsLoading(false);
-      });
+    (async () => {
+      try {
+        const cartProduct = JSON.parse(sessionStorage.getItem("cart_product"));
+        if (!cartProduct || cartProduct.count !== addedProduct.length) {
+          let id = "";
+          for (const cart of addedProduct) {
+            id += "&&" + cart.id;
+          }
+          const res = await fetch(
+            `http://localhost:5000/cyclemart/products/${id}`
+          );
+          const data = await res.json();
+          setCartProducts(data);
+          sessionStorage.setItem(
+            "cart_product",
+            JSON.stringify({ count: addedProduct.length, data })
+          );
+        } else setCartProducts(cartProduct.data);
+      } catch (error) {
+        console.log(error);
+      }
+      setIsLoading(false);
+    })();
   }, [addedProduct]);
 
   let totalPrice = 0;
@@ -48,16 +61,19 @@ const CartProduct = () => {
               key={product?._id}
               className='grid grid-cols-2 items-center text-center'
             >
-              <img className='w-32' src={product.productImg?.imgUrl} alt='' />
-              <p className='text-xl'>{product.price}</p>
+              <img className='w-20' src={product.productImg?.imgUrl} alt='' />
+              <p>{product.price}</p>
               <hr className='col-span-2' />
             </div>
           );
         })}
       {cartProducts.length && (
-        <div className='grid grid-cols-2 text-center text-xl'>
+        <div className='grid grid-cols-2 text-center'>
           <p></p>
-          <p>Total: {totalPrice}</p>
+          <p>
+            Total:{" "}
+            <span className='font-medium text-secondary'>{totalPrice}</span>
+          </p>
         </div>
       )}
       <div className='col-span-2 mt-3 flex justify-center'>

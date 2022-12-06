@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes, useLocation } from "react-router";
 import React from "react";
 import "./App.css";
 import ProductDetails from "./Component/Pages/productDetails/ProductDetails";
@@ -31,10 +31,12 @@ import LogIn from "./Component/Firebase/LogIn";
 import Home from "./Component/Pages/Home/Home";
 import News from "./Component/Pages/News/News";
 import Shop from "./Component/Pages/Shop/Shop";
+import Footer from "./Component/ShareComponent/Footer/Footer";
 
 function App() {
+  const router = useLocation();
   return (
-    <div className='h-screen overflow-auto scrollbar App'>
+    <div className='h-screen overflow-auto scrollbar bg-gray-100'>
       <FirebaseProvider>
         <FunctionProvider>
           <Header />
@@ -130,6 +132,7 @@ function App() {
             <Route path='/sign-up' element={<SignUp />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
+          {!/^\/desboard|^\/my-account/.test(router.pathname) && <Footer />}
         </FunctionProvider>
       </FirebaseProvider>
     </div>

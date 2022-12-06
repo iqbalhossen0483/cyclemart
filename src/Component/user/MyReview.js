@@ -7,41 +7,44 @@ import Rviews from "../Pages/Home/Rviews";
 
 const MyReview = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [reviews, setReview] = useState([]);
+  const [reviews, setReview] = useState(null);
   const { userToken } = useFunc();
   const { user } = useFirebase();
 
   useEffect(() => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/reviews", {
+    fetch(`http://localhost:5000/cyclemart/reviews?user_id=${user._id}`, {
       headers: {
         authorization: userToken(),
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        const find = data.filter((review) => review.email === user.email);
-        setReview(find);
-        setIsLoading(false);
-      });
-  }, [user.email, userToken]);
+        setReview(data);
+      })
+      .finally(() => setIsLoading(false));
+  }, [user._id, userToken]);
 
   if (isLoading) {
     return <Loader />;
   }
   return (
     <div>
-      {reviews.length ? (
+      {reviews ? (
         <div className='lg:grid grid-cols-3 gap-4 md:m-10'>
           {reviews.map((review) => (
-            <Rviews review={review} />
+            <Rviews key={review._id} review={review} />
           ))}
         </div>
       ) : (
-        <div className='text-xl text-center mt-8 h-auto w-40 mx-auto'>
-          <p>You didn't make any review</p>
-          <NavLink className='button' to='/my-account/add-review'>
-            Add-Review
-          </NavLink>
+        <div>
+          <p className='text-center text-xl py-8 text-gray-500'>
+            You didn't make any review
+          </p>
+          <div className='flex justify-center'>
+            <NavLink className='button' to='/my-account/add-review'>
+              Add-Review
+            </NavLink>
+          </div>
         </div>
       )}
     </div>

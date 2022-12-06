@@ -39,7 +39,7 @@ const updateProduct = (
     formData.append("Gallery", prevData.imgGallery);
   }
 
-  fetch("https://iqbal.diaryofmind.com/cyclemart/products", {
+  fetch("http://localhost:5000/cyclemart/products", {
     method: "PUT",
     headers: {
       authorization: userToken(),

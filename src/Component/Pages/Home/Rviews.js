@@ -1,36 +1,33 @@
-import React from 'react';
-import Rating from 'react-rating';
+import React from "react";
+import Rating from "react-rating";
 
 const Rviews = (props) => {
-    const { name, img, description, rating } = props.review;
-    return (
-        <div className="review-container">
-            {img ?
-                <img className="w-24 h-24 rounded-full mx-auto"
-                    src={img}
-                    alt=""
-                /> :
-                <i className="fas fa-user text-5xl mt-10"></i>
-            }
+  const { description, rating } = props.review;
+  const user = props.review.user[0];
+  return (
+    <div className='review-container'>
+      <img
+        className='w-14 h-14 rounded-full mx-auto'
+        src={user?.imgUrl ? user.imgUrl : "no-photo.png"}
+        alt=''
+      />
 
-            <p className="text-xl my-2">
-                {name}
-            </p>
-            <p className="px-3">
-                {description.length > 100 ?
-                    description.slice(0, 100) + "..." :
-                    description}
-            </p>
-            <Rating
-                className="text-yellow-400 text-xs mt-2"
-                readonly
-                emptySymbol="fa fa-star-o fa-2x"
-                fullSymbol="fa fa-star fa-2x"
-                fractions={2}
-                initialRating={rating}
-            />
-        </div>
-    );
+      <p className='my-2'>{user?.displayName}</p>
+      <Rating
+        className='text-yellow-400 text-[9px] mb-1'
+        readonly
+        emptySymbol='fa fa-star-o fa-2x'
+        fullSymbol='fa fa-star fa-2x'
+        fractions={2}
+        initialRating={rating}
+      />
+      <p className='px-3 text-sm'>
+        {description.length > 100
+          ? description.slice(0, 100) + "..."
+          : description}
+      </p>
+    </div>
+  );
 };
 
 export default Rviews;

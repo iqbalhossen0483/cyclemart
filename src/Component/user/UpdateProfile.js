@@ -2,27 +2,29 @@ import useFirebase from "../Hook/useFirebase";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAlert } from "react-alert";
+import { useState } from "react";
 
 function UpdateProfile() {
   const { register, handleSubmit } = useForm();
+  const [loading, setLoading] = useState(false);
   const { user } = useFirebase();
   const navigate = useNavigate();
   const alert = useAlert();
-
-  const onSubmit = (userInfo) => {
+  const onSubmit = (data) => {
+    setLoading(true);
     const formData = new FormData();
-    formData.append("division", userInfo.division);
-    formData.append("district", userInfo.district);
-    formData.append("policeStation", userInfo.policeStation);
-    formData.append("rodeOrVillage", userInfo.rodeOrVillage);
-    formData.append("phone", userInfo.phone);
     formData.append("email", user.email);
-    if (user.imgId) {
+    Object.entries(data).forEach(([key, value]) => {
+      if (value) {
+        if (key === "profile" && value[0]) formData.append(key, value[0]);
+        formData.append(key, value);
+      }
+    });
+    if (user.imgId && data.profile[0]) {
       formData.append("existingImg", user.imgId);
     }
-    formData.append("profile", userInfo.profile[0]);
 
-    fetch(`https://iqbal.diaryofmind.com/cyclemart/users/updateUser`, {
+    fetch(`http://localhost:5000/cyclemart/users/updateUser`, {
       method: "PUT",
       body: formData,
     })
@@ -34,46 +36,54 @@ function UpdateProfile() {
             window.location.reload();
           }, 1000);
           navigate("/my-account/profile");
-        }
+        } else throw data;
       })
-      .catch((err) => console.log("err", err));
+      .catch((err) => {
+        alert.error(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
     <form className='container' onSubmit={handleSubmit(onSubmit)}>
       <input
         className='input my-2'
-        {...register("division", { required: true })}
+        {...register("division")}
+        defaultValue={user?.division}
         placeholder='Your Division'
       />
       <input
         className='input my-2'
-        {...register("district", { required: true })}
+        {...register("district")}
+        defaultValue={user?.district}
         placeholder='Your Dristrict'
       />
       <input
         className='input my-2'
-        {...register("policeStation", { required: true })}
+        {...register("policeStation")}
+        defaultValue={user?.policeStation}
         placeholder='Police Station'
       />
       <input
         className='input my-2'
-        {...register("rodeOrVillage", { required: true })}
+        {...register("rodeOrVillage")}
+        defaultValue={user?.rodeOrVillage}
         placeholder='Rode No. / Village name'
       />
       <input
         className='input my-2'
-        {...register("phone", { required: true })}
+        {...register("phone")}
+        defaultValue={user?.phone}
         placeholder='Phone number'
         type='number'
       />
-      <input
-        className='input my-2'
-        {...register("profile", { required: true })}
-        type='file'
-      />
+      <input className='input my-2' {...register("profile")} type='file' />
 
-      <input className='button' type='submit' />
+      <button disabled={loading} className='button' type='submit'>
+        {!loading ? " Submit" : "Loading..."}
+      </button>
     </form>
   );
 }

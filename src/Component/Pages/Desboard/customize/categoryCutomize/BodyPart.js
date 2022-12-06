@@ -15,7 +15,7 @@ const BodyPart = ({ update, setUpdate }) => {
 
   //load menus
   useEffect(() => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/menus", {
+    fetch("http://localhost:5000/cyclemart/menus", {
       headers: {
         authorization: userToken(),
       },

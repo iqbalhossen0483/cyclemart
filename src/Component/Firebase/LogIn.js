@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import useFirebase from "../Hook/useFirebase";
-import Footer from "../ShareComponent/Footer/Footer";
 
 const LogIn = () => {
   const [error, setError] = useState("");
   const [disable, setdisable] = useState(true);
   const { register, handleSubmit, reset } = useForm();
-  const { logInWithGoogle, logInWithEmail } = useFirebase();
+  const { logInWithGoogle, logInWithEmail, makeUser } = useFirebase();
   const location = useLocation();
   const navigate = useNavigate();
   const url = location.state?.from.pathname || "/";
@@ -16,8 +15,10 @@ const LogIn = () => {
   const onSubmit = (user) => {
     const { email, password } = user;
     logInWithEmail(email, password)
-      .then((result) => {
+      .then(async (result) => {
         setError("");
+        const { displayName, email } = result.user;
+        await makeUser(displayName, email);
         reset();
         navigate(url, { replace: true });
       })
@@ -28,9 +29,10 @@ const LogIn = () => {
   const googleLogIn = () => {
     setdisable(false);
     logInWithGoogle()
-      .then((result) => {
-        console.log(result.user);
+      .then(async (result) => {
         setError("");
+        const { displayName, email } = result.user;
+        await makeUser(displayName, email);
         navigate(url, { replace: true });
         setdisable(true);
       })
@@ -43,12 +45,12 @@ const LogIn = () => {
     <>
       <div className='m-3 md:m-3'>
         <form
-          className='container my-20'
+          className='container my-20 bg-slate-200'
           onSubmit={handleSubmit(onSubmit)}
         >
           <h3 className='page-header'>Please Log In</h3>
 
-          <p className='text-xl'>
+          <p>
             Your email:{" "}
             <input
               className='input'
@@ -57,7 +59,7 @@ const LogIn = () => {
               placeholder='Enter your email'
             />
           </p>
-          <p className='text-xl'>
+          <p>
             Password:{" "}
             <input
               className='input ml-2'
@@ -75,21 +77,20 @@ const LogIn = () => {
 
           <p className='text-xl text-center mt-5'>-------Or-------</p>
           <div className='flex justify-center'>
-            <button disabled={!disable} onClick={googleLogIn}>
-              <img
-                className='w-16 border rounded'
-                src='https://i.ibb.co/BTPQhFg/download.png'
-                alt=''
-              />
+            <button
+              className='google-btn'
+              disabled={!disable}
+              onClick={googleLogIn}
+            >
+              <img className='h-8' src='google.png' alt='' />
+              <p>Google</p>
             </button>
           </div>
-          <p className='text-center mt-3'>
-            New to here?
-            <Link to='/sign-up'>sign up</Link>
+          <p className='text-center mt-3 text-sm'>
+            New to here? <Link to='/sign-up'>sign up</Link>
           </p>
         </form>
       </div>
-      <Footer />
     </>
   );
 };

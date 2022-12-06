@@ -6,7 +6,7 @@ const PansySlider = () => {
   const [slidersImg, setSlidersImg] = useState([]);
 
   useEffect(() => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/sliders")
+    fetch("http://localhost:5000/cyclemart/sliders")
       .then((res) => res.json())
       .then((data) => setSlidersImg(data));
   }, []);

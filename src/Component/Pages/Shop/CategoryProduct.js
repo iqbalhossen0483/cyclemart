@@ -8,9 +8,7 @@ const CategoryProduct = () => {
   const { category } = useParams();
 
   useEffect(() => {
-    fetch(
-      `https://iqbal.diaryofmind.com/cyclemart/products/category/${category}`
-    )
+    fetch(`http://localhost:5000/cyclemart/products/category/${category}`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);

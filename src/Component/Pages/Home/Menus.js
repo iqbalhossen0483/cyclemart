@@ -6,7 +6,7 @@ const Menus = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/menus")
+    fetch("http://localhost:5000/cyclemart/menus")
       .then((res) => res.json())
       .then((data) => setCategoryMenus(data));
   }, []);

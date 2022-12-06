@@ -23,7 +23,7 @@ const ViewCart = () => {
     }
 
     if (allId) {
-      fetch(`https://iqbal.diaryofmind.com/cyclemart/products/${url}`)
+      fetch(`http://localhost:5000/cyclemart/products/${url}`)
         .then((res) => res.json())
         .then((data) => {
           data.forEach((product) => {
@@ -87,16 +87,13 @@ const ViewCart = () => {
         (product) => product._id !== id
       );
 
-      fetch(
-        `https://iqbal.diaryofmind.com/cyclemart/users/carts/${user.email}`,
-        {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(remain),
-        }
-      )
+      fetch(`http://localhost:5000/cyclemart/users/carts/${user.email}`, {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(remain),
+      })
         .then((res) => res.json())
         .then((data) => {
           if (data.modifiedCount > 0) {
@@ -117,74 +114,98 @@ const ViewCart = () => {
     );
   }
   return (
-    <>
-      {!cartProducts.length && (
-        <div className='text-center text-3xl py-8 text-gray-500'>
-          <h1>There no product you added</h1>
-        </div>
-      )}
-      {cartProducts.length && (
-        <div className='m-5 bg-white text-xl'>
-          {cartProducts.map((product) => {
-            totalPrice += parseInt(product.price * product.quantity);
-            return (
-              <div key={product._id} className='view-cart-product'>
-                <img src={product.productImg?.imgUrl} alt='' />
-                <p>{product.name}</p>
-                <p>{product.price * product.quantity} BDT</p>
-                <div className='flex justify-evenly'>
-                  <div className='flex items-center'>
+    <table className='my-5'>
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {cartProducts.length ? (
+          <>
+            {cartProducts.map((product) => {
+              totalPrice += parseInt(product.price * product.quantity);
+              return (
+                <tr key={product._id}>
+                  <td>
+                    <img
+                      className='h-16'
+                      src={product.productImg?.imgUrl}
+                      alt=''
+                    />
+                  </td>
+                  <td>
+                    <p>{product.name}</p>
+                  </td>
+                  <td>
+                    <p>{product.price * product.quantity} BDT</p>
+                  </td>
+                  <td className='flex gap-2 justify-center items-center'>
+                    <div className='flex items-center'>
+                      <button
+                        onClick={() => {
+                          handlePlusMinus(product._id, "minus");
+                        }}
+                        className='button'
+                      >
+                        -
+                      </button>
+                      <span>{product.quantity}</span>
+                      <button
+                        onClick={() => {
+                          handlePlusMinus(product._id, "plus");
+                        }}
+                        className='button'
+                      >
+                        +
+                      </button>
+                    </div>
                     <button
                       onClick={() => {
-                        handlePlusMinus(product._id, "minus");
+                        handleDelete(product._id);
                       }}
                       className='button'
                     >
-                      -
+                      Delete
                     </button>
-                    <span>{product.quantity}</span>
-                    <button
-                      onClick={() => {
-                        handlePlusMinus(product._id, "plus");
-                      }}
-                      className='button'
-                    >
-                      +
-                    </button>
-                  </div>
-                  <button
-                    onClick={() => {
-                      handleDelete(product._id);
-                    }}
-                    className='button'
-                  >
-                    Delete
-                  </button>
-                </div>
-                <hr className='col-span-4' />
-              </div>
-            );
-          })}
-          {cartProducts.length && (
-            <div className='calc'>
-              <p className='hidden md:block'></p>
-              <p className='hidden lg:block'></p>
-              <p className='text-xl md:text-2xl'>
-                Total:{" "}
-                <span className='font-semibold text-green-500'>
-                  {totalPrice} BDT
-                </span>
-              </p>
-              <div className='flex justify-center'>
-                <Link to={`/place-order/${allId}`}>
-                  <button className='button'>Pleace Order</button>
-                </Link>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-    </>
+                  </td>
+                </tr>
+              );
+            })}
+            <tr>
+              <td></td>
+              <td></td>
+              {cartProducts.length && (
+                <>
+                  <td>
+                    <p>
+                      Total:{" "}
+                      <span className='font-medium text-secondary'>
+                        {totalPrice} BDT
+                      </span>
+                    </p>
+                  </td>
+                  <td className='flex justify-center'>
+                    <Link to={`/place-order/${allId}`}>
+                      <button className='button'>Pleace Order</button>
+                    </Link>
+                  </td>
+                </>
+              )}
+            </tr>
+          </>
+        ) : (
+          <tr className='text-center py-8 text-gray-500'>
+            <td colSpan={4}>
+              <h1>There no product you added</h1>
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
   );
 };
 

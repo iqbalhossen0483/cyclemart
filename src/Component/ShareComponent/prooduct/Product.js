@@ -41,16 +41,13 @@ const Product = (props) => {
             },
           ];
         }
-        fetch(
-          `https://iqbal.diaryofmind.com/cyclemart/users/carts/${user.email}`,
-          {
-            method: "PUT",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(cart),
-          }
-        )
+        fetch(`http://localhost:5000/cyclemart/users/carts/${user.email}`, {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(cart),
+        })
           .then((res) => res.json())
           .then((data) => {
             if (data.modifiedCount > 0) {
@@ -73,10 +70,8 @@ const Product = (props) => {
           src={props.product.productImg?.imgUrl}
           alt=''
         />
-        <p className='text-xl ml-4 font-semibold my-2'>{name}</p>
-        <p className='text-xl ml-4 text-green-500 font-semibold'>
-          Price: {price} BDT
-        </p>
+        <p className='ml-4 font-medium my-2'>{name}</p>
+        <p className='ml-4 text-secondary font-medium'>Price: {price} BDT</p>
         <div className='flex justify-between ml-2 mr-8'>
           <button
             onClick={() => {

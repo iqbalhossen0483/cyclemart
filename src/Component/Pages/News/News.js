@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Footer from "../../ShareComponent/Footer/Footer";
 import Loader from "../../ShareComponent/Loader";
 import SingleNews from "./singleNews";
 
@@ -7,7 +6,7 @@ const News = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [news, setNews] = useState([]);
   useEffect(() => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/news")
+    fetch("http://localhost:5000/cyclemart/news")
       .then((res) => res.json())
       .then((data) => {
         setNews(data);
@@ -27,7 +26,6 @@ const News = () => {
           ))}
         </div>
       </div>
-      <Footer />
     </>
   );
 };

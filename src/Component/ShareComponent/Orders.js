@@ -1,7 +1,7 @@
 import { useAlert } from "react-alert";
 import React from "react";
 
-const Orders = ({ order, children, orders, setOrder }) => {
+const Orders = ({ order, children, orders, setOrder, title }) => {
   const alert = useAlert();
   const {
     name,
@@ -17,7 +17,7 @@ const Orders = ({ order, children, orders, setOrder }) => {
   const handleDelete = (id) => {
     const confirm = window.confirm("Are you sure to delete");
     if (confirm) {
-      fetch(`https://iqbal.diaryofmind.com/cyclemart/orders/${id}`, {
+      fetch(`http://localhost:5000/cyclemart/orders/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -31,47 +31,63 @@ const Orders = ({ order, children, orders, setOrder }) => {
     }
   };
   return (
-    <div className='grid grid-cols-2 lg:grid-cols-4 gap-3 border-b py-3 items-center justify-center'>
-      <div className='col-span-2 px-2 md:px-0'>
+    <tr>
+      <td colSpan={2}>
         {order.products.map((product) => (
           <div className='grid grid-cols-2' key={product._id}>
             <div>
-              <p>ID: {product._id}</p>
-              <p>Price: {product.price}</p>
-              {product.quantity && product.quantity > 1 && (
-                <p>Quantity: {product.quantity}</p>
-              )}
+              <p>
+                <span className='font-medium'>Price:</span> {product.price}
+              </p>
+              <p>
+                <span className='font-medium'>Quantity:</span>{" "}
+                {product.quantity}
+              </p>
             </div>
-            <img
-              className='w-56 h-32 object-cover'
-              src={product.productImg?.imgUrl}
-              alt=''
-            />
+            <div className='flex justify-center'>
+              <img
+                className='h-14 object-contain'
+                src={product.productImg?.imgUrl}
+                alt=''
+              />
+            </div>
           </div>
         ))}
-      </div>
-      <p>
-        {`${name},
-                ${email}, 
-                ${division}, 
-                ${district}, 
-                ${policeStation}, 
-                ${rodeOrVillage}, 
-                ${date}`}
-      </p>
-      <div>
-        <div className='flex justify-center'>
-          <button onClick={() => handleDelete(order._id)} className='button'>
-            Delete
-          </button>
+      </td>
+      {title && title !== "myOrder" && (
+        <td width={50}>
+          <p>
+            {`${name},
+            ${email}, 
+            ${division}, 
+            ${district}, 
+            ${policeStation}, 
+            ${rodeOrVillage}, 
+            ${date}`}
+          </p>
+        </td>
+      )}
+      <td className='flex justify-end'>
+        <div className='flex flex-col justify-center'>
+          <div className='flex items-center'>
+            <div className='flex justify-center'>{children}</div>
+            <p>
+              <span className='font-medium'>Staus:</span>{" "}
+              <span className='text-secondary'>{status}</span>
+            </p>
+            <button onClick={() => handleDelete(order._id)} className='button'>
+              Delete
+            </button>
+          </div>
+          {order.totalBDT && (
+            <p>
+              <span className='font-medium'> Total BDT:</span>{" "}
+              <span className='text-secondary'>{order.totalBDT}</span>
+            </p>
+          )}
         </div>
-        <div className='flex justify-center'>{children}</div>
-        <p className='text-green-500 mr-2'>{status}</p>
-        {order.totalBDT && (
-          <p className='text-xl font-semibold'>Total BDT: {order.totalBDT}</p>
-        )}
-      </div>
-    </div>
+      </td>
+    </tr>
   );
 };
 

@@ -12,7 +12,7 @@ const MyOrder = () => {
   const { userToken } = useFunc();
 
   useEffect(() => {
-    fetch(`https://iqbal.diaryofmind.com/cyclemart/orders/${user.email}`, {
+    fetch(`http://localhost:5000/cyclemart/orders/${user.email}`, {
       headers: {
         authorization: userToken(),
       },
@@ -36,31 +36,31 @@ const MyOrder = () => {
     );
   }
   return (
-    <div>
+    <div className='my-5'>
       {orders.length ? (
-        <>
-          <div className='m-5 bg-white text-center'>
-            <div className='hidden lg:grid grid-cols-4 gap-3 border-b py-3'>
-              <p>Product details</p>
-              <p>Product images</p>
-              <p>Cutomer details</p>
-              <p></p>
-            </div>
-            <div>
-              {orders.map((order) => (
-                <Orders
-                  key={order._id}
-                  order={order}
-                  orders={orders}
-                  setOrder={setOrder}
-                />
-              ))}
-            </div>
-          </div>
-        </>
+        <table>
+          <thead>
+            <tr>
+              <th>Product details</th>
+              <th>Product images</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <Orders
+                key={order._id}
+                order={order}
+                orders={orders}
+                setOrder={setOrder}
+                title='myOrder'
+              />
+            ))}
+          </tbody>
+        </table>
       ) : (
-        <div className='text-2xl flex justify-center items-center mt-8'>
-          <p>you didn't any order place</p>
+        <div className='text-center text-xl py-8 text-gray-500'>
+          <p>You didn't any order place</p>
         </div>
       )}
     </div>

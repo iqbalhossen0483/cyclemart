@@ -17,21 +17,21 @@ const Shop = () => {
 
   useEffect(() => {
     if (seller) {
-      fetch(`https://iqbal.diaryofmind.com/cyclemart/products/brand/${seller}`)
+      fetch(`http://localhost:5000/cyclemart/products/brand/${seller}`)
         .then((res) => res.json())
         .then((data) => {
           setProduct(data);
           setIsLoading(false);
         });
     } else if (type) {
-      fetch(`https://iqbal.diaryofmind.com/cyclemart/products/type/${type}`)
+      fetch(`http://localhost:5000/cyclemart/products/type/${type}`)
         .then((res) => res.json())
         .then((data) => {
           setProduct(data);
           setIsLoading(false);
         });
     } else {
-      fetch("https://iqbal.diaryofmind.com/cyclemart/products")
+      fetch("http://localhost:5000/cyclemart/products")
         .then((res) => res.json())
         .then((data) => {
           setProduct(data);
@@ -78,7 +78,7 @@ const Shop = () => {
   useEffect(() => {
     if (products.length) {
       const number = Math.floor(Math.random() * products.length - 1) + 1;
-      fetch(`https://iqbal.diaryofmind.com/cyclemart/products/rendom/${number}`)
+      fetch(`http://localhost:5000/cyclemart/products/rendom/${number}`)
         .then((res) => res.json())
         .then((data) => setRandomProduct(data));
     }
