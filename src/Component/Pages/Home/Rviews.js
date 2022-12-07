@@ -21,11 +21,7 @@ const Rviews = (props) => {
         fractions={2}
         initialRating={rating}
       />
-      <p className='px-3 text-sm'>
-        {description.length > 100
-          ? description.slice(0, 100) + "..."
-          : description}
-      </p>
+      <p className='px-3 text-sm text-1'>{description}</p>
     </div>
   );
 };

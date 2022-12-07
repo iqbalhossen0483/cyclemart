@@ -28,9 +28,7 @@ const TopMenus = ({ setShowCart, toggleShow }) => {
       <div className='hidden md:flex justify-center items-center'>
         {user.email && (
           <div
-            onMouseEnter={() => {
-              setShowCart(true);
-            }}
+            onClick={() => setShowCart((prev) => !prev)}
             className='top-menu cursor-pointer'
           >
             <div>

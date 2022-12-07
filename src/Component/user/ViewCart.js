@@ -14,16 +14,14 @@ const ViewCart = () => {
 
   //find cart products
   useEffect(() => {
-    let url = "";
+    let id = "";
     if (addedProduct) {
       for (const cart of addedProduct) {
-        url += "&&" + cart.id;
+        id += "&&" + cart.id;
       }
-      setAllId(url);
     }
-
-    if (allId) {
-      fetch(`https://iqbal.diaryofmind.com/cyclemart/products/${url}`)
+    if (id) {
+      fetch(`https://iqbal.diaryofmind.com/cyclemart/products/${id}`)
         .then((res) => res.json())
         .then((data) => {
           data.forEach((product) => {
@@ -34,10 +32,13 @@ const ViewCart = () => {
             }
           });
           setCartProducts(data);
-        });
+          setAllId(id);
+        })
+        .catch((err) => alert.error(err.message));
     }
     setIsLoading(false);
-  }, [addedProduct, allId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [addedProduct]);
 
   //quantity increase decrease
   const handlePlusMinus = (id, action) => {

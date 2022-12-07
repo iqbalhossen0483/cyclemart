@@ -65,15 +65,12 @@ const BodyPart = ({ update, setUpdate }) => {
     <div className='relative'>
       {categoryMenus.map((menu, index) => (
         <details key={index}>
-          <summary
-            className={`customize-category-menu px-5 ${
-              menu.subMenus?.length && "subCategory"
-            }`}
-          >
+          <summary className={`customize-category-menu px-5`}>
             <button
-              className='mr-auto'
+              className='mr-auto flex gap-1 items-center'
               onClick={() => showSubCategoryForm(menu._id)}
             >
+              <img className='h-3' src='/arrow.png' alt='' />
               {menu.name}
             </button>
             <i
@@ -89,7 +86,7 @@ const BodyPart = ({ update, setUpdate }) => {
                 <p>{item}</p>
                 <i
                   onClick={() => deleteSubCategory(menu._id, item)}
-                  className='fas fa-trash-alt'
+                  className='fas fa-trash-alt text-sm text-gray-400 cursor-pointer'
                 />
               </div>
             ))}

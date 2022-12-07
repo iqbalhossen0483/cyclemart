@@ -70,14 +70,16 @@ const Orders = ({ order, children, orders, setOrder, title }) => {
       <td className='flex justify-end'>
         <div className='flex flex-col justify-center'>
           <div className='flex items-center'>
-            <div className='flex justify-center'>{children}</div>
+            {order.status === "pending" && (
+              <div className='flex justify-center'>{children}</div>
+            )}
+            <button onClick={() => handleDelete(order._id)} className='button'>
+              Delete
+            </button>
             <p>
               <span className='font-medium'>Staus:</span>{" "}
               <span className='text-secondary'>{status}</span>
             </p>
-            <button onClick={() => handleDelete(order._id)} className='button'>
-              Delete
-            </button>
           </div>
           {order.totalBDT && (
             <p>

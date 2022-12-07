@@ -7,6 +7,7 @@ import useFunc from "../../../../Hook/useFunc";
 function AddOffer() {
   const { register, handleSubmit, reset } = useForm();
   const [offers, setOffers] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [update, setUpdate] = useState(false);
   const [form, setShowForm] = useState(false);
   const { userToken } = useFunc();
@@ -19,6 +20,7 @@ function AddOffer() {
   }, [update]);
 
   const onSubmit = (offer) => {
+    setLoading(true);
     fetch("https://iqbal.diaryofmind.com/cyclemart/offers", {
       method: "POST",
       headers: {
@@ -39,7 +41,9 @@ function AddOffer() {
             setUpdate(true);
           }
         }
-      });
+      })
+      .catch((err) => alart.error(err.message))
+      .finally(() => setLoading(false));
   };
 
   //delete
@@ -72,9 +76,11 @@ function AddOffer() {
       }}
       className='border rounded-md pb-10 text-center relative'
     >
-      <div className='bg-green-500 sticky top-0 rounded-t text-gray-200 flex justify-evenly'>
-        <p className='text-2xl font-semibold pb-2'>Category Menus</p>
-        <button onClick={(e) => showForm(e)}>Add+</button>
+      <div className='bg-primary rounded-t text-gray-200 sticky top-0 z-10'>
+        <p className='font-medium py-2'>Scecial Offers</p>
+        <button className='slider-add-btn' onClick={(e) => showForm(e)}>
+          Add+
+        </button>
 
         <form
           onClick={(e) => {
@@ -94,7 +100,9 @@ function AddOffer() {
               {...register("url", { required: true })}
               placeholder='url'
             />
-            <button type='submit'>Ok</button>
+            <button disabled={loading} type='submit' className='button'>
+              {loading ? "Loading..." : "Submit"}
+            </button>
           </div>
         </form>
       </div>

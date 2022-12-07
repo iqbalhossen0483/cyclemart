@@ -9,6 +9,7 @@ import { useAlert } from "react-alert";
 const UpdateProduct = () => {
   const [oneProductUpdate, setOneProductUpdate] = useState(false);
   const { register, handleSubmit, reset } = useForm();
+  const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState({});
   const { userToken } = useFunc();
   const navigate = useNavigate();
@@ -21,16 +22,18 @@ const UpdateProduct = () => {
       .then((data) => setProduct(data));
   }, [id, oneProductUpdate]);
 
-  const onSubmit = (newData) => {
+  const onSubmit = (data) => {
+    setLoading(true);
     updateProduct(
-      newData,
+      data,
       product,
       userToken,
       alert,
       oneProductUpdate,
       setOneProductUpdate,
       reset,
-      navigate
+      navigate,
+      setLoading
     );
   };
   return (
@@ -73,18 +76,14 @@ const UpdateProduct = () => {
               defaultValue={product.stock}
               placeholder='Enter the stock'
             />
-            <label className='text-xl my-2 block'>
+            <label className='my-2 block'>
               Main image:
-              <input
-                className='text-sm ml-2'
-                {...register("img")}
-                type='file'
-              />
+              <input className=' ml-2' {...register("img")} type='file' />
             </label>
-            <label className='text-xl my-2 block'>
+            <label>
               Gallery images:
               <input
-                className='text-sm ml-2'
+                className=''
                 {...register("gallery")}
                 multiple
                 type='file'
@@ -99,7 +98,9 @@ const UpdateProduct = () => {
             placeholder='Enter short description'
           />
           <div className='col-span-2 flex justify-center'>
-            <input className='button w-52' type='submit' />
+            <button className='button w-52' type='submit'>
+              {loading ? "Loading..." : "Update"}
+            </button>
           </div>
         </form>
       </div>

@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAlert } from "react-alert";
 import useFunc from "../../Hook/useFunc";
 
 const AddNews = () => {
   const { register, handleSubmit, reset } = useForm();
+  const [loading, setLoading] = useState(false);
   const alert = useAlert();
   const { userToken } = useFunc();
 
   const onSubmit = (news) => {
+    setLoading(true);
     const date = new Date().toLocaleDateString("en-US");
     const formData = new FormData();
 
@@ -37,7 +39,8 @@ const AddNews = () => {
           reset();
         }
       })
-      .catch((err) => console.log("err", err));
+      .catch((err) => alert.error(err.message))
+      .finally(() => setLoading(false));
   };
   return (
     <div className='mx-3 md:mx-0'>
@@ -55,7 +58,9 @@ const AddNews = () => {
           {...register("description", { required: true })}
           placeholder='Write here...'
         />
-        <input className='button w-52 h-10' type='submit' />
+        <button className='button w-52 h-10' type='submit'>
+          {loading ? "Loading..." : "Submit"}
+        </button>
       </form>
     </div>
   );

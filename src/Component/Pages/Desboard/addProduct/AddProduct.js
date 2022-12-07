@@ -27,37 +27,48 @@ const AddProduct = () => {
             className='input w-full'
             {...register("name", { required: true })}
             placeholder='Enter the name'
+            required
           />
           <input
             className='input w-full'
             {...register("category", { required: true })}
             placeholder='Enter the category'
+            required
           />
           <input
             className='input w-full'
             {...register("subCategory", { required: true })}
             placeholder='Enter the sub-category'
+            required
           />
           <input
             className='input w-full'
             {...register("price", { required: true })}
             placeholder='Enter the price'
+            required
           />
           <input
             className='input w-full'
             {...register("stock", { required: true })}
             placeholder='Enter the stock'
+            required
           />
-          <label className='text-xl my-2 block'>
+          <label className='my-2 block'>
             Main image:
-            <input className='text-sm ml-2' {...register("img")} type='file' />
+            <input
+              className='text-sm ml-2'
+              {...register("img", { required: true })}
+              type='file'
+              required
+            />
           </label>
-          <label className='text-xl my-2 block'>
+          <label className='my-2 block'>
             Gallery images:
             <input
               className='text-sm ml-2'
-              {...register("gallery")}
+              {...register("gallery", { required: true })}
               multiple
+              required
               type='file'
             />
           </label>
@@ -67,10 +78,11 @@ const AddProduct = () => {
           rows={10}
           {...register("description", { required: true })}
           placeholder='Enter short description'
+          required
         />
         <div className='col-span-2 flex justify-center'>
           <button className='button w-52' disabled={loading} type='submit'>
-            Submit
+            {loading ? "Loading..." : "Submit"}
           </button>
         </div>
       </form>

@@ -78,7 +78,7 @@
     md:w-full md:sticky md:top-0 bg-white shadow-md md:shadow-none border-b;
   }
   .search-input {
-    @apply w-full hover:border-gray-600 text-base md:text-xl;
+    @apply w-full hover:border-gray-600 text-base;
   }
   .fa-search {
     @apply absolute top-2/4 -translate-y-2/4 right-3 text-gray-400 hidden md:block;
@@ -154,7 +154,10 @@
 
   /* news page */
   .news-container {
-    @apply md:grid grid-cols-2 lg:grid-cols-3 gap-4;
+    @apply md:grid grid-cols-3 lg:grid-cols-4 gap-3;
+  }
+  .single-news {
+    @apply bg-white rounded pb-5 hover:shadow h-[350px] relative;
   }
 
   /* my account page  */
@@ -205,6 +208,9 @@
   td,
   th {
     @apply px-4 py-2 text-center;
+  }
+  input {
+    @apply file:bg-primary file:border-none file:rounded file:text-white file:text-sm;
   }
 }
 

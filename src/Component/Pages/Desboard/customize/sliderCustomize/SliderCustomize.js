@@ -8,6 +8,7 @@ function SliderCustomize() {
   const { register, handleSubmit, reset } = useForm();
   const [form, setShowForm] = useState(false);
   const [sliders, setSliders] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [update, setUpdate] = useState(false);
   const { userToken } = useFunc();
   const alart = useAlert();
@@ -20,6 +21,7 @@ function SliderCustomize() {
 
   //post
   const onSubmit = (slider) => {
+    setLoading(true);
     const formData = new FormData();
     formData.append("image", slider.image[0]);
     formData.append("url", slider.url);
@@ -43,7 +45,9 @@ function SliderCustomize() {
             setUpdate(true);
           }
         }
-      });
+      })
+      .catch((err) => alart.error(err.message))
+      .finally(() => setLoading(false));
   };
 
   //delete
@@ -76,8 +80,8 @@ function SliderCustomize() {
       }}
       className='border rounded-md pb-10 text-center h-96 overflow-auto'
     >
-      <div className='bg-green-500 sticky top-0 rounded-t text-gray-200 flex justify-evenly z-10'>
-        <p className='text-2xl font-semibold pb-2'>Slider</p>
+      <div className='bg-primary rounded-t text-gray-200 sticky top-0 z-10'>
+        <p className='font-medium py-2'>Slider</p>
         <button onClick={(e) => showForm(e)} className='slider-add-btn'>
           Add+
         </button>
@@ -102,13 +106,15 @@ function SliderCustomize() {
               />
               <i className='fas mx-3 fa-link link-icon'></i>
             </span>
-            <button type='submit'>Ok</button>
+            <button disabled={loading} type='submit' className='button'>
+              {loading ? "Loading..." : "Submit"}
+            </button>
           </div>
         </form>
       </div>
 
       {sliders.map((slide) => (
-        <div key={slide._id} className='border-b pb-2 customize-slider'>
+        <div key={slide._id} className='border-b pb-2 customize-slider z-0'>
           <img src={slide.imgUrl} alt='' />
           <i
             onClick={() => {

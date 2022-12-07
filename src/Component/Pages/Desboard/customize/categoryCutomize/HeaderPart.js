@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
 import useFunc from "../../../../Hook/useFunc";
 
 const HeaderPart = ({ categoryForm, setCategoryForm, setUpdate, update }) => {
   const { register, handleSubmit, reset } = useForm();
+  const [loading, setLoading] = useState(false);
   const { userToken } = useFunc();
   const alert = useAlert();
 
   const onSubmit = (menu) => {
+    setLoading(true);
     fetch("https://iqbal.diaryofmind.com/cyclemart/menus", {
       method: "POST",
       headers: {
@@ -26,7 +28,9 @@ const HeaderPart = ({ categoryForm, setCategoryForm, setUpdate, update }) => {
           if (update) setUpdate(false);
           else setUpdate(true);
         }
-      });
+      })
+      .catch((err) => alert.error(err.message))
+      .finally(() => setLoading(false));
   };
 
   const showCategoryForm = (e) => {
@@ -35,8 +39,8 @@ const HeaderPart = ({ categoryForm, setCategoryForm, setUpdate, update }) => {
   };
 
   return (
-    <div className='bg-green-500 rounded-t text-gray-200 flex justify-evenly z-50'>
-      <p className='text-2xl font-semibold pb-2'>Category Menus</p>
+    <div className='bg-primary rounded-t text-gray-200 flex justify-evenly z-50'>
+      <p className='font-medium py-2'>Category Menus</p>
       <button onClick={(e) => showCategoryForm(e)}>Add+</button>
 
       <form
@@ -52,7 +56,9 @@ const HeaderPart = ({ categoryForm, setCategoryForm, setUpdate, update }) => {
             {...register("name", { required: true })}
             placeholder='Enter category name'
           />
-          <button type='submit'>Ok</button>
+          <button className='button' disabled={loading} type='submit'>
+            {loading ? "Loading..." : "Submit"}
+          </button>
         </div>
       </form>
     </div>

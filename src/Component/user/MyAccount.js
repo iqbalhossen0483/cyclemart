@@ -39,8 +39,12 @@ const MyAccount = () => {
         onClick={handleAcMenu}
         className={`${acMenu && "hidden"} togglebar fas fa-caret-square-right`}
       />
-      <div className='md:grid grid-cols-6 gap-2 min-h-full'>
-        <div className={`${!acMenu && "close"}  menubar`}>
+      <div className='flex gap-1'>
+        <div
+          className={`${
+            !acMenu && "close"
+          }  menubar  relative md:w-[300px] lg:w-[200px]`}
+        >
           <i
             onClick={handleAcMenu}
             className={`${!acMenu && "hidden"} closebtn fas fa-times`}

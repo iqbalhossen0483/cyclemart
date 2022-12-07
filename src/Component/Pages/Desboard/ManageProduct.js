@@ -51,46 +51,51 @@ const ManageProduct = () => {
     );
   }
   return (
-    <div className='bg-white m-5 text-center relative'>
-      <div className='grid grid-cols-6 gap-3 border-b py-3 z-0'>
-        <p>Images</p>
-        <p>Name</p>
-        <p>Category</p>
-        <p>Price</p>
-        <p>Stock</p>
-        <p>
-          <Link to='/desboard/add-product'>Add+</Link>
-        </p>
-      </div>
-      <div>
-        {products.map((product) => (
-          <div
-            key={product._id}
-            className='grid grid-cols-6 gap-3 border-b py-3 items-center'
-          >
-            <img
-              className='w-full h-32'
-              src={product.productImg?.imgUrl}
-              alt=''
-            />
-            <p>{product.name}</p>
-            <p>{product.category}</p>
-            <p>{product.price}</p>
-            <p>{product.stock}</p>
-            <div>
-              <button
-                onClick={() => handleDelete(product._id, product.imgId)}
-                className='button'
-              >
-                Delete
-              </button>
-              <Link to={`/desboard/updateProduct/${product._id}`}>
-                <button className='button'>Update</button>
+    <div className='overflow-auto'>
+      <table className='bg-white my-5 w-full'>
+        <thead>
+          <tr>
+            <th>Images</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>
+              <Link to='/desboard/add-product'>
+                <button className='button'>Add New</button>
               </Link>
-            </div>
-          </div>
-        ))}
-      </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.map((product) => (
+            <tr key={product._id}>
+              <td>
+                <img
+                  className='w-full h-20'
+                  src={product.productImg?.imgUrl}
+                  alt=''
+                />
+              </td>
+              <td>{product.name}</td>
+              <td>{product.category}</td>
+              <td>{product.price}</td>
+              <td>{product.stock}</td>
+              <td>
+                <button
+                  onClick={() => handleDelete(product._id, product.imgId)}
+                  className='button'
+                >
+                  Delete
+                </button>
+                <Link to={`/desboard/updateProduct/${product._id}`}>
+                  <button className='button'>Update</button>
+                </Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

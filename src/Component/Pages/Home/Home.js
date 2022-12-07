@@ -143,7 +143,7 @@ const Home = () => {
           ) : (
             <Slider {...settings}>
               {news.map((singleNews) => (
-                <SingleNews key={singleNews._id} news={singleNews} />
+                <SingleNews slider key={singleNews._id} news={singleNews} />
               ))}
             </Slider>
           )}

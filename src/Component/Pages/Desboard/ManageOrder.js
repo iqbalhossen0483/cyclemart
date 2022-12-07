@@ -21,7 +21,7 @@ const ManageOrder = () => {
         setIsLoading(false);
       })
       .catch((err) => {
-        alert.show("Unexpected error ocurs");
+        alert.show(err.message);
         setIsLoading(false);
       });
   }, [isLoading, alert, userToken]);
@@ -59,32 +59,37 @@ const ManageOrder = () => {
     );
   }
   return (
-    <div className='bg-white m-5 text-center'>
-      <div className='hidden lg:grid grid-cols-4 gap-3 border-b py-3'>
-        <p>Product details</p>
-        <p>Product images</p>
-        <p>Customer details</p>
-        <p></p>
-      </div>
-      <div>
-        {orders.map((order) => (
-          <Orders
-            key={order._id}
-            order={order}
-            orders={orders}
-            setOrder={setOrder}
-          >
-            <button
-              onClick={() => {
-                handleApprove(order._id);
-              }}
-              className='button'
+    <div className='overflow-auto'>
+      <table className='bg-white my-5 w-full'>
+        <thead>
+          <tr>
+            <th>Product details</th>
+            <th>Product images</th>
+            <th>Customer details</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((order) => (
+            <Orders
+              key={order._id}
+              order={order}
+              orders={orders}
+              setOrder={setOrder}
+              title='manageOrder'
             >
-              Approve
-            </button>
-          </Orders>
-        ))}
-      </div>
+              <button
+                onClick={() => {
+                  handleApprove(order._id);
+                }}
+                className='button'
+              >
+                Approve
+              </button>
+            </Orders>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

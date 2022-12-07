@@ -34,27 +34,31 @@ const Desboard = () => {
   }, [router.pathname]);
 
   return (
-    <div className='md:grid grid-cols-6 gap-2'>
+    <div className='flex gap-2'>
       <i
         onClick={handleDsMenu}
         className={`${dsMenu && "hidden"} togglebar fas fa-caret-square-right`}
-      ></i>
-      <div className={`${!dsMenu && "close"} menubar w-2/4 md:w-full`}>
+      />
+      <div
+        className={`${
+          !dsMenu && "close"
+        } menubar relative md:w-[300px] lg:w-[200px]`}
+      >
         <i
           onClick={handleDsMenu}
           className={`${!dsMenu && "hidden"} closebtn fas fa-times`}
-        ></i>
+        />
 
-        <div className='flex flex-col pt-10 px-5'>
-          <Anchor to='add-product'>Add-Product</Anchor>
-          <Anchor to='add-news'>Add-News</Anchor>
+        <div className='flex flex-col fixed top-20 left-2 pt-10 px-5 space-y-2'>
+          <Anchor to='add-product'>Add Product</Anchor>
+          <Anchor to='add-news'>Add News</Anchor>
           <Anchor to='customize'>Customize</Anchor>
-          <Anchor to='manage-order'>Manage-Order</Anchor>
-          <Anchor to='manage-product'>Manage-Product</Anchor>
-          <Anchor to='make-admin'>Make-Admin</Anchor>
+          <Anchor to='manage-order'>Manage Order</Anchor>
+          <Anchor to='manage-product'>Manage Product</Anchor>
+          <Anchor to='make-admin'>Make Admin</Anchor>
         </div>
       </div>
-      <div className='outlet'>
+      <div>
         <Outlet />
         <Footer />
       </div>
