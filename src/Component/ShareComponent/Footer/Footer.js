@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className='bg-primary text-darkWhite py-5 pl-5 md:grid gap-5 grid-cols-3'>
+    <div className='bg-primary text-darkWhite py-5 pl-5 md:grid gap-x-5 grid-cols-3'>
       <div className='text-px'>
         <h2 className='text-lg font-medium mb-5'>Contact Info</h2>
         <div className='text-sm space-y-1'>
@@ -23,12 +24,21 @@ const Footer = () => {
         </div>
       </div>
       <div className='my-5 md:my-0'>
-        <h2 className='font-medium mb-5'>My Account</h2>
-        <p className='cursor-pointer'>About Us</p>
-        <p className='cursor-pointer'>Order History</p>
-        <p className='cursor-pointer'>Returns</p>
-        <p className='cursor-pointer'>Customer Services</p>
-        <p className='cursor-pointer'>Terms & Conditions</p>
+        <Link to='/my-account'>
+          <h2 className='font-medium mb-5'>My Account</h2>
+        </Link>
+        <Link to='/'>
+          <p>About Us</p>
+        </Link>
+        <Link to='/my-account/my-order'>
+          <p>Order History</p>
+        </Link>
+        <Link to='/'>
+          <p>Customer Services</p>
+        </Link>
+        <Link to='/'>
+          <p>Terms & Conditions</p>
+        </Link>
       </div>
       <div>
         <h2 className='text-lg font-medium mb-5'>Get in touch</h2>
@@ -44,6 +54,17 @@ const Footer = () => {
           <i className='fab fa-youtube text-[#fe0000]'></i>
           <i className='fas fa-link text-yellow-700'></i>
         </div>
+      </div>
+      <div className='col-span-4 flex gap-1 justify-center text-sm'>
+        <p>All right reserved by</p>
+        <a
+          href='https://iqbalhossen-c5422.web.app/'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='text-blue-500 font-medium'
+        >
+          Md Iqbal
+        </a>
       </div>
     </div>
   );
