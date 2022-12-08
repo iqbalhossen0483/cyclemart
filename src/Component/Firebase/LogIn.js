@@ -5,7 +5,7 @@ import useFirebase from "../Hook/useFirebase";
 
 const LogIn = () => {
   const [error, setError] = useState("");
-  const [disable, setdisable] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit, reset } = useForm();
   const { logInWithGoogle, logInWithEmail, makeUser } = useFirebase();
   const location = useLocation();
@@ -13,6 +13,7 @@ const LogIn = () => {
   const url = location.state?.from.pathname || "/";
 
   const onSubmit = (user) => {
+    setLoading(true);
     const { email, password } = user;
     logInWithEmail(email, password)
       .then(async (result) => {
@@ -22,24 +23,24 @@ const LogIn = () => {
         reset();
         navigate(url, { replace: true });
       })
-      .catch((err) => setError(err.message));
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
   };
 
   //google
   const googleLogIn = () => {
-    setdisable(false);
+    setLoading(true);
     logInWithGoogle()
       .then(async (result) => {
         setError("");
         const { displayName, email } = result.user;
         await makeUser(displayName, email);
         navigate(url, { replace: true });
-        setdisable(true);
       })
       .catch((err) => {
         setError(err.message);
-        setdisable(true);
-      });
+      })
+      .finally(() => setLoading(false));
   };
   return (
     <>
@@ -72,14 +73,16 @@ const LogIn = () => {
           <p className='text-red-400'>{error}</p>
 
           <div className=' flex justify-center mt-5'>
-            <input className='button' type='submit' value='Log In' />
+            <button disabled={loading} className='button' type='submit'>
+              {loading ? "Loading..." : "Log In"}
+            </button>
           </div>
 
           <p className='text-xl text-center mt-5'>-------Or-------</p>
           <div className='flex justify-center'>
             <button
               className='google-btn'
-              disabled={!disable}
+              disabled={loading}
               onClick={googleLogIn}
             >
               <img className='h-8' src='google.png' alt='' />

@@ -6,7 +6,7 @@ import Anchor from "../../utilitize/Anchor";
 import Footer from "../ShareComponent/Footer/Footer";
 
 const MyAccount = () => {
-  const [acMenu, setAcMenu] = useState(true);
+  const [acMenu, setAcMenu] = useState(false);
   const router = useLocation();
   const navigate = useNavigate();
 

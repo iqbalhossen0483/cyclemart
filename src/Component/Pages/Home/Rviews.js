@@ -8,7 +8,7 @@ const Rviews = (props) => {
     <div className='review-container'>
       <img
         className='w-14 h-14 rounded-full mx-auto'
-        src={user?.imgUrl ? user.imgUrl : "no-photo.png"}
+        src={user?.imgUrl ? user.imgUrl : "/no-photo.png"}
         alt=''
       />
 
