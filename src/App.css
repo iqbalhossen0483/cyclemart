@@ -36,11 +36,6 @@
   text-decoration: underline;
 }
 
-.header-menu {
-  height: 88vh;
-  transition: all 0.7s linear;
-}
-
 .userInfo-container,
 .cart-product {
   width: 16rem;

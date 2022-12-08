@@ -25,7 +25,7 @@ const SearchBar = () => {
 
   return (
     <div className='col-span-2'>
-      <div className=' w-full md:w-3/4 lg:ml-auto relative'>
+      <div className=' w-full md:w-3/4 md:ml-auto relative'>
         <DebounceInput
           type='text'
           className='input search-input'

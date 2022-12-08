@@ -3,12 +3,13 @@ import Anchor from "../../../../utilitize/Anchor";
 import useFunc from "../../../Hook/useFunc";
 import React from "react";
 
-const TopMenus = ({ setShowCart, toggleShow }) => {
+const TopMenus = ({ dispatch }) => {
   const { addedProduct } = useFunc();
   const { user } = useFirebase();
 
   return (
     <div className='menu-wrapper'>
+      <i onClick={() => dispatch("")} className='closebtn fas fa-times' />
       <div className='top-menu'>
         <i className='fa fa-home' aria-hidden='true'></i>
         <Anchor to='/'>Home</Anchor>
@@ -28,7 +29,7 @@ const TopMenus = ({ setShowCart, toggleShow }) => {
       <div className='hidden md:flex justify-center items-center'>
         {user.email && (
           <div
-            onClick={() => setShowCart((prev) => !prev)}
+            onClick={() => dispatch("cart")}
             className='top-menu cursor-pointer'
           >
             <div>
@@ -42,7 +43,7 @@ const TopMenus = ({ setShowCart, toggleShow }) => {
         )}
         {user.email && (
           <img
-            onClick={toggleShow}
+            onClick={() => dispatch("user")}
             className='w-8 h-8 rounded-full ml-2 cursor-pointer'
             src={user.imgUrl ? user.imgUrl : "/no-photo.png"}
             alt=''

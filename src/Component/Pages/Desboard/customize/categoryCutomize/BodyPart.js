@@ -81,8 +81,8 @@ const BodyPart = ({ update, setUpdate }) => {
             ></i>
           </summary>
           {menu.subMenus &&
-            menu.subMenus.map((item) => (
-              <div className='border-b flex justify-between px-16 py-1'>
+            menu.subMenus.map((item, i) => (
+              <div key={i} className='border-b flex justify-between px-16 py-1'>
                 <p>{item}</p>
                 <i
                   onClick={() => deleteSubCategory(menu._id, item)}

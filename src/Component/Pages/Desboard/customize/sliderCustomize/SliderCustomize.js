@@ -74,11 +74,8 @@ function SliderCustomize() {
   };
   return (
     <div
-      style={{ position: "relative" }}
-      onClick={() => {
-        setShowForm(false);
-      }}
-      className='border rounded-md pb-10 text-center h-96 overflow-auto'
+      onClick={() => setShowForm(false)}
+      className='border relative rounded-md pb-10 text-center h-96 overflow-auto'
     >
       <div className='bg-primary rounded-t text-gray-200 sticky top-0 z-10'>
         <p className='font-medium py-2'>Slider</p>
@@ -114,8 +111,11 @@ function SliderCustomize() {
       </div>
 
       {sliders.map((slide) => (
-        <div key={slide._id} className='border-b pb-2 customize-slider z-0'>
-          <img src={slide.imgUrl} alt='' />
+        <div
+          key={slide._id}
+          className='border-b pb-2 customize-slider overflow-hidden z-0'
+        >
+          <img className='h-32 w-full' src={slide.imgUrl} alt='' />
           <i
             onClick={() => {
               deletSlider(slide._id);

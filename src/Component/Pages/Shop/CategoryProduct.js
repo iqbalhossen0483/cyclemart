@@ -29,7 +29,7 @@ const CategoryProduct = () => {
           ))}
         </div>
       ) : (
-        <div className='text-3xl h-full flex justify-center items-center'>
+        <div className='h-full flex justify-center items-center'>
           <p>There is no product</p>
         </div>
       )}

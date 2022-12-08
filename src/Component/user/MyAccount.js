@@ -10,19 +10,10 @@ const MyAccount = () => {
   const router = useLocation();
   const navigate = useNavigate();
 
-  const handleAcMenu = () => {
-    if (acMenu) {
-      setAcMenu(false);
-    } else {
-      setAcMenu(true);
-    }
-  };
   useEffect(() => {
-    if (window.innerWidth < 480) {
-      setAcMenu(false);
-    } else {
-      setAcMenu(true);
-    }
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 480) setAcMenu(false);
+    });
   }, []);
 
   useEffect(() => {
@@ -36,19 +27,21 @@ const MyAccount = () => {
   return (
     <div>
       <i
-        onClick={handleAcMenu}
-        className={`${acMenu && "hidden"} togglebar fas fa-caret-square-right`}
+        onClick={() => setAcMenu((prev) => !prev)}
+        className='togglebar fas fa-caret-square-right'
       />
-      <div className='flex gap-1'>
+      <div className='md:flex gap-1'>
         <div
           className={`${
-            !acMenu && "close"
-          }  menubar  relative md:w-[300px] lg:w-[200px]`}
+            acMenu
+              ? "absolute top-14 left-0 w-max pr-3"
+              : "hidden md:block md:relative  md:w-[300px] lg:w-[200px]"
+          } menubar`}
         >
           <i
-            onClick={handleAcMenu}
-            className={`${!acMenu && "hidden"} closebtn fas fa-times`}
-          ></i>
+            onClick={() => setAcMenu(false)}
+            className='closebtn fas fa-times'
+          />
           <div className='myaccount-menus'>
             <Anchor to='profile'>My Profile</Anchor>
             <Anchor to='my-order'>My Order</Anchor>

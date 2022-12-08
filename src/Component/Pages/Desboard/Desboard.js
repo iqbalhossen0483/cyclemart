@@ -6,23 +6,14 @@ import Anchor from "../../../utilitize/Anchor";
 import Footer from "../../ShareComponent/Footer/Footer";
 
 const Desboard = () => {
-  const [dsMenu, setDsMenu] = useState(true);
+  const [dsMenu, setDsMenu] = useState(false);
   const router = useLocation();
   const navigate = useNavigate();
 
-  const handleDsMenu = () => {
-    if (dsMenu) {
-      setDsMenu(false);
-    } else {
-      setDsMenu(true);
-    }
-  };
   useEffect(() => {
-    if (window.innerWidth < 480) {
-      setDsMenu(false);
-    } else {
-      setDsMenu(true);
-    }
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 480) setDsMenu(false);
+    });
   }, []);
 
   useEffect(() => {
@@ -34,22 +25,21 @@ const Desboard = () => {
   }, [router.pathname]);
 
   return (
-    <div className='flex gap-2'>
+    <div className='md:flex gap-2'>
       <i
-        onClick={handleDsMenu}
-        className={`${dsMenu && "hidden"} togglebar fas fa-caret-square-right`}
+        onClick={() => setDsMenu((prev) => !prev)}
+        className='togglebar fas fa-caret-square-right'
       />
       <div
         className={`${
-          !dsMenu && "close"
-        } menubar relative md:w-[300px] lg:w-[200px]`}
+          dsMenu
+            ? "absolute top-14 left-0 w-max pr-3"
+            : "hidden md:block md:relative  md:w-[300px] lg:w-[200px]"
+        } menubar`}
       >
-        <i
-          onClick={handleDsMenu}
-          className={`${!dsMenu && "hidden"} closebtn fas fa-times`}
-        />
+        <i onClick={() => setDsMenu(false)} className='closebtn fas fa-times' />
 
-        <div className='flex flex-col fixed top-20 left-2 pt-10 px-5 space-y-2'>
+        <div className='myaccount-menus'>
           <Anchor to='add-product'>Add Product</Anchor>
           <Anchor to='add-news'>Add News</Anchor>
           <Anchor to='customize'>Customize</Anchor>

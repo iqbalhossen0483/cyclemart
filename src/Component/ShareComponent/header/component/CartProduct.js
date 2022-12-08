@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import useFirebase from "../../../Hook/useFirebase";
 import { Link } from "react-router-dom";
 import useFunc from "../../../Hook/useFunc";
 
 const CartProduct = () => {
   const [cartProducts, setCartProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { setShowCart } = useFirebase();
   const { addedProduct } = useFunc();
 
   useEffect(() => {
@@ -39,43 +37,45 @@ const CartProduct = () => {
 
   if (isLoading) {
     return (
-      <p
-        style={{ position: "absolute" }}
-        className='top-full right-5 bg-white shadow-md z-20'
-      >
+      <p className='top-full absolute text-sm right-5 bg-white shadow-md z-20'>
         Loading...
       </p>
     );
   }
   return (
-    <div
-      onMouseEnter={() => setShowCart(true)}
-      onMouseLeave={() => setShowCart(false)}
-      className='cart-product scrollbar'
-    >
-      {cartProducts.length &&
-        cartProducts.map((product) => {
-          totalPrice += parseInt(product.price);
-          return (
-            <div
-              key={product?._id}
-              className='grid grid-cols-2 items-center text-center'
-            >
-              <img className='w-20' src={product.productImg?.imgUrl} alt='' />
-              <p>{product.price}</p>
-              <hr className='col-span-2' />
-            </div>
-          );
-        })}
-      {cartProducts.length && (
-        <div className='grid grid-cols-2 text-center'>
-          <p></p>
-          <p>
-            Total:{" "}
-            <span className='font-medium text-secondary'>{totalPrice}</span>
-          </p>
-        </div>
-      )}
+    <div className='cart-product scrollbar'>
+      <table className='w-full'>
+        <tbody>
+          {cartProducts.length &&
+            cartProducts.map((product) => {
+              totalPrice += parseInt(product.price);
+              return (
+                <tr key={product?._id}>
+                  <td>
+                    <img
+                      className='h-14'
+                      src={product.productImg?.imgUrl}
+                      alt=''
+                    />
+                  </td>
+                  <td>{product.price}</td>
+                </tr>
+              );
+            })}
+          {cartProducts.length && (
+            <tr>
+              <td colSpan={2}>
+                <p className='flex justify-end gap-1'>
+                  <span>Total:</span>
+                  <span className='font-medium text-secondary'>
+                    {totalPrice}
+                  </span>
+                </p>
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
       <div className='col-span-2 mt-3 flex justify-center'>
         <Link to='/my-account/view-cart'>
           <button className='button'>View cart</button>

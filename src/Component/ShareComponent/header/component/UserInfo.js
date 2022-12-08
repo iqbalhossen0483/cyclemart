@@ -6,13 +6,11 @@ const UserInfo = () => {
   const { user, isAdmin, lognOut, setHideUserInfo } = useFirebase();
 
   return (
-    <div style={{ position: "absolute" }} className='userInfo-container'>
+    <div className='userInfo-container'>
       <div>
-        <p className='text-xl font-semibold'>
-          {user?.displayName?.toUpperCase()}
-        </p>
-        <p>{user.email}</p>
-        {isAdmin && <p className='font-semibold'>Adminstator</p>}
+        <p className='font-medium'>{user?.displayName?.toUpperCase()}</p>
+        <p className='hidden md:block'>{user.email}</p>
+        {isAdmin && <p className='font-medium text-sm'>Adminstator</p>}
       </div>
       <hr className='mt-3' />
       <div className='mt-4 mb-2 text-white flex justify-evenly'>

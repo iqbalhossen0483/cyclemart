@@ -35,6 +35,7 @@ import Footer from "./Component/ShareComponent/Footer/Footer";
 
 function App() {
   const router = useLocation();
+
   return (
     <div className='h-screen overflow-auto scrollbar bg-gray-100'>
       <FirebaseProvider>

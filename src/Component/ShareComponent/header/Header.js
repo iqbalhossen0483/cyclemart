@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import useFirebase from "../../Hook/useFirebase";
+import React, { useEffect, useReducer, useRef } from "react";
 import MobileView from "./component/MobileView";
 import TopContact from "./component/TopContact";
 import SearchBar from "./component/SearchBar";
@@ -8,41 +7,44 @@ import useFunc from "../../Hook/useFunc";
 import CartProduct from "./component/CartProduct";
 import Logo from "./component/Logo";
 import UserInfo from "./component/UserInfo";
+import useFirebase from "../../Hook/useFirebase";
+const init = {
+  userInfo: false,
+  showCart: false,
+};
+function reducer(state, action) {
+  switch (action) {
+    case "user":
+      return { userInfo: true, showCart: false };
+    case "cart":
+      return { userInfo: false, showCart: true };
+    default:
+      return { userInfo: false, showCart: false };
+  }
+}
 
 const Header = () => {
-  const [menu, setMenu] = useState(false);
+  const [state, dispatch] = useReducer(reducer, init);
   const { addedProduct } = useFunc();
-  const { hideUserInfo, setHideUserInfo, showCart, setShowCart } =
-    useFirebase();
+  const header = useRef(null);
+  const { user } = useFirebase();
 
-  const toggleShow = () => {
-    if (hideUserInfo) {
-      setHideUserInfo(false);
-    } else {
-      setHideUserInfo(true);
-    }
-  };
-
-  const handleMenu = () => {
-    if (menu) {
-      setMenu(false);
-    } else {
-      setMenu(true);
-    }
-  };
   useEffect(() => {
-    if (window.innerWidth < 480) {
-      setMenu(false);
-    } else {
-      setMenu(true);
-    }
+    window.addEventListener("click", (e) => {
+      if (!header.current?.contains(e.target)) {
+        dispatch("");
+      }
+    });
   }, []);
+  useEffect(() => {
+    if (!user.email) dispatch("");
+  }, [user]);
 
   return (
     <>
       {/* mobile views */}
-      <MobileView handleMenu={handleMenu} toggleShow={toggleShow} />
-      <div className={`${!menu && "close"} header-menu`}>
+      <MobileView />
+      <div ref={header} className='header-menu'>
         {/* logo section */}
         <Logo />
 
@@ -55,11 +57,10 @@ const Header = () => {
         </div>
 
         {/* menus */}
-        <TopMenus setShowCart={setShowCart} toggleShow={toggleShow} />
-
+        <TopMenus dispatch={dispatch} />
         {/* user info  */}
-        {hideUserInfo && <UserInfo />}
-        {showCart && addedProduct?.length > 0 && <CartProduct />}
+        {state.userInfo && <UserInfo />}
+        {state.showCart && addedProduct?.length > 0 && <CartProduct />}
       </div>
     </>
   );
