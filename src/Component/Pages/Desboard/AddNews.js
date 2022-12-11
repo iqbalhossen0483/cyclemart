@@ -23,7 +23,7 @@ const AddNews = () => {
     formData.append("title", news.title);
     formData.append("description", news.description);
 
-    fetch("https://iqbal.diaryofmind.com/cyclemart/news", {
+    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/news", {
       method: "POST",
       headers: {
         authorization: userToken(),

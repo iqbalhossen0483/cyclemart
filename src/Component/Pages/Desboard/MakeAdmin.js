@@ -7,13 +7,16 @@ const MakeAdmin = () => {
   const alert = useAlert();
 
   const onSubmit = (email) => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/users/admin", {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(email),
-    })
+    fetch(
+      "https://myserver-production-ddf8.up.railway.app/cyclemart/users/admin",
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(email),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {

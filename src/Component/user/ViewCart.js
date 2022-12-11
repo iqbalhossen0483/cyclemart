@@ -21,7 +21,9 @@ const ViewCart = () => {
       }
     }
     if (id) {
-      fetch(`https://iqbal.diaryofmind.com/cyclemart/products/${id}`)
+      fetch(
+        `https://myserver-production-ddf8.up.railway.app/cyclemart/products/${id}`
+      )
         .then((res) => res.json())
         .then((data) => {
           data.forEach((product) => {
@@ -89,7 +91,7 @@ const ViewCart = () => {
       );
 
       fetch(
-        `https://iqbal.diaryofmind.com/cyclemart/users/carts/${user.email}`,
+        `https://myserver-production-ddf8.up.railway.app/cyclemart/users/carts/${user.email}`,
         {
           method: "PUT",
           headers: {

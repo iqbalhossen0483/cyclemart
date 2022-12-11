@@ -24,10 +24,13 @@ function UpdateProfile() {
       formData.append("existingImg", user.imgId);
     }
 
-    fetch(`https://iqbal.diaryofmind.com/cyclemart/users/updateUser`, {
-      method: "PUT",
-      body: formData,
-    })
+    fetch(
+      `https://myserver-production-ddf8.up.railway.app/cyclemart/users/updateUser`,
+      {
+        method: "PUT",
+        body: formData,
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {

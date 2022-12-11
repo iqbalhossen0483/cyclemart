@@ -12,11 +12,14 @@ const MyOrder = () => {
   const { userToken } = useFunc();
 
   useEffect(() => {
-    fetch(`https://iqbal.diaryofmind.com/cyclemart/orders/${user.email}`, {
-      headers: {
-        authorization: userToken(),
-      },
-    })
+    fetch(
+      `https://myserver-production-ddf8.up.railway.app/cyclemart/orders/${user.email}`,
+      {
+        headers: {
+          authorization: userToken(),
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setOrder(data);

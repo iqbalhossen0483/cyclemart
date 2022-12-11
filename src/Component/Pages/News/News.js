@@ -6,7 +6,7 @@ const News = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [news, setNews] = useState([]);
   useEffect(() => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/news")
+    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/news")
       .then((res) => res.json())
       .then((data) => {
         setNews(data);

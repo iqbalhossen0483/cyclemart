@@ -9,7 +9,7 @@ const CategoryProduct = () => {
 
   useEffect(() => {
     fetch(
-      `https://iqbal.diaryofmind.com/cyclemart/products/category/${category}`
+      `https://myserver-production-ddf8.up.railway.app/cyclemart/products/category/${category}`
     )
       .then((res) => res.json())
       .then((data) => {

@@ -13,7 +13,7 @@ const MyReview = () => {
 
   useEffect(() => {
     fetch(
-      `https://iqbal.diaryofmind.com/cyclemart/reviews?user_id=${user._id}`,
+      `https://myserver-production-ddf8.up.railway.app/cyclemart/reviews?user_id=${user._id}`,
       {
         headers: {
           authorization: userToken(),

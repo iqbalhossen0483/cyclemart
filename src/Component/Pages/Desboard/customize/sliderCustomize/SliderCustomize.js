@@ -14,7 +14,7 @@ function SliderCustomize() {
   const alart = useAlert();
 
   useEffect(() => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/sliders")
+    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/sliders")
       .then((res) => res.json())
       .then((data) => setSliders(data));
   }, [update]);
@@ -26,7 +26,7 @@ function SliderCustomize() {
     formData.append("image", slider.image[0]);
     formData.append("url", slider.url);
 
-    fetch("https://iqbal.diaryofmind.com/cyclemart/sliders", {
+    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/sliders", {
       method: "POST",
       headers: {
         authorization: userToken(),
@@ -52,12 +52,15 @@ function SliderCustomize() {
 
   //delete
   const deletSlider = (id) => {
-    fetch(`https://iqbal.diaryofmind.com/cyclemart/sliders/${id}`, {
-      method: "DELETE",
-      headers: {
-        authorization: userToken(),
-      },
-    })
+    fetch(
+      `https://myserver-production-ddf8.up.railway.app/cyclemart/sliders/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: userToken(),
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {

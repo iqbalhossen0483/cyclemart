@@ -17,11 +17,14 @@ const SharedFunction = () => {
   //check user has token or not
   useEffect(() => {
     if (user.email && userToken()) {
-      fetch(`https://iqbal.diaryofmind.com/cyclemart/users/${user.email}`, {
-        headers: {
-          authorization: userToken(),
-        },
-      })
+      fetch(
+        `https://myserver-production-ddf8.up.railway.app/cyclemart/users/${user.email}`,
+        {
+          headers: {
+            authorization: userToken(),
+          },
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           setAddedProduct(data.cart);

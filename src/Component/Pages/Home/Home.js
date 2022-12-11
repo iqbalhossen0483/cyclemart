@@ -25,7 +25,9 @@ const Home = () => {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/products/home")
+    fetch(
+      "https://myserver-production-ddf8.up.railway.app/cyclemart/products/home"
+    )
       .then((res) => res.json())
       .then((data) => {
         setProduct(data);
@@ -35,7 +37,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/reviews")
+    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/reviews")
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
@@ -45,7 +47,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/news")
+    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/news")
       .then((res) => res.json())
       .then((data) => {
         setNews(data);
@@ -55,7 +57,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/offers")
+    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/offers")
       .then((res) => res.json())
       .then((data) => setOffers(data));
   }, []);

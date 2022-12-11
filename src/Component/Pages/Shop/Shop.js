@@ -16,13 +16,13 @@ const Shop = () => {
   });
 
   useEffect(() => {
-    let url = "https://iqbal.diaryofmind.com/cyclemart/products";
+    let url =
+      "https://myserver-production-ddf8.up.railway.app/cyclemart/products";
     if (brands) url += `?brand=${brands}`;
     else if (type) url += `?type=${type}`;
     else if (minMax.min !== minMax.max) {
       url += `?min=${minMax.min}&max=${minMax.max}`;
     }
-    console.log(url);
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
@@ -52,7 +52,9 @@ const Shop = () => {
   useEffect(() => {
     if (products.length) {
       const number = Math.floor(Math.random() * products.length - 1) + 1;
-      fetch(`https://iqbal.diaryofmind.com/cyclemart/products/rendom/${number}`)
+      fetch(
+        `https://myserver-production-ddf8.up.railway.app/cyclemart/products/rendom/${number}`
+      )
         .then((res) => res.json())
         .then((data) => setRandomProduct(data));
     }

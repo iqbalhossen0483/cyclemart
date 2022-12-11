@@ -27,7 +27,7 @@ const updateProduct = (
     }
   });
 
-  fetch("https://iqbal.diaryofmind.com/cyclemart/products", {
+  fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/products", {
     method: "PUT",
     headers: {
       authorization: userToken(),

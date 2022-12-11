@@ -11,7 +11,7 @@ const ManageProduct = () => {
 
   // get data
   useEffect(() => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/products")
+    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/products")
       .then((res) => res.json())
       .then((data) => {
         setProduct(data);
@@ -23,13 +23,16 @@ const ManageProduct = () => {
   const handleDelete = (productId, imgId) => {
     const confirm = window.confirm("Are you sure to delete");
     if (confirm) {
-      fetch(`https://iqbal.diaryofmind.com/cyclemart/products/${productId}`, {
-        method: "DELETE",
-        headers: {
-          authorization: userToken(),
-          imgId: imgId,
-        },
-      })
+      fetch(
+        `https://myserver-production-ddf8.up.railway.app/cyclemart/products/${productId}`,
+        {
+          method: "DELETE",
+          headers: {
+            authorization: userToken(),
+            imgId: imgId,
+          },
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.deletedCount > 0) {

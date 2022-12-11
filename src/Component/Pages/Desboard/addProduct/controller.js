@@ -12,7 +12,7 @@ const addProduct = (product, userToken, alert, reset, setLoading) => {
     } else formData.append(key, value);
   });
 
-  fetch("https://iqbal.diaryofmind.com/cyclemart/products", {
+  fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/products", {
     method: "POST",
     headers: {
       authorization: userToken(),

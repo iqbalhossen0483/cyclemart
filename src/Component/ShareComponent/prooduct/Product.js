@@ -42,7 +42,7 @@ const Product = (props) => {
           ];
         }
         fetch(
-          `https://iqbal.diaryofmind.com/cyclemart/users/carts/${user.email}`,
+          `https://myserver-production-ddf8.up.railway.app/cyclemart/users/carts/${user.email}`,
           {
             method: "PUT",
             headers: {

@@ -20,7 +20,7 @@ const AddReviews = () => {
     setLoading(true);
     review.user_id = user._id;
     review.rating = rating;
-    fetch("https://iqbal.diaryofmind.com/cyclemart/reviews", {
+    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/reviews", {
       method: "POST",
       headers: {
         "content-type": "application/json",

@@ -35,7 +35,9 @@ const Purchase = () => {
   //find triger products
   useEffect(() => {
     if (id.startsWith("&&")) {
-      fetch(`https://iqbal.diaryofmind.com/cyclemart/products/${id}`)
+      fetch(
+        `https://myserver-production-ddf8.up.railway.app/cyclemart/products/${id}`
+      )
         .then((res) => res.json())
         .then((data) => {
           let totalPrice = 0;
@@ -56,7 +58,9 @@ const Purchase = () => {
           setIsLoading(false);
         });
     } else {
-      fetch(`https://iqbal.diaryofmind.com/cyclemart/products/${id}`)
+      fetch(
+        `https://myserver-production-ddf8.up.railway.app/cyclemart/products/${id}`
+      )
         .then((res) => res.json())
         .then((data) => {
           setTotalPrice(data.price * quantity);
@@ -113,13 +117,16 @@ const Purchase = () => {
     }
     //post order
     if (cashOnDelivary) {
-      fetch("https://iqbal.diaryofmind.com/cyclemart/orders", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(order),
-      })
+      fetch(
+        "https://myserver-production-ddf8.up.railway.app/cyclemart/orders",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(order),
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.insertedId) {

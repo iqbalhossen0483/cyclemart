@@ -62,13 +62,16 @@ const Firebase = () => {
         imgUrl: null,
         imgId: null,
       };
-      const res = await fetch("https://iqbal.diaryofmind.com/cyclemart/users", {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(userInfo),
-      });
+      const res = await fetch(
+        "https://myserver-production-ddf8.up.railway.app/cyclemart/users",
+        {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
+        }
+      );
       const data = await res.json();
       localStorage.setItem("token", JSON.stringify(`Bearar ${data.token}`));
     } catch (error) {
@@ -80,7 +83,7 @@ const Firebase = () => {
   const checkUser = async (email) => {
     try {
       const res = await fetch(
-        `https://iqbal.diaryofmind.com/cyclemart/users/login/${email}`
+        `https://myserver-production-ddf8.up.railway.app/cyclemart/users/login/${email}`
       );
       const data = await res.json();
       if (res.ok) {

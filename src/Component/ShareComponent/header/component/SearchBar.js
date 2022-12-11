@@ -10,7 +10,7 @@ const SearchBar = () => {
     const text = searchText;
     if (!text) return setShowSearchProduct(false);
     fetch(
-      `https://iqbal.diaryofmind.com/cyclemart/products/searchProduct/${text}`
+      `https://myserver-production-ddf8.up.railway.app/cyclemart/products/searchProduct/${text}`
     )
       .then((res) => res.json())
       .then((data) => {

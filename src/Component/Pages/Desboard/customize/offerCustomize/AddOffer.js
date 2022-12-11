@@ -14,14 +14,14 @@ function AddOffer() {
   const alart = useAlert();
 
   useEffect(() => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/offers")
+    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/offers")
       .then((res) => res.json())
       .then((data) => setOffers(data));
   }, [update]);
 
   const onSubmit = (offer) => {
     setLoading(true);
-    fetch("https://iqbal.diaryofmind.com/cyclemart/offers", {
+    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/offers", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -48,12 +48,15 @@ function AddOffer() {
 
   //delete
   const deletOffer = (id) => {
-    fetch(`https://iqbal.diaryofmind.com/cyclemart/offers/${id}`, {
-      method: "DELETE",
-      headers: {
-        authorization: userToken(),
-      },
-    })
+    fetch(
+      `https://myserver-production-ddf8.up.railway.app/cyclemart/offers/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: userToken(),
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {

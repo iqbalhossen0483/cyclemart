@@ -16,7 +16,9 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
-    fetch(`https://iqbal.diaryofmind.com/cyclemart/products/${id}`)
+    fetch(
+      `https://myserver-production-ddf8.up.railway.app/cyclemart/products/${id}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setProductImgUrl(data.productImg.imgUrl);
@@ -58,7 +60,7 @@ const ProductDetails = () => {
           ];
         }
         fetch(
-          `https://iqbal.diaryofmind.com/cyclemart/users/carts/${user.email}`,
+          `https://myserver-production-ddf8.up.railway.app/cyclemart/users/carts/${user.email}`,
           {
             method: "PUT",
             headers: {

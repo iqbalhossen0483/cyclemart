@@ -22,7 +22,7 @@ const Payment = (props) => {
               100 || totalPrice > 10000 ? (sipping = 150) : (sipping = 100)));
 
   const confirmOrder = (order) => {
-    fetch("https://iqbal.diaryofmind.com/cyclemart/orders", {
+    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/orders", {
       method: "POST",
       headers: {
         "content-type": "application/json",

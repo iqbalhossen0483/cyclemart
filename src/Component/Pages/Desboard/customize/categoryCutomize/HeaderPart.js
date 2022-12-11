@@ -11,7 +11,7 @@ const HeaderPart = ({ categoryForm, setCategoryForm, setUpdate, update }) => {
 
   const onSubmit = (menu) => {
     setLoading(true);
-    fetch("https://iqbal.diaryofmind.com/cyclemart/menus", {
+    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/menus", {
       method: "POST",
       headers: {
         "content-type": "application/json",
