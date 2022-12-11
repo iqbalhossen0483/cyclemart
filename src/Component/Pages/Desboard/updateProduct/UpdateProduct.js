@@ -66,6 +66,12 @@ const UpdateProduct = () => {
             />
             <input
               className='input w-full'
+              {...register("brand")}
+              placeholder='Enter Brand name'
+              defaultValue={product?.brand}
+            />
+            <input
+              className='input w-full'
               {...register("price")}
               defaultValue={product.price}
               placeholder='Enter the price'

@@ -1,14 +1,14 @@
 import Product from "../../../ShareComponent/prooduct/Product";
 import PriceFilter from "./PriceFilter";
 import TypeFilter from "./TypeFilter";
-import Sellers from "./Sellers";
+import Brands from "./Brands";
 import React from "react";
 
 const SideMenus = (props) => {
   const {
-    handleSellers,
-    setSeller,
-    minMax,
+    handleBrands,
+    setBrands,
+    products,
     handleType,
     setType,
     randomProduct,
@@ -16,10 +16,10 @@ const SideMenus = (props) => {
   } = props;
 
   return (
-    <div className='md:w-[450px] xl:w-[350px]'>
+    <div>
       <div className='sidebar scrollbar'>
-        <Sellers handleSellers={handleSellers} setSeller={setSeller} />
-        <PriceFilter minMax={minMax} setMinMax={setMinMax} />
+        <Brands handleBrands={handleBrands} setBrands={setBrands} />
+        <PriceFilter products={products} setMinMax={setMinMax} />
         <TypeFilter handleType={handleType} setType={setType} />
 
         <div className='hidden lg:block text-xl leading-8 mt-5'>

@@ -13,25 +13,21 @@ const updateProduct = (
   formData.append("id", prevData._id);
   Object.entries(data).forEach(([key, value]) => {
     if (value) {
-      if (key === "img") {
-        formData.append("img", data.img[0]);
-      } else if (key === "gallery") {
-        Array.from(data.gallery).forEach((img) => {
+      if (key === "img" && value[0]) {
+        console.log(value[0]);
+        formData.append("img", value[0]);
+        //existing images
+        formData.append("productImgId", prevData.productImg.imgId);
+      } else if (key === "gallery" && value.length) {
+        Array.from(value).forEach((img) => {
           formData.append("gallery", img);
+          formData.append("Gallery", prevData.imgGallery);
         });
       } else formData.append(key, value);
     }
   });
 
-  //existing images
-  if (data.img[0]) {
-    formData.append("productImgId", prevData.productImg.imgId);
-  }
-  if (data.gallery?.length) {
-    formData.append("Gallery", prevData.imgGallery);
-  }
-
-  fetch("https://iqbal.diaryofmind.com/cyclemart/products", {
+  fetch("http://localhost:5000/cyclemart/products", {
     method: "PUT",
     headers: {
       authorization: userToken(),

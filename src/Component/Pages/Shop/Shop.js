@@ -8,7 +8,7 @@ const Shop = () => {
   const [randomProduct, setRandomProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProduct] = useState([]);
-  const [seller, setSeller] = useState("");
+  const [brands, setBrands] = useState("");
   const [type, setType] = useState("");
   const [minMax, setMinMax] = useState({
     min: 0,
@@ -16,60 +16,34 @@ const Shop = () => {
   });
 
   useEffect(() => {
-    if (seller) {
-      fetch(`https://iqbal.diaryofmind.com/cyclemart/products/brand/${seller}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setProduct(data);
-          setIsLoading(false);
-        });
-    } else if (type) {
-      fetch(`https://iqbal.diaryofmind.com/cyclemart/products/type/${type}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setProduct(data);
-          setIsLoading(false);
-        });
-    } else {
-      fetch("https://iqbal.diaryofmind.com/cyclemart/products")
-        .then((res) => res.json())
-        .then((data) => {
-          setProduct(data);
-          setIsLoading(false);
-        });
+    let url = "http://localhost:5000/cyclemart/products";
+    if (brands) url += `?brand=${brands}`;
+    else if (type) url += `?type=${type}`;
+    else if (minMax.min !== minMax.max) {
+      url += `?min=${minMax.min}&max=${minMax.max}`;
     }
-  }, [seller, type]);
+    console.log(url);
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setProduct(data);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
+  }, [brands, type, minMax]);
 
-  useEffect(() => {
-    if (products.length) {
-      let min = products[0].price,
-        max = 0;
-      products.forEach((item) => {
-        if (item.price > max) {
-          max = item.price;
-        } else if (item.price < min) {
-          min = item.price;
-        }
-      });
-      const minmaxValue = minMax;
-      minmaxValue.min = min;
-      minmaxValue.max = max;
-      setMinMax(minmaxValue);
-    }
-  }, [products, minMax]);
-
-  const handleSellers = (e) => {
-    if (seller) {
-      if (!seller.includes(e.target.name)) {
-        setSeller(seller + "&&" + e.target.name);
+  const handleBrands = (e) => {
+    if (brands) {
+      if (!brands.includes(e.target.name)) {
+        setBrands(brands + "|" + e.target.name);
       }
-    } else setSeller(e.target.name);
+    } else setBrands(e.target.name);
   };
 
   const handleType = (e) => {
     if (type) {
       if (!type.includes(e.target.name)) {
-        setType(type + "&&" + e.target.name);
+        setType(type + "|" + e.target.name);
       }
     } else setType(e.target.name);
   };
@@ -88,11 +62,11 @@ const Shop = () => {
     return <Spinner />;
   }
   return (
-    <div className='md:pl-2 lg:px-2 md:flex gap-5'>
+    <div className='shop-container'>
       <SideMenus
-        handleSellers={handleSellers}
-        setSeller={setSeller}
-        minMax={minMax}
+        handleBrands={handleBrands}
+        setBrands={setBrands}
+        products={products}
         setMinMax={setMinMax}
         handleType={handleType}
         setType={setType}

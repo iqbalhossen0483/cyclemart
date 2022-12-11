@@ -43,6 +43,13 @@ const AddProduct = () => {
           />
           <input
             className='input w-full'
+            {...register("brand", { required: true })}
+            placeholder='Enter Brand name'
+            required
+          />
+          <input
+            className='input w-full'
+            type='number'
             {...register("price", { required: true })}
             placeholder='Enter the price'
             required
@@ -51,6 +58,7 @@ const AddProduct = () => {
             className='input w-full'
             {...register("stock", { required: true })}
             placeholder='Enter the stock'
+            type='number'
             required
           />
           <label className='my-2 block'>

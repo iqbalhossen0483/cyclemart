@@ -149,8 +149,8 @@
 
   /* shop page */
   .sidebar {
-    @apply h-full fixed hidden md:block bg-white pt-5 px-2 md:w-[250px] lg:w-[300px]  
-    lg:px-4 mr-4 overflow-auto pb-36;
+    @apply h-full fixed hidden md:block bg-white pt-5 px-2 md:w-[200px] lg:w-[300px]  
+    overflow-auto pb-36 lg:px-5;
   }
   .side-menu {
     @apply text-lg md:text-xl text-green-500 font-medium border-b-2 
@@ -224,6 +224,9 @@
   input {
     @apply file:bg-primary file:border-none file:rounded file:text-white file:text-sm;
   }
+  .reange-input {
+    @apply border rounded w-28 text-center font-medium focus:outline-none px-2 py-2;
+  }
 }
 
 @layer utilities {
@@ -234,4 +237,19 @@
 .sidebar div {
   font-size: 16px;
   font-weight: 400;
+}
+
+@media (min-width: 768px) {
+  .shop-container {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    column-gap: 5px;
+  }
+}
+@media (min-width: 1024px) {
+  .shop-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    column-gap: 10px;
+  }
 }
