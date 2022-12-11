@@ -16,7 +16,7 @@ const Shop = () => {
   });
 
   useEffect(() => {
-    let url = "http://localhost:5000/cyclemart/products";
+    let url = "https://iqbal.diaryofmind.com/cyclemart/products";
     if (brands) url += `?brand=${brands}`;
     else if (type) url += `?type=${type}`;
     else if (minMax.min !== minMax.max) {

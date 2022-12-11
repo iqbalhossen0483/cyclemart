@@ -27,7 +27,7 @@ const updateProduct = (
     }
   });
 
-  fetch("http://localhost:5000/cyclemart/products", {
+  fetch("https://iqbal.diaryofmind.com/cyclemart/products", {
     method: "PUT",
     headers: {
       authorization: userToken(),
