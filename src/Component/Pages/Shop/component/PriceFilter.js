@@ -33,7 +33,13 @@ const PriceFilter = ({ setMinMax, products }) => {
   return (
     <div className='mt-7 mb-16 lg:text-xl'>
       <h2 className='side-menu'>Price</h2>
-      <form onSubmit={(e) => submit(e)} className='flex gap-x-5 mt-5 flex-wrap'>
+      <form
+        onSubmit={(e) => submit(e)}
+        onReset={() => {
+          setMinMax({ min: minMaxVal[0], max: minMaxVal[1] });
+        }}
+        className='flex gap-x-5 mt-5 flex-wrap'
+      >
         <input
           ref={min}
           className='reange-input'
