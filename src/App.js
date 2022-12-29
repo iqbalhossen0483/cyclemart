@@ -99,7 +99,7 @@ function App() {
             -----------------*/}
 
             <Route
-              path='/desboard'
+              path='/admin'
               element={<CheckAdmin element={<Desboard />} />}
             >
               <Route

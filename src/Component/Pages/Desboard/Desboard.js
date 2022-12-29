@@ -17,7 +17,7 @@ const Desboard = () => {
   }, []);
 
   useEffect(() => {
-    if (router.pathname === "/desboard") {
+    if (router.pathname === "/admin") {
       navigate("/desboard/add-product");
     }
     return;
