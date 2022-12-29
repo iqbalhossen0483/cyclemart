@@ -63,7 +63,7 @@ const LogIn = () => {
           <p>
             Password:{" "}
             <input
-              className='input ml-2'
+              className='input'
               type='password'
               {...register("password", { required: true })}
               placeholder='Enter the password'

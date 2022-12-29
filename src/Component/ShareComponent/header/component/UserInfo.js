@@ -20,7 +20,7 @@ const UserInfo = () => {
               setHideUserInfo(false);
             }}
             className='button'
-            to='/desboard/add-product'
+            to='/admin/add-product'
           >
             Desboard
           </NavLink>
