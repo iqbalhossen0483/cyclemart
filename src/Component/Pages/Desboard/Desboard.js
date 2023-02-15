@@ -18,7 +18,7 @@ const Desboard = () => {
 
   useEffect(() => {
     if (router.pathname === "/admin") {
-      navigate("/admin/add-product");
+      navigate("add-product");
     }
     return;
     // eslint-disable-next-line react-hooks/exhaustive-deps

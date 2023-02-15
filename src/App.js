@@ -133,9 +133,7 @@ function App() {
             <Route path='/sign-up' element={<SignUp />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
-          {!/^\/desboard|^\/my-account|\/shop/.test(router.pathname) && (
-            <Footer />
-          )}
+          {!/^\/admin|^\/my-account|\/shop/.test(router.pathname) && <Footer />}
         </FunctionProvider>
       </FirebaseProvider>
     </div>
