@@ -1,8 +1,9 @@
-import { useNavigate, useParams } from "react-router";
 import React, { useEffect, useState } from "react";
-import useFirebase from "../../Hook/useFirebase";
-import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
+import { useNavigate, useParams } from "react-router";
+import { Link } from "react-router-dom";
+
+import useFirebase from "../../Hook/useFirebase";
 import useFunc from "../../Hook/useFunc";
 
 const ProductDetails = () => {
@@ -16,9 +17,7 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
-    fetch(
-      `https://myserver-production-ddf8.up.railway.app/cyclemart/products/${id}`
-    )
+    fetch(`https://server.switchcafebd.com/cyclemart/products/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setProductImgUrl(data.productImg.imgUrl);
@@ -60,7 +59,7 @@ const ProductDetails = () => {
           ];
         }
         fetch(
-          `https://myserver-production-ddf8.up.railway.app/cyclemart/users/carts/${user.email}`,
+          `https://server.switchcafebd.com/cyclemart/users/carts/${user.email}`,
           {
             method: "PUT",
             headers: {

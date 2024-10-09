@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
+
 import useFunc from "../../../../Hook/useFunc";
 
 const HeaderPart = ({ categoryForm, setCategoryForm, setUpdate, update }) => {
@@ -11,7 +12,7 @@ const HeaderPart = ({ categoryForm, setCategoryForm, setUpdate, update }) => {
 
   const onSubmit = (menu) => {
     setLoading(true);
-    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/menus", {
+    fetch("https://server.switchcafebd.com/cyclemart/menus", {
       method: "POST",
       headers: {
         "content-type": "application/json",

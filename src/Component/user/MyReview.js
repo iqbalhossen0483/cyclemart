@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Loader from "../ShareComponent/Loader";
-import useFirebase from "../Hook/useFirebase";
 import { NavLink } from "react-router-dom";
+
+import useFirebase from "../Hook/useFirebase";
 import useFunc from "../Hook/useFunc";
 import Rviews from "../Pages/Home/Rviews";
+import Loader from "../ShareComponent/Loader";
 
 const MyReview = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -13,7 +14,7 @@ const MyReview = () => {
 
   useEffect(() => {
     fetch(
-      `https://myserver-production-ddf8.up.railway.app/cyclemart/reviews?user_id=${user._id}`,
+      `https://server.switchcafebd.com/cyclemart/reviews?user_id=${user._id}`,
       {
         headers: {
           authorization: userToken(),

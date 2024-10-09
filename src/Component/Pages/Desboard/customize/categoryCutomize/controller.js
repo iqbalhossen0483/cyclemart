@@ -12,16 +12,13 @@ const controller = () => {
       name: categoryName.current.value,
     };
 
-    fetch(
-      `https://myserver-production-ddf8.up.railway.app/cyclemart/menus/${menuId}`,
-      {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(text),
-      }
-    )
+    fetch(`https://server.switchcafebd.com/cyclemart/menus/${menuId}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(text),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -36,15 +33,12 @@ const controller = () => {
 
   //delete menus
   const deletCategoryMenu = (id, userToken, alart, update, setUpdate) => {
-    fetch(
-      `https://myserver-production-ddf8.up.railway.app/cyclemart/menus/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          authorization: userToken(),
-        },
-      }
-    )
+    fetch(`https://server.switchcafebd.com/cyclemart/menus/${id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: userToken(),
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {
@@ -57,7 +51,7 @@ const controller = () => {
 
   //delete sub category menu
   function deleteSubCategoryMenu(menus, alart, update, setUpdate) {
-    fetch(`https://myserver-production-ddf8.up.railway.app/cyclemart/menus`, {
+    fetch(`https://server.switchcafebd.com/cyclemart/menus`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

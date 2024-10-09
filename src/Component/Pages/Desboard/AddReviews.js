@@ -1,9 +1,10 @@
-import useFirebase from "../../Hook/useFirebase";
-import { useForm } from "react-hook-form";
 import React, { useState } from "react";
 import { useAlert } from "react-alert";
-import useFunc from "../../Hook/useFunc";
+import { useForm } from "react-hook-form";
 import Rating from "react-rating";
+
+import useFirebase from "../../Hook/useFirebase";
+import useFunc from "../../Hook/useFunc";
 
 const AddReviews = () => {
   const { register, handleSubmit } = useForm();
@@ -20,7 +21,7 @@ const AddReviews = () => {
     setLoading(true);
     review.user_id = user._id;
     review.rating = rating;
-    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/reviews", {
+    fetch("https://server.switchcafebd.com/cyclemart/reviews", {
       method: "POST",
       headers: {
         "content-type": "application/json",

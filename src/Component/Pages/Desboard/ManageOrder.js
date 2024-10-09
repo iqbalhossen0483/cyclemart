@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Orders from "../../ShareComponent/Orders";
 import { useAlert } from "react-alert";
+
 import useFunc from "../../Hook/useFunc";
+import Orders from "../../ShareComponent/Orders";
 
 const ManageOrder = () => {
   const [orders, setOrder] = useState([]);
@@ -10,7 +11,7 @@ const ManageOrder = () => {
   const { userToken } = useFunc();
 
   useEffect(() => {
-    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/orders", {
+    fetch("https://server.switchcafebd.com/cyclemart/orders", {
       headers: {
         authorization: userToken(),
       },
@@ -31,7 +32,7 @@ const ManageOrder = () => {
       status: "Approved",
       id: id,
     };
-    fetch(`https://myserver-production-ddf8.up.railway.app/cyclemart/orders`, {
+    fetch(`https://server.switchcafebd.com/cyclemart/orders`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

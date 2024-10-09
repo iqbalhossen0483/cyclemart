@@ -12,7 +12,7 @@ const addProduct = (product, userToken, alert, reset, setLoading) => {
     } else formData.append(key, value);
   });
 
-  fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/products", {
+  fetch("https://server.switchcafebd.com/cyclemart/products", {
     method: "POST",
     headers: {
       authorization: userToken(),

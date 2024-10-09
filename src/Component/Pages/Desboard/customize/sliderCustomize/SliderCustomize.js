@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
+
 import useFunc from "../../../../Hook/useFunc";
 
 function SliderCustomize() {
@@ -14,7 +14,7 @@ function SliderCustomize() {
   const alart = useAlert();
 
   useEffect(() => {
-    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/sliders")
+    fetch("https://server.switchcafebd.com/cyclemart/sliders")
       .then((res) => res.json())
       .then((data) => setSliders(data));
   }, [update]);
@@ -26,7 +26,7 @@ function SliderCustomize() {
     formData.append("image", slider.image[0]);
     formData.append("url", slider.url);
 
-    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/sliders", {
+    fetch("https://server.switchcafebd.com/cyclemart/sliders", {
       method: "POST",
       headers: {
         authorization: userToken(),
@@ -52,15 +52,12 @@ function SliderCustomize() {
 
   //delete
   const deletSlider = (id) => {
-    fetch(
-      `https://myserver-production-ddf8.up.railway.app/cyclemart/sliders/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          authorization: userToken(),
-        },
-      }
-    )
+    fetch(`https://server.switchcafebd.com/cyclemart/sliders/${id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: userToken(),
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {

@@ -1,9 +1,9 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import useFirebase from "../../Hook/useFirebase";
+import React, { useEffect } from "react";
 import { useAlert } from "react-alert";
+import { Link, useNavigate } from "react-router-dom";
+
+import useFirebase from "../../Hook/useFirebase";
 import useFunc from "../../Hook/useFunc";
-import { useEffect } from "react";
 
 const Product = (props) => {
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ const Product = (props) => {
           ];
         }
         fetch(
-          `https://myserver-production-ddf8.up.railway.app/cyclemart/users/carts/${user.email}`,
+          `https://server.switchcafebd.com/cyclemart/users/carts/${user.email}`,
           {
             method: "PUT",
             headers: {

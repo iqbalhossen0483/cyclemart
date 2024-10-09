@@ -1,5 +1,5 @@
-import { useAlert } from "react-alert";
 import React from "react";
+import { useAlert } from "react-alert";
 
 const Orders = ({ order, children, orders, setOrder, title }) => {
   const alert = useAlert();
@@ -17,12 +17,9 @@ const Orders = ({ order, children, orders, setOrder, title }) => {
   const handleDelete = (id) => {
     const confirm = window.confirm("Are you sure to delete");
     if (confirm) {
-      fetch(
-        `https://myserver-production-ddf8.up.railway.app/cyclemart/orders/${id}`,
-        {
-          method: "DELETE",
-        }
-      )
+      fetch(`https://server.switchcafebd.com/cyclemart/orders/${id}`, {
+        method: "DELETE",
+      })
         .then((res) => res.json())
         .then((data) => {
           if (data.deletedCount > 0) {

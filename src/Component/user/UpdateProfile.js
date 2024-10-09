@@ -1,8 +1,9 @@
-import useFirebase from "../Hook/useFirebase";
-import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { useAlert } from "react-alert";
 import { useState } from "react";
+import { useAlert } from "react-alert";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
+import useFirebase from "../Hook/useFirebase";
 
 function UpdateProfile() {
   const { register, handleSubmit } = useForm();
@@ -24,13 +25,10 @@ function UpdateProfile() {
       formData.append("existingImg", user.imgId);
     }
 
-    fetch(
-      `https://myserver-production-ddf8.up.railway.app/cyclemart/users/updateUser`,
-      {
-        method: "PUT",
-        body: formData,
-      }
-    )
+    fetch(`https://server.switchcafebd.com/cyclemart/users/updateUser`, {
+      method: "PUT",
+      body: formData,
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {

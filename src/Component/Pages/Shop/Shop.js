@@ -1,6 +1,7 @@
-import Product from "../../ShareComponent/prooduct/Product";
-import Footer from "../../ShareComponent/Footer/Footer";
 import React, { useEffect, useState } from "react";
+
+import Footer from "../../ShareComponent/Footer/Footer";
+import Product from "../../ShareComponent/prooduct/Product";
 import SideMenus from "./component/SideMenus";
 import Spinner from "./component/Spinner";
 
@@ -16,8 +17,7 @@ const Shop = () => {
   });
 
   useEffect(() => {
-    let url =
-      "https://myserver-production-ddf8.up.railway.app/cyclemart/products";
+    let url = "https://server.switchcafebd.com/cyclemart/products";
     if (brands) url += `?brand=${brands}`;
     else if (type) url += `?type=${type}`;
     else if (minMax.min !== minMax.max) {
@@ -53,7 +53,7 @@ const Shop = () => {
     if (products.length) {
       const number = Math.floor(Math.random() * products.length - 1) + 1;
       fetch(
-        `https://myserver-production-ddf8.up.railway.app/cyclemart/products/rendom/${number}`
+        `https://server.switchcafebd.com/cyclemart/products/rendom/${number}`
       )
         .then((res) => res.json())
         .then((data) => setRandomProduct(data));

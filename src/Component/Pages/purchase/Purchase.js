@@ -1,8 +1,9 @@
-import { useNavigate, useParams } from "react-router";
 import React, { useEffect, useState } from "react";
-import useFirebase from "../../Hook/useFirebase";
-import { useForm } from "react-hook-form";
 import { useAlert } from "react-alert";
+import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router";
+
+import useFirebase from "../../Hook/useFirebase";
 import useFunc from "../../Hook/useFunc";
 import Payment from "../Shop/Payment";
 
@@ -35,9 +36,7 @@ const Purchase = () => {
   //find triger products
   useEffect(() => {
     if (id.startsWith("&&")) {
-      fetch(
-        `https://myserver-production-ddf8.up.railway.app/cyclemart/products/${id}`
-      )
+      fetch(`https://server.switchcafebd.com/cyclemart/products/${id}`)
         .then((res) => res.json())
         .then((data) => {
           let totalPrice = 0;
@@ -58,9 +57,7 @@ const Purchase = () => {
           setIsLoading(false);
         });
     } else {
-      fetch(
-        `https://myserver-production-ddf8.up.railway.app/cyclemart/products/${id}`
-      )
+      fetch(`https://server.switchcafebd.com/cyclemart/products/${id}`)
         .then((res) => res.json())
         .then((data) => {
           setTotalPrice(data.price * quantity);
@@ -117,16 +114,13 @@ const Purchase = () => {
     }
     //post order
     if (cashOnDelivary) {
-      fetch(
-        "https://myserver-production-ddf8.up.railway.app/cyclemart/orders",
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(order),
-        }
-      )
+      fetch("https://server.switchcafebd.com/cyclemart/orders", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(order),
+      })
         .then((res) => res.json())
         .then((data) => {
           if (data.insertedId) {

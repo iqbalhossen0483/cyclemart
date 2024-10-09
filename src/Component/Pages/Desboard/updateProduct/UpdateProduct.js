@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import useFunc from "../../../Hook/useFunc";
-import { useForm } from "react-hook-form";
-import updateProduct from "./controller";
-import { useParams } from "react-router";
 import { useAlert } from "react-alert";
+import { useForm } from "react-hook-form";
+import { useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
+
+import useFunc from "../../../Hook/useFunc";
+import updateProduct from "./controller";
 
 const UpdateProduct = () => {
   const [oneProductUpdate, setOneProductUpdate] = useState(false);
@@ -17,9 +18,7 @@ const UpdateProduct = () => {
   const alert = useAlert();
 
   useEffect(() => {
-    fetch(
-      `https://myserver-production-ddf8.up.railway.app/cyclemart/products/${id}`
-    )
+    fetch(`https://server.switchcafebd.com/cyclemart/products/${id}`)
       .then((res) => res.json())
       .then((data) => setProduct(data));
   }, [id, oneProductUpdate]);

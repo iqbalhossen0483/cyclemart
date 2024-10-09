@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import useFirebase from "../Component/Hook/useFirebase";
 
 const SharedFunction = () => {
@@ -17,14 +17,11 @@ const SharedFunction = () => {
   //check user has token or not
   useEffect(() => {
     if (user.email && userToken()) {
-      fetch(
-        `https://myserver-production-ddf8.up.railway.app/cyclemart/users/${user.email}`,
-        {
-          headers: {
-            authorization: userToken(),
-          },
-        }
-      )
+      fetch(`https://server.switchcafebd.com/cyclemart/users/${user.email}`, {
+        headers: {
+          authorization: userToken(),
+        },
+      })
         .then((res) => res.json())
         .then((data) => {
           setAddedProduct(data.cart);

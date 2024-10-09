@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useAlert } from "react-alert";
+import { Link } from "react-router-dom";
+
 import useFirebase from "../Hook/useFirebase";
 import useFunc from "../Hook/useFunc";
-import { Link } from "react-router-dom";
-import { useAlert } from "react-alert";
 
 const ViewCart = () => {
   const [cartProducts, setCartProducts] = useState([]);
@@ -21,9 +22,7 @@ const ViewCart = () => {
       }
     }
     if (id) {
-      fetch(
-        `https://myserver-production-ddf8.up.railway.app/cyclemart/products/${id}`
-      )
+      fetch(`https://server.switchcafebd.com/cyclemart/products/${id}`)
         .then((res) => res.json())
         .then((data) => {
           data.forEach((product) => {
@@ -91,7 +90,7 @@ const ViewCart = () => {
       );
 
       fetch(
-        `https://myserver-production-ddf8.up.railway.app/cyclemart/users/carts/${user.email}`,
+        `https://server.switchcafebd.com/cyclemart/users/carts/${user.email}`,
         {
           method: "PUT",
           headers: {

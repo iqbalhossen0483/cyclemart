@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router";
+
 import useFunc from "../../Hook/useFunc";
 
 const Payment = (props) => {
@@ -22,7 +23,7 @@ const Payment = (props) => {
               100 || totalPrice > 10000 ? (sipping = 150) : (sipping = 100)));
 
   const confirmOrder = (order) => {
-    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/orders", {
+    fetch("https://server.switchcafebd.com/cyclemart/orders", {
       method: "POST",
       headers: {
         "content-type": "application/json",

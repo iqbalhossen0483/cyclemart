@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
 import useFunc from "../../../Hook/useFunc";
 
 const CartProduct = () => {
@@ -17,7 +18,7 @@ const CartProduct = () => {
             id += "&&" + cart.id;
           }
           const res = await fetch(
-            `https://myserver-production-ddf8.up.railway.app/cyclemart/products/${id}`
+            `https://server.switchcafebd.com/cyclemart/products/${id}`
           );
           const data = await res.json();
           setCartProducts(data);

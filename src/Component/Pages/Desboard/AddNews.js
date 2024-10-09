@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 import { useAlert } from "react-alert";
+import { useForm } from "react-hook-form";
+
 import useFunc from "../../Hook/useFunc";
 
 const AddNews = () => {
@@ -23,7 +24,7 @@ const AddNews = () => {
     formData.append("title", news.title);
     formData.append("description", news.description);
 
-    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/news", {
+    fetch("https://server.switchcafebd.com/cyclemart/news", {
       method: "POST",
       headers: {
         authorization: userToken(),

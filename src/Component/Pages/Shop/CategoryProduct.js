@@ -1,6 +1,7 @@
-import Product from "../../ShareComponent/prooduct/Product";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
+
+import Product from "../../ShareComponent/prooduct/Product";
 
 const CategoryProduct = () => {
   const [isProduct, setIsProduct] = useState(true);
@@ -9,7 +10,7 @@ const CategoryProduct = () => {
 
   useEffect(() => {
     fetch(
-      `https://myserver-production-ddf8.up.railway.app/cyclemart/products/category/${category}`
+      `https://server.switchcafebd.com/cyclemart/products/category/${category}`
     )
       .then((res) => res.json())
       .then((data) => {

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import Loader from "../../ShareComponent/Loader";
 import SingleNews from "./singleNews";
 
@@ -6,7 +7,7 @@ const News = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [news, setNews] = useState([]);
   useEffect(() => {
-    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/news")
+    fetch("https://server.switchcafebd.com/cyclemart/news")
       .then((res) => res.json())
       .then((data) => {
         setNews(data);

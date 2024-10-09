@@ -6,7 +6,7 @@ const PansySlider = () => {
   const [slidersImg, setSlidersImg] = useState([]);
 
   useEffect(() => {
-    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/sliders")
+    fetch("https://server.switchcafebd.com/cyclemart/sliders")
       .then((res) => res.json())
       .then((data) => setSlidersImg(data));
   }, []);

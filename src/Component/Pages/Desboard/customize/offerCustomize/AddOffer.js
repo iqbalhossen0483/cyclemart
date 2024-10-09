@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
+
 import useFunc from "../../../../Hook/useFunc";
 
 function AddOffer() {
@@ -14,14 +14,14 @@ function AddOffer() {
   const alart = useAlert();
 
   useEffect(() => {
-    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/offers")
+    fetch("https://server.switchcafebd.com/cyclemart/offers")
       .then((res) => res.json())
       .then((data) => setOffers(data));
   }, [update]);
 
   const onSubmit = (offer) => {
     setLoading(true);
-    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/offers", {
+    fetch("https://server.switchcafebd.com/cyclemart/offers", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -48,15 +48,12 @@ function AddOffer() {
 
   //delete
   const deletOffer = (id) => {
-    fetch(
-      `https://myserver-production-ddf8.up.railway.app/cyclemart/offers/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          authorization: userToken(),
-        },
-      }
-    )
+    fetch(`https://server.switchcafebd.com/cyclemart/offers/${id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: userToken(),
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {

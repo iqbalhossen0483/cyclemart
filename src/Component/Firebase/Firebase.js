@@ -1,15 +1,16 @@
 import {
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
   getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
-  onAuthStateChanged,
-  createUserWithEmailAndPassword,
   updateProfile,
-  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
+
 import Authentication from "./Authentication";
 
 const Firebase = () => {
@@ -63,7 +64,7 @@ const Firebase = () => {
         imgId: null,
       };
       const res = await fetch(
-        "https://myserver-production-ddf8.up.railway.app/cyclemart/users",
+        "https://server.switchcafebd.com/cyclemart/users",
         {
           method: "PUT",
           headers: {
@@ -83,7 +84,7 @@ const Firebase = () => {
   const checkUser = async (email) => {
     try {
       const res = await fetch(
-        `https://myserver-production-ddf8.up.railway.app/cyclemart/users/login/${email}`
+        `https://server.switchcafebd.com/cyclemart/users/login/${email}`
       );
       const data = await res.json();
       if (res.ok) {

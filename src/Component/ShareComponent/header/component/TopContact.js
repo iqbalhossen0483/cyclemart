@@ -5,11 +5,11 @@ const TopContact = () => {
     <div className='top-contact'>
       <div>
         <i className='fas fa-phone icon'></i>
-        <span>+880 18467-70635</span>
+        <span>+880 1853860483</span>
       </div>
       <div>
         <i className='fa fa-envelope icon' aria-hidden='true'></i>
-        <span>iqbal.hossen.senbag@gmail.com</span>
+        <span>iqbalhossen60483@gmail.com</span>
       </div>
       <div>
         <i className='fa fa-map-marker icon' aria-hidden='true'></i>

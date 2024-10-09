@@ -1,17 +1,18 @@
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Slider from "react-slick";
+
+import useFirebase from "../../Hook/useFirebase";
+import Product from "../../ShareComponent/prooduct/Product";
+import NewsSkelator from "../../ShareComponent/skelator/NewsSkelator";
 import ProductSkelator from "../../ShareComponent/skelator/ProductSkelator";
 import ReviewSkelator from "../../ShareComponent/skelator/ReviewSkelator";
-import NewsSkelator from "../../ShareComponent/skelator/NewsSkelator";
-import React, { useEffect, useState } from "react";
-import Product from "../../ShareComponent/prooduct/Product";
-import useFirebase from "../../Hook/useFirebase";
 import SingleNews from "../News/singleNews";
-import { Link } from "react-router-dom";
-import PansySlider from "./PansySlider";
 import Massenger from "./Massenger";
-import settings from "./sliderSetting";
-import Slider from "react-slick";
-import Reviews from "./Rviews";
 import Menus from "./Menus";
+import PansySlider from "./PansySlider";
+import Reviews from "./Rviews";
+import settings from "./sliderSetting";
 
 const Home = () => {
   const [productLoading, setProductLoading] = useState(true);
@@ -25,9 +26,7 @@ const Home = () => {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    fetch(
-      "https://myserver-production-ddf8.up.railway.app/cyclemart/products/home"
-    )
+    fetch("https://server.switchcafebd.com/cyclemart/products/home")
       .then((res) => res.json())
       .then((data) => {
         setProduct(data);
@@ -37,7 +36,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/reviews")
+    fetch("https://server.switchcafebd.com/cyclemart/reviews")
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
@@ -47,7 +46,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/news")
+    fetch("https://server.switchcafebd.com/cyclemart/news")
       .then((res) => res.json())
       .then((data) => {
         setNews(data);
@@ -57,7 +56,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/offers")
+    fetch("https://server.switchcafebd.com/cyclemart/offers")
       .then((res) => res.json())
       .then((data) => setOffers(data));
   }, []);

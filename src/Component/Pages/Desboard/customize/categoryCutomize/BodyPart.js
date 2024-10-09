@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAlert } from "react-alert";
+
 import useFunc from "../../../../Hook/useFunc";
 import controller from "./controller";
 
@@ -15,7 +16,7 @@ const BodyPart = ({ update, setUpdate }) => {
 
   //load menus
   useEffect(() => {
-    fetch("https://myserver-production-ddf8.up.railway.app/cyclemart/menus", {
+    fetch("https://server.switchcafebd.com/cyclemart/menus", {
       headers: {
         authorization: userToken(),
       },

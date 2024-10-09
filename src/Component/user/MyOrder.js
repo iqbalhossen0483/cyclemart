@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import useFirebase from "../Hook/useFirebase";
-import Orders from "../ShareComponent/Orders";
 import { useAlert } from "react-alert";
+
+import useFirebase from "../Hook/useFirebase";
 import useFunc from "../Hook/useFunc";
+import Orders from "../ShareComponent/Orders";
 
 const MyOrder = () => {
   const [orders, setOrder] = useState([]);
@@ -12,14 +13,11 @@ const MyOrder = () => {
   const { userToken } = useFunc();
 
   useEffect(() => {
-    fetch(
-      `https://myserver-production-ddf8.up.railway.app/cyclemart/orders/${user.email}`,
-      {
-        headers: {
-          authorization: userToken(),
-        },
-      }
-    )
+    fetch(`https://server.switchcafebd.com/cyclemart/orders/${user.email}`, {
+      headers: {
+        authorization: userToken(),
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setOrder(data);

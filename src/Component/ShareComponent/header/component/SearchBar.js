@@ -1,6 +1,7 @@
-import { DebounceInput } from "react-debounce-input";
-import SearchedProduct from "./SearchedProduct";
 import React, { useState } from "react";
+import { DebounceInput } from "react-debounce-input";
+
+import SearchedProduct from "./SearchedProduct";
 
 const SearchBar = () => {
   const [showSearchProduct, setShowSearchProduct] = useState(false);
@@ -10,7 +11,7 @@ const SearchBar = () => {
     const text = searchText;
     if (!text) return setShowSearchProduct(false);
     fetch(
-      `https://myserver-production-ddf8.up.railway.app/cyclemart/products/searchProduct/${text}`
+      `https://server.switchcafebd.com/cyclemart/products/searchProduct/${text}`
     )
       .then((res) => res.json())
       .then((data) => {

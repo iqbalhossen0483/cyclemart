@@ -1,22 +1,19 @@
 import React from "react";
-import { useForm } from "react-hook-form";
 import { useAlert } from "react-alert";
+import { useForm } from "react-hook-form";
 
 const MakeAdmin = () => {
   const { register, handleSubmit, reset } = useForm();
   const alert = useAlert();
 
   const onSubmit = (email) => {
-    fetch(
-      "https://myserver-production-ddf8.up.railway.app/cyclemart/users/admin",
-      {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(email),
-      }
-    )
+    fetch("https://server.switchcafebd.com/cyclemart/users/admin", {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(email),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
