@@ -1,8 +1,10 @@
+import Autoplay from "embla-carousel-autoplay";
+import useEmblaCarousel from "embla-carousel-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Slider from "react-slick";
 
-const PansySlider = () => {
+const BannerSlider = () => {
+  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()]);
   const [slidersImg, setSlidersImg] = useState([]);
 
   useEffect(() => {
@@ -11,27 +13,19 @@ const PansySlider = () => {
       .then((data) => setSlidersImg(data));
   }, []);
 
-  const settings = {
-    infinite: true,
-    speed: 1000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 5000,
-  };
   return (
-    <div className="slider-container">
-      <Slider {...settings}>
+    <div className="embla " ref={emblaRef}>
+      <div className="embla__container">
         {slidersImg.map((item) => (
-          <div key={item._id}>
+          <div className="embla__slide" key={item._id}>
             <Link to={item.url.replace("https://cycle-mart-3ff64.web.app", "")}>
-              <img src={item.imgUrl} alt="" />
+              <img src={item.imgUrl} alt="" className="w-full h-96" />
             </Link>
           </div>
         ))}
-      </Slider>
+      </div>
     </div>
   );
 };
 
-export default PansySlider;
+export default BannerSlider;

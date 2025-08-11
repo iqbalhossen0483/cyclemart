@@ -4,12 +4,11 @@ import Slider from "react-slick";
 
 import useFirebase from "../../Hook/useFirebase";
 import Product from "../../ShareComponent/prooduct/Product";
-import NewsSkelator from "../../ShareComponent/skelator/NewsSkelator";
 import ProductSkelator from "../../ShareComponent/skelator/ProductSkelator";
 import ReviewSkelator from "../../ShareComponent/skelator/ReviewSkelator";
-import SingleNews from "../News/singleNews";
+import BannerSlider from "./BannerSlider";
 import Menus from "./Menus";
-import PansySlider from "./PansySlider";
+import NewsCarusal from "./NewsCarusal";
 import Reviews from "./Rviews";
 import settings from "./sliderSetting";
 
@@ -31,7 +30,7 @@ const Home = () => {
         setProduct(data);
         setProductLoading(false);
       })
-      .catch((err) => setError(err.massege));
+      .catch((err) => setError(err.message));
   }, []);
 
   useEffect(() => {
@@ -41,7 +40,7 @@ const Home = () => {
         setReviews(data);
         setReviewLoading(false);
       })
-      .catch((err) => setError(err.massege));
+      .catch((err) => setError(err.message));
   }, []);
 
   useEffect(() => {
@@ -73,7 +72,7 @@ const Home = () => {
             <Menus />
           </div>
           <div className="col-span-3 bg-white h-full">
-            <PansySlider />
+            <BannerSlider />
           </div>
         </div>
 
@@ -134,19 +133,7 @@ const Home = () => {
         {/* news */}
         <div className="my-16 md:px-5">
           <h3 className="h1">Leatest News</h3>
-          {newsLoading ? (
-            <div className="grid grid-cols-3 gap-5">
-              <NewsSkelator />
-              <NewsSkelator />
-              <NewsSkelator />
-            </div>
-          ) : (
-            <Slider {...settings}>
-              {news.map((singleNews) => (
-                <SingleNews slider key={singleNews._id} news={singleNews} />
-              ))}
-            </Slider>
-          )}
+          <NewsCarusal setError={setError} />
         </div>
         {error && <p>{error}</p>}
       </div>

@@ -98,11 +98,15 @@
   }
 
   /* slider component */
-  .slider-container {
-    @apply text-center;
+  .embla {
+    overflow: hidden;
   }
-  .slider-container .item {
-    @apply md:grid grid-cols-4 items-center justify-center;
+  .embla__container {
+    display: flex;
+  }
+  .embla__slide {
+    flex: 0 0 100%;
+    min-width: 0;
   }
 
   /* review component */
