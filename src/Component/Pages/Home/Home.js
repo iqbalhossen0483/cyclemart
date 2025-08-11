@@ -8,7 +8,6 @@ import NewsSkelator from "../../ShareComponent/skelator/NewsSkelator";
 import ProductSkelator from "../../ShareComponent/skelator/ProductSkelator";
 import ReviewSkelator from "../../ShareComponent/skelator/ReviewSkelator";
 import SingleNews from "../News/singleNews";
-import Massenger from "./Massenger";
 import Menus from "./Menus";
 import PansySlider from "./PansySlider";
 import Reviews from "./Rviews";
@@ -149,7 +148,6 @@ const Home = () => {
             </Slider>
           )}
         </div>
-        <Massenger />
         {error && <p>{error}</p>}
       </div>
     </>

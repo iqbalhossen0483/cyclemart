@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { useAlert } from "react-alert";
 import { Link } from "react-router-dom";
 
+import { toast } from "react-toastify";
 import useFunc from "../../Hook/useFunc";
 
 const ManageProduct = () => {
   const [products, setProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const alert = useAlert();
   const { userToken } = useFunc();
 
   // get data
@@ -37,7 +36,7 @@ const ManageProduct = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.deletedCount > 0) {
-            alert.show("delete successfull");
+            toast.success("delete successfull");
             const newProducts = products.filter(
               (product) => product._id !== productId
             );

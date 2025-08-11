@@ -1,9 +1,8 @@
-import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const MakeAdmin = () => {
   const { register, handleSubmit, reset } = useForm();
-  const alert = useAlert();
 
   const onSubmit = (email) => {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/users/admin`, {
@@ -16,7 +15,7 @@ const MakeAdmin = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
-          alert.show("Make admin successful");
+          toast.success("Make admin successful");
           reset();
         }
       });

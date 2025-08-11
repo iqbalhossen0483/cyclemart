@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
 
+import { toast } from "react-toastify";
 import useFunc from "../../../../Hook/useFunc";
 
 function SliderCustomize() {
@@ -11,7 +11,6 @@ function SliderCustomize() {
   const [loading, setLoading] = useState(false);
   const [update, setUpdate] = useState(false);
   const { userToken } = useFunc();
-  const alart = useAlert();
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/sliders`)
@@ -37,7 +36,7 @@ function SliderCustomize() {
       .then((data) => {
         if (data.insertedId) {
           reset();
-          alart.show("slider image added successfully");
+          toast.success("slider image added successfully");
           setShowForm(false);
           if (update) {
             setUpdate(false);
@@ -46,7 +45,7 @@ function SliderCustomize() {
           }
         }
       })
-      .catch((err) => alart.error(err.message))
+      .catch((err) => toast.error(err.message))
       .finally(() => setLoading(false));
   };
 
@@ -61,7 +60,7 @@ function SliderCustomize() {
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {
-          alart.show("image deleted");
+          toast.success("image deleted");
           const slider = sliders.filter((item) => item._id !== id);
           setSliders(slider);
         }

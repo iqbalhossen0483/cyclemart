@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useAlert } from "react-alert";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 
+import { toast } from "react-toastify";
 import useFunc from "../../Hook/useFunc";
 
 const Payment = (props) => {
@@ -10,7 +10,6 @@ const Payment = (props) => {
   const [showRocket, setShowRocket] = useState(false);
   const [showCredit, setShowCredit] = useState(false);
   const navigate = useNavigate();
-  const alert = useAlert();
   const { setAddedProduct } = useFunc();
   const totalPrice = props.totalPrice;
   let sipping = 0;
@@ -23,7 +22,7 @@ const Payment = (props) => {
               100 || totalPrice > 10000 ? (sipping = 150) : (sipping = 100)));
 
   const confirmOrder = (order) => {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/orders", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/orders`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -33,7 +32,7 @@ const Payment = (props) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
-          alert.show("Your order created successfully");
+          toast.success("Your order created successfully");
           navigate("/");
           if (order.products.length > 1) {
             setAddedProduct([]);

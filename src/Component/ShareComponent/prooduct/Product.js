@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { useAlert } from "react-alert";
 import { Link, useNavigate } from "react-router-dom";
 
+import { toast } from "react-toastify";
 import useFirebase from "../../Hook/useFirebase";
 import useFunc from "../../Hook/useFunc";
 
@@ -10,7 +10,6 @@ const Product = (props) => {
   const { user } = useFirebase();
   const { addedProduct, setAddedProduct } = useFunc();
   const { name, _id, price } = props.product;
-  const alert = useAlert();
 
   useEffect(() => {
     const navText =
@@ -55,11 +54,11 @@ const Product = (props) => {
           .then((data) => {
             if (data.modifiedCount > 0) {
               setAddedProduct(cart);
-              alert.success("Product added to cart");
+              toast.success("Product added to cart");
             }
           });
       } else {
-        alert.info("already added");
+        toast.info("already added");
       }
     } else {
       navigate("/log-in");

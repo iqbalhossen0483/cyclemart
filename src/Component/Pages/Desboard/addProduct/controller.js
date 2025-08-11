@@ -1,4 +1,6 @@
-const addProduct = (product, userToken, alert, reset, setLoading) => {
+import { toast } from "react-toastify";
+
+const addProduct = (product, userToken, reset, setLoading) => {
   setLoading(true);
   const formData = new FormData();
 
@@ -22,14 +24,14 @@ const addProduct = (product, userToken, alert, reset, setLoading) => {
     .then((res) => res.json())
     .then((data) => {
       if (data.insertedId) {
-        alert.show("A product was successfully added");
+        toast.success("A product was successfully added");
         reset();
         setLoading(false);
       }
     })
     .catch((err) => {
       setLoading(false);
-      alert.show(err.message);
+      toast.error(err.message);
     });
 };
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useAlert } from "react-alert";
 
+import { toast } from "react-toastify";
 import useFirebase from "../Hook/useFirebase";
 import useFunc from "../Hook/useFunc";
 import Orders from "../ShareComponent/Orders";
@@ -9,7 +9,6 @@ const MyOrder = () => {
   const [orders, setOrder] = useState([]);
   const [isLoading, setIsloading] = useState(true);
   const { user } = useFirebase();
-  const alart = useAlert();
   const { userToken } = useFunc();
 
   useEffect(() => {
@@ -26,11 +25,11 @@ const MyOrder = () => {
         setOrder(data);
         setIsloading(false);
       })
-      .catch((err) => {
-        alart.show("Unexpected error ocurs");
+      .catch(() => {
+        toast.error("Unexpected error ocurs");
         setIsloading(false);
       });
-  }, [user.email, alart, userToken]);
+  }, [user.email, userToken]);
 
   if (isLoading) {
     return (

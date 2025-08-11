@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
 import Rating from "react-rating";
 
+import { toast } from "react-toastify";
 import useFirebase from "../../Hook/useFirebase";
 import useFunc from "../../Hook/useFunc";
 
@@ -12,7 +12,6 @@ const AddReviews = () => {
   const [rating, setRating] = useState(0);
   const { userToken } = useFunc();
   const { user } = useFirebase();
-  const alert = useAlert();
 
   const handleRating = (e) => {
     setRating(e);
@@ -33,11 +32,11 @@ const AddReviews = () => {
       .then((data) => {
         console.log(data);
         if (data.insertedId) {
-          alert.show("A review was successfully added");
+          toast.success("A review was successfully added");
         }
       })
       .catch((err) => {
-        alert.error(err.message);
+        toast.error(err.message);
       })
       .finally(() => {
         setLoading(false);

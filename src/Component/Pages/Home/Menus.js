@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 const Menus = () => {
@@ -6,7 +6,7 @@ const Menus = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/menus")
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/menus`)
       .then((res) => res.json())
       .then((data) => setCategoryMenus(data));
   }, []);

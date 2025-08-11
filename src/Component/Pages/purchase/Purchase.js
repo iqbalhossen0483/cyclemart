@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
 
+import { toast } from "react-toastify";
 import useFirebase from "../../Hook/useFirebase";
 import useFunc from "../../Hook/useFunc";
 import Payment from "../Shop/Payment";
@@ -22,7 +22,6 @@ const Purchase = () => {
   const { quantity } = useFirebase();
   const navigate = useNavigate();
   const { id } = useParams();
-  const alert = useAlert();
   let sipping = 100;
 
   function handleSameAsBilling(e) {
@@ -114,7 +113,7 @@ const Purchase = () => {
     }
     //post order
     if (cashOnDelivary) {
-      fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/orders", {
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/orders`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -124,7 +123,7 @@ const Purchase = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.insertedId) {
-            alert.show("Your order created successfully");
+            toast.success("Your order created successfully");
             reset();
             navigate("/");
             if (!singleProduct.length) {
@@ -133,7 +132,7 @@ const Purchase = () => {
             }
           }
         })
-        .catch((error) => alert.error(error.message))
+        .catch((error) => toast.error(error.message))
         .finally(() => setLoading(false));
     } else {
       setOderDetails(order);

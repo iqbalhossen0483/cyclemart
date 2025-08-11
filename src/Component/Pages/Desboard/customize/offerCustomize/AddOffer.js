@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
 
+import { toast } from "react-toastify";
 import useFunc from "../../../../Hook/useFunc";
 
 function AddOffer() {
@@ -11,7 +11,6 @@ function AddOffer() {
   const [update, setUpdate] = useState(false);
   const [form, setShowForm] = useState(false);
   const { userToken } = useFunc();
-  const alart = useAlert();
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/offers`)
@@ -33,7 +32,7 @@ function AddOffer() {
       .then((data) => {
         if (data.insertedId) {
           reset();
-          alart.show("Offer added successfully");
+          toast.success("Offer added successfully");
           setShowForm(false);
           if (update) {
             setUpdate(false);
@@ -42,7 +41,7 @@ function AddOffer() {
           }
         }
       })
-      .catch((err) => alart.error(err.message))
+      .catch((err) => toast.error(err.message))
       .finally(() => setLoading(false));
   };
 
@@ -57,7 +56,7 @@ function AddOffer() {
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {
-          alart.show("Offer deleted");
+          toast.show("Offer deleted");
           const offer = offers.filter((item) => item._id !== id);
           setOffers(offer);
         }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Loader from "../../ShareComponent/Loader";
 import SingleNews from "./singleNews";
@@ -7,7 +7,7 @@ const News = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [news, setNews] = useState([]);
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/news")
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/news`)
       .then((res) => res.json())
       .then((data) => {
         setNews(data);

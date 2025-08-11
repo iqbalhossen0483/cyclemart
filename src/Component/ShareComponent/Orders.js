@@ -1,7 +1,6 @@
-import { useAlert } from "react-alert";
+import { toast } from "react-toastify";
 
 const Orders = ({ order, children, orders, setOrder, title }) => {
-  const alert = useAlert();
   const {
     name,
     email,
@@ -22,7 +21,7 @@ const Orders = ({ order, children, orders, setOrder, title }) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.deletedCount > 0) {
-            alert.show("Order delete successfully");
+            toast.success("Order delete successfully");
             const remain = orders.filter((order) => order._id !== id);
             setOrder(remain);
           }

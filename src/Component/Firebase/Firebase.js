@@ -9,8 +9,8 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { useAlert } from "react-alert";
 
+import { toast } from "react-toastify";
 import Authentication from "./Authentication";
 
 const Firebase = () => {
@@ -23,7 +23,6 @@ const Firebase = () => {
   const [quantity, setQuantity] = useState(1);
   const googleProvider = new GoogleAuthProvider();
   const auth = getAuth();
-  const alart = useAlert();
 
   //google log in
   const logInWithGoogle = () => {
@@ -96,7 +95,7 @@ const Firebase = () => {
       } else throw Error(data.message);
     } catch (error) {
       setUser({});
-      alart.show(error.message);
+      toast.error(error.message);
     }
   };
 

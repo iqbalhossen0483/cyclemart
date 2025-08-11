@@ -1,8 +1,10 @@
+import { toast } from "react-toastify";
+
 const updateProduct = (
   data,
   prevData,
   userToken,
-  alert,
+  _alert,
   oneProductUpdate,
   setOneProductUpdate,
   reset,
@@ -37,7 +39,7 @@ const updateProduct = (
     .then((res) => res.json())
     .then((data) => {
       if (data.modifiedCount > 0) {
-        alert.show("This Product was updated");
+        toast.success("This Product was updated");
         if (oneProductUpdate) {
           setOneProductUpdate(false);
         } else {
@@ -46,10 +48,10 @@ const updateProduct = (
         reset();
         navigate("/desboard/manage-product");
       } else {
-        alert.show("You didn't update any field");
+        toast.error("You didn't update any field");
       }
     })
-    .catch((err) => alert.show(err.message))
+    .catch((err) => toast.error(err.message))
     .finally(() => setLoading(false));
 };
 

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import { toast } from "react-toastify";
 import useFirebase from "../Hook/useFirebase";
 
 function UpdateProfile() {
@@ -10,7 +10,6 @@ function UpdateProfile() {
   const [loading, setLoading] = useState(false);
   const { user } = useFirebase();
   const navigate = useNavigate();
-  const alert = useAlert();
   const onSubmit = (data) => {
     setLoading(true);
     const formData = new FormData();
@@ -32,7 +31,7 @@ function UpdateProfile() {
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
-          alert.show("Update successfull");
+          toast.success("Update successfull");
           setTimeout(() => {
             window.location.reload();
           }, 1000);
@@ -40,7 +39,7 @@ function UpdateProfile() {
         } else throw data;
       })
       .catch((err) => {
-        alert.error(err.message);
+        toast.error(err.message);
       })
       .finally(() => {
         setLoading(false);

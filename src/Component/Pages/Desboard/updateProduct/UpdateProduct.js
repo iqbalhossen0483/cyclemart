@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +14,6 @@ const UpdateProduct = () => {
   const { userToken } = useFunc();
   const navigate = useNavigate();
   const { id } = useParams();
-  const alert = useAlert();
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/products/${id}`)
@@ -29,7 +27,6 @@ const UpdateProduct = () => {
       data,
       product,
       userToken,
-      alert,
       oneProductUpdate,
       setOneProductUpdate,
       reset,

@@ -1,14 +1,13 @@
 import { useState } from "react";
-import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
 
+import { toast } from "react-toastify";
 import useFunc from "../../../../Hook/useFunc";
 
 const HeaderPart = ({ categoryForm, setCategoryForm, setUpdate, update }) => {
   const { register, handleSubmit, reset } = useForm();
   const [loading, setLoading] = useState(false);
   const { userToken } = useFunc();
-  const alert = useAlert();
 
   const onSubmit = (menu) => {
     setLoading(true);
@@ -25,12 +24,12 @@ const HeaderPart = ({ categoryForm, setCategoryForm, setUpdate, update }) => {
         if (data.insertedId) {
           reset();
           setCategoryForm(false);
-          alert.show("menu added");
+          toast.success("menu added");
           if (update) setUpdate(false);
           else setUpdate(true);
         }
       })
-      .catch((err) => alert.error(err.message))
+      .catch((err) => toast.error(err.message))
       .finally(() => setLoading(false));
   };
 

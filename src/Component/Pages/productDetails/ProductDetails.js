@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useAlert } from "react-alert";
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 
+import { toast } from "react-toastify";
 import useFirebase from "../../Hook/useFirebase";
 import useFunc from "../../Hook/useFunc";
 
@@ -12,7 +12,6 @@ const ProductDetails = () => {
   const { addedProduct, setAddedProduct } = useFunc();
   const [isLoading, setIsLoading] = useState(true);
   const [product, setProduct] = useState({});
-  const alert = useAlert();
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -25,7 +24,7 @@ const ProductDetails = () => {
         setQuantity(1);
         setIsLoading(false);
       })
-      .catch((err) => alert.error(err.message));
+      .catch((err) => toast.error(err.message));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
   const { name, price, _id, stock, vendor, type, description, category } =
@@ -72,11 +71,11 @@ const ProductDetails = () => {
           .then((data) => {
             if (data.modifiedCount > 0) {
               setAddedProduct(cart);
-              alert.show("Product added");
+              toast.success("Product added");
             }
           });
       } else {
-        alert.show("already added");
+        toast.info("already added");
       }
     } else {
       navigate("/log-in");

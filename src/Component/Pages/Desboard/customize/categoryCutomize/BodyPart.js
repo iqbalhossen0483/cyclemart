@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { useAlert } from "react-alert";
 
 import useFunc from "../../../../Hook/useFunc";
 import controller from "./controller";
@@ -10,7 +9,6 @@ const BodyPart = ({ update, setUpdate }) => {
   const [menuId, setMenuId] = useState("");
   const { userToken } = useFunc();
   const categoryName = useRef("");
-  const alart = useAlert();
   const { addSubMenus, deletCategoryMenu, deleteSubCategoryMenu } =
     controller();
 
@@ -30,25 +28,18 @@ const BodyPart = ({ update, setUpdate }) => {
   // add sub menus
   const onSubmit = (e) => {
     e.preventDefault();
-    addSubMenus(
-      categoryName,
-      menuId,
-      setSubCategoryForm,
-      update,
-      setUpdate,
-      alart
-    );
+    addSubMenus(categoryName, menuId, setSubCategoryForm, update, setUpdate);
   };
 
   //delete menus
   const deletMenu = (id) => {
-    deletCategoryMenu(id, userToken, alart, update, setUpdate);
+    deletCategoryMenu(id, userToken, update, setUpdate);
   };
 
   //delete sub category menu
   function deleteSubCategory(menuId, subText) {
     const menus = { menuId, subText };
-    deleteSubCategoryMenu(menus, alart, update, setUpdate);
+    deleteSubCategoryMenu(menus, update, setUpdate);
   }
 
   //handle sub menu's form

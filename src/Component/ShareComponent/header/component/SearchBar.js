@@ -1,11 +1,13 @@
-import { useState } from "react";
-import { DebounceInput } from "react-debounce-input";
+import { useEffect, useState } from "react";
 
+import useDebounce from "../../../../hooks/useDebouncer";
 import SearchedProduct from "./SearchedProduct";
 
 const SearchBar = () => {
   const [showSearchProduct, setShowSearchProduct] = useState(false);
   const [searchedProduct, setSearchedProduct] = useState([]);
+  const [value, setValue] = useState("");
+  const debouncedValue = useDebounce(value, 500);
 
   function handleSearchText(searchText) {
     const text = searchText;
@@ -24,16 +26,24 @@ const SearchBar = () => {
       });
   }
 
+  useEffect(() => {
+    if (debouncedValue) {
+      handleSearchText(debouncedValue);
+    } else {
+      setShowSearchProduct(false);
+      setSearchedProduct([]);
+    }
+  }, [debouncedValue]);
+
   return (
     <div className="col-span-2">
       <div className=" w-full md:w-3/4 md:ml-auto relative">
-        <DebounceInput
+        <input
           type="text"
           className="input search-input"
           placeholder="Search Product..."
-          minLength={3}
-          debounceTimeout={500}
-          onChange={(e) => handleSearchText(e.target.value)}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
         />
         <i className="fa fa-search" aria-hidden="true" />
         {showSearchProduct && (

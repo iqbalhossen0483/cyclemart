@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 const controller = () => {
   // add sub menus
   const addSubMenus = (
@@ -5,8 +7,7 @@ const controller = () => {
     menuId,
     setSubCategoryForm,
     update,
-    setUpdate,
-    alart
+    setUpdate
   ) => {
     const text = {
       name: categoryName.current.value,
@@ -22,7 +23,7 @@ const controller = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
-          alart.show("Sub-menu added");
+          toast.success("Sub-menu added");
           categoryName.current.value = "";
           setSubCategoryForm(false);
           if (update) setUpdate(false);
@@ -32,7 +33,7 @@ const controller = () => {
   };
 
   //delete menus
-  const deletCategoryMenu = (id, userToken, alart, update, setUpdate) => {
+  const deletCategoryMenu = (id, userToken, _alart, update, setUpdate) => {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/menus/${id}`, {
       method: "DELETE",
       headers: {
@@ -42,7 +43,7 @@ const controller = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount > 0) {
-          alart.show("menu deleted");
+          toast.success("menu deleted");
           if (update) setUpdate(false);
           else setUpdate(true);
         }
@@ -50,7 +51,7 @@ const controller = () => {
   };
 
   //delete sub category menu
-  function deleteSubCategoryMenu(menus, alart, update, setUpdate) {
+  function deleteSubCategoryMenu(menus, update, setUpdate) {
     fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/menus`, {
       method: "PUT",
       headers: {
@@ -61,7 +62,7 @@ const controller = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
-          alart.show("Delete successful");
+          toast.success("Delete successful");
           if (update) setUpdate(false);
           else setUpdate(true);
         }

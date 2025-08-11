@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { useAlert } from "react-alert";
 
+import { toast } from "react-toastify";
 import useFunc from "../../Hook/useFunc";
 import Orders from "../../ShareComponent/Orders";
 
 const ManageOrder = () => {
   const [orders, setOrder] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const alert = useAlert();
   const { userToken } = useFunc();
 
   useEffect(() => {
@@ -22,10 +21,10 @@ const ManageOrder = () => {
         setIsLoading(false);
       })
       .catch((err) => {
-        alert.show(err.message);
+        toast.error(err.message);
         setIsLoading(false);
       });
-  }, [isLoading, alert, userToken]);
+  }, [isLoading, userToken]);
 
   const handleApprove = (id) => {
     const changeData = {
@@ -42,7 +41,7 @@ const ManageOrder = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
-          alert.show("Order Approved");
+          toast.success("Order Approved");
           if (isLoading) {
             setIsLoading(false);
           } else {

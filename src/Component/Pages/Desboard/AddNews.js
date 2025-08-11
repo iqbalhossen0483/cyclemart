@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
 
+import { toast } from "react-toastify";
 import useFunc from "../../Hook/useFunc";
 
 const AddNews = () => {
   const { register, handleSubmit, reset } = useForm();
   const [loading, setLoading] = useState(false);
-  const alert = useAlert();
   const { userToken } = useFunc();
 
   const onSubmit = (news) => {
@@ -16,7 +15,7 @@ const AddNews = () => {
     const formData = new FormData();
 
     if (!news.img.length) {
-      return alert.show("image is required");
+      return toast.error("image is required");
     }
 
     formData.append("date", date);
@@ -36,11 +35,11 @@ const AddNews = () => {
         console.log("data", data);
 
         if (data.insertedId) {
-          alert.show("A news was successfully added");
+          toast.success("A news was successfully added");
           reset();
         }
       })
-      .catch((err) => alert.error(err.message))
+      .catch((err) => toast.error(err.message))
       .finally(() => setLoading(false));
   };
   return (

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useAlert } from "react-alert";
 import { Link } from "react-router-dom";
 
+import { toast } from "react-toastify";
 import useFirebase from "../Hook/useFirebase";
 import useFunc from "../Hook/useFunc";
 
@@ -11,7 +11,6 @@ const ViewCart = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [allId, setAllId] = useState("");
   const { user } = useFirebase();
-  const alert = useAlert();
 
   //find cart products
   useEffect(() => {
@@ -35,7 +34,7 @@ const ViewCart = () => {
           setCartProducts(data);
           setAllId(id);
         })
-        .catch((err) => alert.error(err.message));
+        .catch((err) => toast.error(err.message));
     }
     setIsLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -104,7 +103,7 @@ const ViewCart = () => {
           if (data.modifiedCount > 0) {
             setAddedProduct(remain);
             setCartProducts(remainCartProduct);
-            alert.show("Product deleted");
+            toast.success("Product deleted");
           }
         });
     }
