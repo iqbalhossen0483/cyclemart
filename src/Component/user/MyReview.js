@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import useFirebase from "../Hook/useFirebase";
@@ -14,7 +14,7 @@ const MyReview = () => {
 
   useEffect(() => {
     fetch(
-      `https://server.switchcafebd.com/cyclemart/reviews?user_id=${user._id}`,
+      `${process.env.REACT_APP_BACKEND_URL}/cyclemart/reviews?user_id=${user._id}`,
       {
         headers: {
           authorization: userToken(),
@@ -34,18 +34,18 @@ const MyReview = () => {
   return (
     <div>
       {reviews ? (
-        <div className='lg:grid grid-cols-3 gap-4 md:m-10'>
+        <div className="lg:grid grid-cols-3 gap-4 md:m-10">
           {reviews.map((review) => (
             <Rviews key={review._id} review={review} />
           ))}
         </div>
       ) : (
         <div>
-          <p className='text-center text-xl py-8 text-gray-500'>
+          <p className="text-center text-xl py-8 text-gray-500">
             You didn't make any review
           </p>
-          <div className='flex justify-center'>
-            <NavLink className='button' to='/my-account/add-review'>
+          <div className="flex justify-center">
+            <NavLink className="button" to="/my-account/add-review">
               Add-Review
             </NavLink>
           </div>

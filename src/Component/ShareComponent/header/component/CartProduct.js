@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import useFunc from "../../../Hook/useFunc";
@@ -18,7 +18,7 @@ const CartProduct = () => {
             id += "&&" + cart.id;
           }
           const res = await fetch(
-            `https://server.switchcafebd.com/cyclemart/products/${id}`
+            `${process.env.REACT_APP_BACKEND_URL}/cyclemart/products/${id}`
           );
           const data = await res.json();
           setCartProducts(data);
@@ -38,14 +38,14 @@ const CartProduct = () => {
 
   if (isLoading) {
     return (
-      <p className='top-full absolute text-sm right-5 bg-white shadow-md z-20'>
+      <p className="top-full absolute text-sm right-5 bg-white shadow-md z-20">
         Loading...
       </p>
     );
   }
   return (
-    <div className='cart-product scrollbar'>
-      <table className='w-full'>
+    <div className="cart-product scrollbar">
+      <table className="w-full">
         <tbody>
           {cartProducts.length &&
             cartProducts.map((product) => {
@@ -54,9 +54,9 @@ const CartProduct = () => {
                 <tr key={product?._id}>
                   <td>
                     <img
-                      className='h-14'
+                      className="h-14"
                       src={product.productImg?.imgUrl}
-                      alt=''
+                      alt=""
                     />
                   </td>
                   <td>{product.price}</td>
@@ -66,9 +66,9 @@ const CartProduct = () => {
           {cartProducts.length && (
             <tr>
               <td colSpan={2}>
-                <p className='flex justify-end gap-1'>
+                <p className="flex justify-end gap-1">
                   <span>Total:</span>
-                  <span className='font-medium text-secondary'>
+                  <span className="font-medium text-secondary">
                     {totalPrice}
                   </span>
                 </p>
@@ -77,9 +77,9 @@ const CartProduct = () => {
           )}
         </tbody>
       </table>
-      <div className='col-span-2 mt-3 flex justify-center'>
-        <Link to='/my-account/view-cart'>
-          <button className='button'>View cart</button>
+      <div className="col-span-2 mt-3 flex justify-center">
+        <Link to="/my-account/view-cart">
+          <button className="button">View cart</button>
         </Link>
       </div>
     </div>

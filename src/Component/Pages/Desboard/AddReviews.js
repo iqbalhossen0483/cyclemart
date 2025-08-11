@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
 import Rating from "react-rating";
@@ -21,7 +21,7 @@ const AddReviews = () => {
     setLoading(true);
     review.user_id = user._id;
     review.rating = rating;
-    fetch("https://server.switchcafebd.com/cyclemart/reviews", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/reviews`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -45,28 +45,28 @@ const AddReviews = () => {
   };
 
   return (
-    <div className='mx-3 md:mx-0'>
+    <div className="mx-3 md:mx-0">
       <form
-        className='container lg:w-11/12 my-10'
+        className="container lg:w-11/12 my-10"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <h3 className='header'>Your valuable comment</h3>
+        <h3 className="header">Your valuable comment</h3>
 
         <textarea
-          className='input'
+          className="input"
           rows={10}
           {...register("description", { required: true })}
-          placeholder='Enter short description'
+          placeholder="Enter short description"
         />
         <Rating
-          className='text-yellow-300 text-sm mt-7'
+          className="text-yellow-300 text-sm mt-7"
           onChange={handleRating}
-          emptySymbol='fa fa-star-o fa-2x'
-          fullSymbol='fa fa-star fa-2x'
+          emptySymbol="fa fa-star-o fa-2x"
+          fullSymbol="fa fa-star fa-2x"
           fractions={2}
         />
-        <div className='col-span-2 flex justify-start'>
-          <button disabled={loading} className='button' type='submit'>
+        <div className="col-span-2 flex justify-start">
+          <button disabled={loading} className="button" type="submit">
             {!loading ? "Submit" : "Loading..."}
           </button>
         </div>

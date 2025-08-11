@@ -12,7 +12,7 @@ const controller = () => {
       name: categoryName.current.value,
     };
 
-    fetch(`https://server.switchcafebd.com/cyclemart/menus/${menuId}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/menus/${menuId}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -33,7 +33,7 @@ const controller = () => {
 
   //delete menus
   const deletCategoryMenu = (id, userToken, alart, update, setUpdate) => {
-    fetch(`https://server.switchcafebd.com/cyclemart/menus/${id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/menus/${id}`, {
       method: "DELETE",
       headers: {
         authorization: userToken(),
@@ -51,7 +51,7 @@ const controller = () => {
 
   //delete sub category menu
   function deleteSubCategoryMenu(menus, alart, update, setUpdate) {
-    fetch(`https://server.switchcafebd.com/cyclemart/menus`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/menus`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

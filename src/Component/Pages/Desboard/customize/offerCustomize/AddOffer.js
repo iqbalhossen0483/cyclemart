@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
 
@@ -14,14 +14,14 @@ function AddOffer() {
   const alart = useAlert();
 
   useEffect(() => {
-    fetch("https://server.switchcafebd.com/cyclemart/offers")
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/offers`)
       .then((res) => res.json())
       .then((data) => setOffers(data));
   }, [update]);
 
   const onSubmit = (offer) => {
     setLoading(true);
-    fetch("https://server.switchcafebd.com/cyclemart/offers", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/offers`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -48,7 +48,7 @@ function AddOffer() {
 
   //delete
   const deletOffer = (id) => {
-    fetch(`https://server.switchcafebd.com/cyclemart/offers/${id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/offers/${id}`, {
       method: "DELETE",
       headers: {
         authorization: userToken(),
@@ -74,11 +74,11 @@ function AddOffer() {
       onClick={() => {
         setShowForm(false);
       }}
-      className='border rounded-md pb-10 text-center relative'
+      className="border rounded-md pb-10 text-center relative"
     >
-      <div className='bg-primary rounded-t text-gray-200 sticky top-0 z-10'>
-        <p className='font-medium py-2'>Scecial Offers</p>
-        <button className='slider-add-btn' onClick={(e) => showForm(e)}>
+      <div className="bg-primary rounded-t text-gray-200 sticky top-0 z-10">
+        <p className="font-medium py-2">Scecial Offers</p>
+        <button className="slider-add-btn" onClick={(e) => showForm(e)}>
           Add+
         </button>
 
@@ -89,18 +89,18 @@ function AddOffer() {
           className={`${form ? "block" : "hidden"}`}
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className='customize-form w-full'>
+          <div className="customize-form w-full">
             <input
-              className='input w-full'
+              className="input w-full"
               {...register("name", { required: true })}
-              placeholder='Enter tag name'
+              placeholder="Enter tag name"
             />
             <input
-              className='input w-full'
+              className="input w-full"
               {...register("url", { required: true })}
-              placeholder='url'
+              placeholder="url"
             />
-            <button disabled={loading} type='submit' className='button'>
+            <button disabled={loading} type="submit" className="button">
               {loading ? "Loading..." : "Submit"}
             </button>
           </div>
@@ -110,18 +110,18 @@ function AddOffer() {
       {offers.map((menu, index) => (
         <div
           key={index}
-          className='customize-category-menu text-left flex-col px-5'
+          className="customize-category-menu text-left flex-col px-5"
         >
-          <div className='flex justify-between'>
+          <div className="flex justify-between">
             <p>{menu.name}</p>
             <i
               onClick={() => {
                 deletOffer(menu._id);
               }}
-              className='fas fa-trash-alt customize-delete-icon'
+              className="fas fa-trash-alt customize-delete-icon"
             ></i>
           </div>
-          <p className='text-xs'>{menu.url}</p>
+          <p className="text-xs">{menu.url}</p>
         </div>
       ))}
     </div>

@@ -17,15 +17,21 @@ const SharedFunction = () => {
   //check user has token or not
   useEffect(() => {
     if (user.email && userToken()) {
-      fetch(`https://server.switchcafebd.com/cyclemart/users/${user.email}`, {
-        headers: {
-          authorization: userToken(),
-        },
-      })
+      fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/cyclemart/users/${user.email}`,
+        {
+          headers: {
+            authorization: userToken(),
+          },
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           setAddedProduct(data.cart);
           setCustomer({ ...user, ...data });
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
         });
     }
   }, [user]);

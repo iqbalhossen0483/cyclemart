@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 
@@ -26,7 +26,7 @@ const Home = () => {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    fetch("https://server.switchcafebd.com/cyclemart/products/home")
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/products/home`)
       .then((res) => res.json())
       .then((data) => {
         setProduct(data);
@@ -36,7 +36,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetch("https://server.switchcafebd.com/cyclemart/reviews")
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/reviews`)
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
@@ -46,7 +46,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetch("https://server.switchcafebd.com/cyclemart/news")
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/news`)
       .then((res) => res.json())
       .then((data) => {
         setNews(data);
@@ -56,7 +56,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    fetch("https://server.switchcafebd.com/cyclemart/offers")
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/offers`)
       .then((res) => res.json())
       .then((data) => setOffers(data));
   }, []);
@@ -69,32 +69,32 @@ const Home = () => {
         }}
       >
         {/* banner */}
-        <div className='banner'>
-          <div className='hidden lg:block bg-white h-full'>
+        <div className="banner">
+          <div className="hidden lg:block bg-white h-full">
             <Menus />
           </div>
-          <div className='col-span-3 bg-white h-full'>
+          <div className="col-span-3 bg-white h-full">
             <PansySlider />
           </div>
         </div>
 
         {/* flesh cart */}
-        <div className='flesh-cart'>
+        <div className="flesh-cart">
           {offers.map((item) => (
             <div key={item._id}>
               <Link
                 to={item.url.replace("https://cycle-mart-3ff64.web.app", "")}
               >
-                <p className='item'>{item.name}</p>
+                <p className="item">{item.name}</p>
               </Link>
             </div>
           ))}
         </div>
 
         {/* product */}
-        <div className='mt-10'>
-          <h3 className='h1'>Our Leatest Products</h3>
-          <div className='product-container'>
+        <div className="mt-10">
+          <h3 className="h1">Our Leatest Products</h3>
+          <div className="product-container">
             {productLoading ? (
               <>
                 <ProductSkelator />
@@ -115,10 +115,10 @@ const Home = () => {
         </div>
 
         {/* reviews */}
-        <div className='my-16 md:px-5'>
-          <h3 className='h1'>Our Customer Reviews</h3>
+        <div className="my-16 md:px-5">
+          <h3 className="h1">Our Customer Reviews</h3>
           {reviewLoading ? (
-            <div className='grid grid-cols-3 gap-5'>
+            <div className="grid grid-cols-3 gap-5">
               <ReviewSkelator />
               <ReviewSkelator />
               <ReviewSkelator />
@@ -133,10 +133,10 @@ const Home = () => {
         </div>
 
         {/* news */}
-        <div className='my-16 md:px-5'>
-          <h3 className='h1'>Leatest News</h3>
+        <div className="my-16 md:px-5">
+          <h3 className="h1">Leatest News</h3>
           {newsLoading ? (
-            <div className='grid grid-cols-3 gap-5'>
+            <div className="grid grid-cols-3 gap-5">
               <NewsSkelator />
               <NewsSkelator />
               <NewsSkelator />

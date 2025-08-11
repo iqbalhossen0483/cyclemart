@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { DebounceInput } from "react-debounce-input";
 
 import SearchedProduct from "./SearchedProduct";
@@ -11,7 +11,7 @@ const SearchBar = () => {
     const text = searchText;
     if (!text) return setShowSearchProduct(false);
     fetch(
-      `https://server.switchcafebd.com/cyclemart/products/searchProduct/${text}`
+      `${process.env.REACT_APP_BACKEND_URL}/cyclemart/products/searchProduct/${text}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -25,17 +25,17 @@ const SearchBar = () => {
   }
 
   return (
-    <div className='col-span-2'>
-      <div className=' w-full md:w-3/4 md:ml-auto relative'>
+    <div className="col-span-2">
+      <div className=" w-full md:w-3/4 md:ml-auto relative">
         <DebounceInput
-          type='text'
-          className='input search-input'
-          placeholder='Search Product...'
+          type="text"
+          className="input search-input"
+          placeholder="Search Product..."
           minLength={3}
           debounceTimeout={500}
           onChange={(e) => handleSearchText(e.target.value)}
         />
-        <i className='fa fa-search' aria-hidden='true' />
+        <i className="fa fa-search" aria-hidden="true" />
         {showSearchProduct && (
           <SearchedProduct searchedProduct={searchedProduct} />
         )}

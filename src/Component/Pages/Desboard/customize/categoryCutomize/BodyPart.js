@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAlert } from "react-alert";
 
 import useFunc from "../../../../Hook/useFunc";
@@ -16,7 +16,7 @@ const BodyPart = ({ update, setUpdate }) => {
 
   //load menus
   useEffect(() => {
-    fetch("https://server.switchcafebd.com/cyclemart/menus", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/menus`, {
       headers: {
         authorization: userToken(),
       },
@@ -63,31 +63,31 @@ const BodyPart = ({ update, setUpdate }) => {
   };
 
   return (
-    <div className='relative'>
+    <div className="relative">
       {categoryMenus.map((menu, index) => (
         <details key={index}>
           <summary className={`customize-category-menu px-5`}>
             <button
-              className='mr-auto flex gap-1 items-center'
+              className="mr-auto flex gap-1 items-center"
               onClick={() => showSubCategoryForm(menu._id)}
             >
-              <img className='h-3' src='/arrow.png' alt='' />
+              <img className="h-3" src="/arrow.png" alt="" />
               {menu.name}
             </button>
             <i
               onClick={() => {
                 deletMenu(menu._id);
               }}
-              className='fas fa-trash-alt customize-delete-icon'
+              className="fas fa-trash-alt customize-delete-icon"
             ></i>
           </summary>
           {menu.subMenus &&
             menu.subMenus.map((item, i) => (
-              <div key={i} className='border-b flex justify-between px-16 py-1'>
+              <div key={i} className="border-b flex justify-between px-16 py-1">
                 <p>{item}</p>
                 <i
                   onClick={() => deleteSubCategory(menu._id, item)}
-                  className='fas fa-trash-alt text-sm text-gray-400 cursor-pointer'
+                  className="fas fa-trash-alt text-sm text-gray-400 cursor-pointer"
                 />
               </div>
             ))}
@@ -98,14 +98,14 @@ const BodyPart = ({ update, setUpdate }) => {
         className={`${subCategoryForm ? "block" : "hidden"}`}
         onSubmit={(e) => onSubmit(e)}
       >
-        <div className='add-subcategory z-40 w-full'>
+        <div className="add-subcategory z-40 w-full">
           <input
-            className='input w-full'
-            name='name'
+            className="input w-full"
+            name="name"
             ref={categoryName}
-            placeholder='Sub-category name'
+            placeholder="Sub-category name"
           />
-          <button type='submit'>Add +</button>
+          <button type="submit">Add +</button>
         </div>
       </form>
     </div>

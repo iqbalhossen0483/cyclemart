@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 
 import useFunc from "../../Hook/useFunc";
@@ -11,7 +11,7 @@ const ManageOrder = () => {
   const { userToken } = useFunc();
 
   useEffect(() => {
-    fetch("https://server.switchcafebd.com/cyclemart/orders", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/orders`, {
       headers: {
         authorization: userToken(),
       },
@@ -32,7 +32,7 @@ const ManageOrder = () => {
       status: "Approved",
       id: id,
     };
-    fetch(`https://server.switchcafebd.com/cyclemart/orders`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/orders`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -54,14 +54,14 @@ const ManageOrder = () => {
 
   if (isLoading) {
     return (
-      <div className='spinner-container'>
-        <div className='spinner'></div>
+      <div className="spinner-container">
+        <div className="spinner"></div>
       </div>
     );
   }
   return (
-    <div className='overflow-auto'>
-      <table className='bg-white my-5 w-full'>
+    <div className="overflow-auto">
+      <table className="bg-white my-5 w-full">
         <thead>
           <tr>
             <th>Product details</th>
@@ -77,13 +77,13 @@ const ManageOrder = () => {
               order={order}
               orders={orders}
               setOrder={setOrder}
-              title='manageOrder'
+              title="manageOrder"
             >
               <button
                 onClick={() => {
                   handleApprove(order._id);
                 }}
-                className='button'
+                className="button"
               >
                 Approve
               </button>

@@ -1,4 +1,3 @@
-import React from "react";
 import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
 
@@ -7,7 +6,7 @@ const MakeAdmin = () => {
   const alert = useAlert();
 
   const onSubmit = (email) => {
-    fetch("https://server.switchcafebd.com/cyclemart/users/admin", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/users/admin`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -23,16 +22,16 @@ const MakeAdmin = () => {
       });
   };
   return (
-    <div className='mx-3 md:mx-0'>
-      <form className='container' onSubmit={handleSubmit(onSubmit)}>
-        <h3 className='header'>Make an admin</h3>
+    <div className="mx-3 md:mx-0">
+      <form className="container" onSubmit={handleSubmit(onSubmit)}>
+        <h3 className="header">Make an admin</h3>
         <input
-          type='email'
-          className='input'
+          type="email"
+          className="input"
           {...register("email", { required: true })}
-          placeholder='Enter email address'
+          placeholder="Enter email address"
         />
-        <input className='button' type='submit' />
+        <input className="button" type="submit" />
       </form>
     </div>
   );

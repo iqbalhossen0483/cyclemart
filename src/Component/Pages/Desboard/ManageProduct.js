@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { Link } from "react-router-dom";
 
@@ -12,7 +12,7 @@ const ManageProduct = () => {
 
   // get data
   useEffect(() => {
-    fetch("https://server.switchcafebd.com/cyclemart/products")
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/products`)
       .then((res) => res.json())
       .then((data) => {
         setProduct(data);
@@ -24,13 +24,16 @@ const ManageProduct = () => {
   const handleDelete = (productId, imgId) => {
     const confirm = window.confirm("Are you sure to delete");
     if (confirm) {
-      fetch(`https://server.switchcafebd.com/cyclemart/products/${productId}`, {
-        method: "DELETE",
-        headers: {
-          authorization: userToken(),
-          imgId: imgId,
-        },
-      })
+      fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/cyclemart/products/${productId}`,
+        {
+          method: "DELETE",
+          headers: {
+            authorization: userToken(),
+            imgId: imgId,
+          },
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.deletedCount > 0) {
@@ -46,14 +49,14 @@ const ManageProduct = () => {
 
   if (isLoading) {
     return (
-      <div className='spinner-container'>
-        <div className='spinner'></div>
+      <div className="spinner-container">
+        <div className="spinner"></div>
       </div>
     );
   }
   return (
-    <div className='overflow-auto'>
-      <table className='bg-white my-5 w-full'>
+    <div className="overflow-auto">
+      <table className="bg-white my-5 w-full">
         <thead>
           <tr>
             <th>Images</th>
@@ -62,8 +65,8 @@ const ManageProduct = () => {
             <th>Price</th>
             <th>Stock</th>
             <th>
-              <Link to='/desboard/add-product'>
-                <button className='button'>Add New</button>
+              <Link to="/desboard/add-product">
+                <button className="button">Add New</button>
               </Link>
             </th>
           </tr>
@@ -73,9 +76,9 @@ const ManageProduct = () => {
             <tr key={product._id}>
               <td>
                 <img
-                  className='w-full h-20'
+                  className="w-full h-20"
                   src={product.productImg?.imgUrl}
-                  alt=''
+                  alt=""
                 />
               </td>
               <td>{product.name}</td>
@@ -85,12 +88,12 @@ const ManageProduct = () => {
               <td>
                 <button
                   onClick={() => handleDelete(product._id, product.imgId)}
-                  className='button'
+                  className="button"
                 >
                   Delete
                 </button>
                 <Link to={`/desboard/updateProduct/${product._id}`}>
-                  <button className='button'>Update</button>
+                  <button className="button">Update</button>
                 </Link>
               </td>
             </tr>

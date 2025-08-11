@@ -6,14 +6,14 @@ const Menus = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://server.switchcafebd.com/cyclemart/menus")
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/menus")
       .then((res) => res.json())
       .then((data) => setCategoryMenus(data));
   }, []);
 
   return (
-    <div className='category-menu-wrapper px-7'>
-      <h2 className='text-xl border-b-2 pb-1 text-center'>
+    <div className="category-menu-wrapper px-7">
+      <h2 className="text-xl border-b-2 pb-1 text-center">
         Popular Categories
       </h2>
       {categoryMenus.map((menu) => (
@@ -22,12 +22,12 @@ const Menus = () => {
           onClick={() => {
             navigate(`/shop/${menu.name.replace(" ", "-")}`);
           }}
-          className='category-menu'
+          className="category-menu"
         >
-          <p className='menu'>{menu.name}</p>
-          <div className='sub-menus'>
+          <p className="menu">{menu.name}</p>
+          <div className="sub-menus">
             {menu.subMenus?.map((item, i) => (
-              <p className='px-3 menu' key={i}>
+              <p className="px-3 menu" key={i}>
                 {item}
               </p>
             ))}

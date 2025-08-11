@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
 import Product from "../../ShareComponent/prooduct/Product";
@@ -10,7 +10,7 @@ const CategoryProduct = () => {
 
   useEffect(() => {
     fetch(
-      `https://server.switchcafebd.com/cyclemart/products/category/${category}`
+      `${process.env.REACT_APP_BACKEND_URL}/cyclemart/products/category/${category}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -24,13 +24,13 @@ const CategoryProduct = () => {
   return (
     <>
       {!isProduct ? (
-        <div className='md:grid md:grid-cols-3 lg:grid-cols-4 md:gap-5 md:m-10'>
+        <div className="md:grid md:grid-cols-3 lg:grid-cols-4 md:gap-5 md:m-10">
           {products.map((product) => (
             <Product key={product._id} product={product} />
           ))}
         </div>
       ) : (
-        <div className='h-full flex justify-center items-center'>
+        <div className="h-full flex justify-center items-center">
           <p>There is no product</p>
         </div>
       )}

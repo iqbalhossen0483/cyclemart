@@ -27,7 +27,7 @@ const updateProduct = (
     }
   });
 
-  fetch("https://server.switchcafebd.com/cyclemart/products", {
+  fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/products`, {
     method: "PUT",
     headers: {
       authorization: userToken(),

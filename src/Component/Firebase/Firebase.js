@@ -46,9 +46,7 @@ const Firebase = () => {
   //sign out
   const lognOut = () => {
     signOut(auth)
-      .then((result) => {
-        setHideUserInfo(false);
-      })
+      .then()
       .catch((err) => {
         console.log(err.message);
       });
@@ -64,7 +62,7 @@ const Firebase = () => {
         imgId: null,
       };
       const res = await fetch(
-        "https://server.switchcafebd.com/cyclemart/users",
+        `${process.env.REACT_APP_BACKEND_URL}/cyclemart/users`,
         {
           method: "PUT",
           headers: {
@@ -84,7 +82,7 @@ const Firebase = () => {
   const checkUser = async (email) => {
     try {
       const res = await fetch(
-        `https://server.switchcafebd.com/cyclemart/users/login/${email}`
+        `${process.env.REACT_APP_BACKEND_URL}/cyclemart/users/login/${email}`
       );
       const data = await res.json();
       if (res.ok) {

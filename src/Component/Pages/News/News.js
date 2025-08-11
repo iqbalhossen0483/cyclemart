@@ -7,7 +7,7 @@ const News = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [news, setNews] = useState([]);
   useEffect(() => {
-    fetch("https://server.switchcafebd.com/cyclemart/news")
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/news")
       .then((res) => res.json())
       .then((data) => {
         setNews(data);
@@ -20,8 +20,8 @@ const News = () => {
   }
   return (
     <>
-      <div className='my-16 md:px-5'>
-        <div className='news-container'>
+      <div className="my-16 md:px-5">
+        <div className="news-container">
           {news.map((singleNews) => (
             <SingleNews key={singleNews._id} news={singleNews} />
           ))}

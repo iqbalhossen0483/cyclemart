@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Footer from "../../ShareComponent/Footer/Footer";
 import Product from "../../ShareComponent/prooduct/Product";
@@ -17,7 +17,7 @@ const Shop = () => {
   });
 
   useEffect(() => {
-    let url = "https://server.switchcafebd.com/cyclemart/products";
+    let url = `${process.env.REACT_APP_BACKEND_URL}/cyclemart/products`;
     if (brands) url += `?brand=${brands}`;
     else if (type) url += `?type=${type}`;
     else if (minMax.min !== minMax.max) {
@@ -53,7 +53,7 @@ const Shop = () => {
     if (products.length) {
       const number = Math.floor(Math.random() * products.length - 1) + 1;
       fetch(
-        `https://server.switchcafebd.com/cyclemart/products/rendom/${number}`
+        `${process.env.REACT_APP_BACKEND_URL}/cyclemart/products/rendom/${number}`
       )
         .then((res) => res.json())
         .then((data) => setRandomProduct(data));
@@ -64,7 +64,7 @@ const Shop = () => {
     return <Spinner />;
   }
   return (
-    <div className='shop-container'>
+    <div className="shop-container">
       <SideMenus
         handleBrands={handleBrands}
         setBrands={setBrands}
@@ -74,8 +74,8 @@ const Shop = () => {
         setType={setType}
         randomProduct={randomProduct}
       />
-      <div className='pt-10'>
-        <div className='shop-product'>
+      <div className="pt-10">
+        <div className="shop-product">
           {products.map((product) => (
             <Product key={product._id} product={product} />
           ))}

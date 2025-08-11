@@ -25,7 +25,7 @@ function UpdateProfile() {
       formData.append("existingImg", user.imgId);
     }
 
-    fetch(`https://server.switchcafebd.com/cyclemart/users/updateUser`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/users/updateUser`, {
       method: "PUT",
       body: formData,
     })
@@ -48,41 +48,41 @@ function UpdateProfile() {
   };
 
   return (
-    <form className='container' onSubmit={handleSubmit(onSubmit)}>
+    <form className="container" onSubmit={handleSubmit(onSubmit)}>
       <input
-        className='input my-2'
+        className="input my-2"
         {...register("division")}
         defaultValue={user?.division}
-        placeholder='Your Division'
+        placeholder="Your Division"
       />
       <input
-        className='input my-2'
+        className="input my-2"
         {...register("district")}
         defaultValue={user?.district}
-        placeholder='Your Dristrict'
+        placeholder="Your Dristrict"
       />
       <input
-        className='input my-2'
+        className="input my-2"
         {...register("policeStation")}
         defaultValue={user?.policeStation}
-        placeholder='Police Station'
+        placeholder="Police Station"
       />
       <input
-        className='input my-2'
+        className="input my-2"
         {...register("rodeOrVillage")}
         defaultValue={user?.rodeOrVillage}
-        placeholder='Rode No. / Village name'
+        placeholder="Rode No. / Village name"
       />
       <input
-        className='input my-2'
+        className="input my-2"
         {...register("phone")}
         defaultValue={user?.phone}
-        placeholder='Phone number'
-        type='number'
+        placeholder="Phone number"
+        type="number"
       />
-      <input className='input my-2' {...register("profile")} type='file' />
+      <input className="input my-2" {...register("profile")} type="file" />
 
-      <button disabled={loading} className='button' type='submit'>
+      <button disabled={loading} className="button" type="submit">
         {!loading ? " Submit" : "Loading..."}
       </button>
     </form>

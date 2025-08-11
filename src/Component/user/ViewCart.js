@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { Link } from "react-router-dom";
 
@@ -22,7 +22,7 @@ const ViewCart = () => {
       }
     }
     if (id) {
-      fetch(`https://server.switchcafebd.com/cyclemart/products/${id}`)
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/products/${id}`)
         .then((res) => res.json())
         .then((data) => {
           data.forEach((product) => {
@@ -90,7 +90,7 @@ const ViewCart = () => {
       );
 
       fetch(
-        `https://server.switchcafebd.com/cyclemart/users/carts/${user.email}`,
+        `${process.env.REACT_APP_BACKEND_URL}/cyclemart/users/carts/${user.email}`,
         {
           method: "PUT",
           headers: {
@@ -113,13 +113,13 @@ const ViewCart = () => {
 
   if (isLoading) {
     return (
-      <div className='spinner-container'>
-        <div className='spinner'></div>
+      <div className="spinner-container">
+        <div className="spinner"></div>
       </div>
     );
   }
   return (
-    <table className='my-5'>
+    <table className="my-5">
       <thead>
         <tr>
           <th>Image</th>
@@ -137,9 +137,9 @@ const ViewCart = () => {
                 <tr key={product._id}>
                   <td>
                     <img
-                      className='h-16'
+                      className="h-16"
                       src={product.productImg?.imgUrl}
-                      alt=''
+                      alt=""
                     />
                   </td>
                   <td>
@@ -148,13 +148,13 @@ const ViewCart = () => {
                   <td>
                     <p>{product.price * product.quantity} BDT</p>
                   </td>
-                  <td className='flex gap-2 justify-center items-center'>
-                    <div className='flex items-center'>
+                  <td className="flex gap-2 justify-center items-center">
+                    <div className="flex items-center">
                       <button
                         onClick={() => {
                           handlePlusMinus(product._id, "minus");
                         }}
-                        className='button'
+                        className="button"
                       >
                         -
                       </button>
@@ -163,7 +163,7 @@ const ViewCart = () => {
                         onClick={() => {
                           handlePlusMinus(product._id, "plus");
                         }}
-                        className='button'
+                        className="button"
                       >
                         +
                       </button>
@@ -172,7 +172,7 @@ const ViewCart = () => {
                       onClick={() => {
                         handleDelete(product._id);
                       }}
-                      className='button'
+                      className="button"
                     >
                       Delete
                     </button>
@@ -188,14 +188,14 @@ const ViewCart = () => {
                   <td>
                     <p>
                       Total:{" "}
-                      <span className='font-medium text-secondary'>
+                      <span className="font-medium text-secondary">
                         {totalPrice} BDT
                       </span>
                     </p>
                   </td>
-                  <td className='flex justify-center'>
+                  <td className="flex justify-center">
                     <Link to={`/place-order/${allId}`}>
-                      <button className='button'>Pleace Order</button>
+                      <button className="button">Pleace Order</button>
                     </Link>
                   </td>
                 </>
@@ -203,7 +203,7 @@ const ViewCart = () => {
             </tr>
           </>
         ) : (
-          <tr className='text-center py-8 text-gray-500'>
+          <tr className="text-center py-8 text-gray-500">
             <td colSpan={4}>
               <h1>There no product you added</h1>
             </td>

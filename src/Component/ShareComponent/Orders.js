@@ -1,4 +1,3 @@
-import React from "react";
 import { useAlert } from "react-alert";
 
 const Orders = ({ order, children, orders, setOrder, title }) => {
@@ -17,7 +16,7 @@ const Orders = ({ order, children, orders, setOrder, title }) => {
   const handleDelete = (id) => {
     const confirm = window.confirm("Are you sure to delete");
     if (confirm) {
-      fetch(`https://server.switchcafebd.com/cyclemart/orders/${id}`, {
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/orders/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -34,21 +33,21 @@ const Orders = ({ order, children, orders, setOrder, title }) => {
     <tr>
       <td colSpan={2}>
         {order.products.map((product) => (
-          <div className='grid grid-cols-2' key={product._id}>
+          <div className="grid grid-cols-2" key={product._id}>
             <div>
               <p>
-                <span className='font-medium'>Price:</span> {product.price}
+                <span className="font-medium">Price:</span> {product.price}
               </p>
               <p>
-                <span className='font-medium'>Quantity:</span>{" "}
+                <span className="font-medium">Quantity:</span>{" "}
                 {product.quantity}
               </p>
             </div>
-            <div className='flex justify-center'>
+            <div className="flex justify-center">
               <img
-                className='h-14 object-contain'
+                className="h-14 object-contain"
                 src={product.productImg?.imgUrl}
-                alt=''
+                alt=""
               />
             </div>
           </div>
@@ -67,24 +66,24 @@ const Orders = ({ order, children, orders, setOrder, title }) => {
           </p>
         </td>
       )}
-      <td className='flex justify-end'>
-        <div className='flex flex-col justify-center'>
-          <div className='flex items-center'>
+      <td className="flex justify-end">
+        <div className="flex flex-col justify-center">
+          <div className="flex items-center">
             {order.status === "pending" && (
-              <div className='flex justify-center'>{children}</div>
+              <div className="flex justify-center">{children}</div>
             )}
-            <button onClick={() => handleDelete(order._id)} className='button'>
+            <button onClick={() => handleDelete(order._id)} className="button">
               Delete
             </button>
             <p>
-              <span className='font-medium'>Staus:</span>{" "}
-              <span className='text-secondary'>{status}</span>
+              <span className="font-medium">Staus:</span>{" "}
+              <span className="text-secondary">{status}</span>
             </p>
           </div>
           {order.totalBDT && (
             <p>
-              <span className='font-medium'> Total BDT:</span>{" "}
-              <span className='text-secondary'>{order.totalBDT}</span>
+              <span className="font-medium"> Total BDT:</span>{" "}
+              <span className="text-secondary">{order.totalBDT}</span>
             </p>
           )}
         </div>

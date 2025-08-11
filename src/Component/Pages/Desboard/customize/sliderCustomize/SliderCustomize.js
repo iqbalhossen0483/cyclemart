@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
 
@@ -14,7 +14,7 @@ function SliderCustomize() {
   const alart = useAlert();
 
   useEffect(() => {
-    fetch("https://server.switchcafebd.com/cyclemart/sliders")
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/sliders`)
       .then((res) => res.json())
       .then((data) => setSliders(data));
   }, [update]);
@@ -26,7 +26,7 @@ function SliderCustomize() {
     formData.append("image", slider.image[0]);
     formData.append("url", slider.url);
 
-    fetch("https://server.switchcafebd.com/cyclemart/sliders", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/sliders`, {
       method: "POST",
       headers: {
         authorization: userToken(),
@@ -52,7 +52,7 @@ function SliderCustomize() {
 
   //delete
   const deletSlider = (id) => {
-    fetch(`https://server.switchcafebd.com/cyclemart/sliders/${id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/sliders/${id}`, {
       method: "DELETE",
       headers: {
         authorization: userToken(),
@@ -75,11 +75,11 @@ function SliderCustomize() {
   return (
     <div
       onClick={() => setShowForm(false)}
-      className='border relative rounded-md pb-10 text-center h-96 overflow-auto'
+      className="border relative rounded-md pb-10 text-center h-96 overflow-auto"
     >
-      <div className='bg-primary rounded-t text-gray-200 sticky top-0 z-10'>
-        <p className='font-medium py-2'>Slider</p>
-        <button onClick={(e) => showForm(e)} className='slider-add-btn'>
+      <div className="bg-primary rounded-t text-gray-200 sticky top-0 z-10">
+        <p className="font-medium py-2">Slider</p>
+        <button onClick={(e) => showForm(e)} className="slider-add-btn">
           Add+
         </button>
         <form
@@ -89,21 +89,21 @@ function SliderCustomize() {
           className={`${form ? "block" : "hidden"}`}
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className='customize-form'>
+          <div className="customize-form">
             <input
-              className='input border-0 w-full'
+              className="input border-0 w-full"
               {...register("image", { required: true })}
-              type='file'
+              type="file"
             />
-            <span className='input-for-link'>
+            <span className="input-for-link">
               <input
-                className='input w-full'
+                className="input w-full"
                 {...register("url", { required: true })}
-                placeholder='Url'
+                placeholder="Url"
               />
-              <i className='fas mx-3 fa-link link-icon'></i>
+              <i className="fas mx-3 fa-link link-icon"></i>
             </span>
-            <button disabled={loading} type='submit' className='button'>
+            <button disabled={loading} type="submit" className="button">
               {loading ? "Loading..." : "Submit"}
             </button>
           </div>
@@ -113,16 +113,16 @@ function SliderCustomize() {
       {sliders.map((slide) => (
         <div
           key={slide._id}
-          className='border-b pb-2 customize-slider overflow-hidden z-0'
+          className="border-b pb-2 customize-slider overflow-hidden z-0"
         >
-          <img className='h-32 w-full' src={slide.imgUrl} alt='' />
+          <img className="h-32 w-full" src={slide.imgUrl} alt="" />
           <i
             onClick={() => {
               deletSlider(slide._id);
             }}
-            className='fas fa-trash-alt customize-slider-icon'
+            className="fas fa-trash-alt customize-slider-icon"
           ></i>
-          <p className='text-base'>{slide.url}</p>
+          <p className="text-base">{slide.url}</p>
         </div>
       ))}
     </div>

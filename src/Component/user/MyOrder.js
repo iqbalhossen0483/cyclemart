@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 
 import useFirebase from "../Hook/useFirebase";
@@ -13,11 +13,14 @@ const MyOrder = () => {
   const { userToken } = useFunc();
 
   useEffect(() => {
-    fetch(`https://server.switchcafebd.com/cyclemart/orders/${user.email}`, {
-      headers: {
-        authorization: userToken(),
-      },
-    })
+    fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/cyclemart/orders/${user.email}`,
+      {
+        headers: {
+          authorization: userToken(),
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setOrder(data);
@@ -31,13 +34,13 @@ const MyOrder = () => {
 
   if (isLoading) {
     return (
-      <div className='spinner-container'>
-        <div className='spinner'></div>
+      <div className="spinner-container">
+        <div className="spinner"></div>
       </div>
     );
   }
   return (
-    <div className='my-5'>
+    <div className="my-5">
       {orders.length ? (
         <table>
           <thead>
@@ -54,13 +57,13 @@ const MyOrder = () => {
                 order={order}
                 orders={orders}
                 setOrder={setOrder}
-                title='myOrder'
+                title="myOrder"
               />
             ))}
           </tbody>
         </table>
       ) : (
-        <div className='text-center text-xl py-8 text-gray-500'>
+        <div className="text-center text-xl py-8 text-gray-500">
           <p>You didn't any order place</p>
         </div>
       )}

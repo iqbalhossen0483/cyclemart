@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
@@ -36,7 +36,7 @@ const Purchase = () => {
   //find triger products
   useEffect(() => {
     if (id.startsWith("&&")) {
-      fetch(`https://server.switchcafebd.com/cyclemart/products/${id}`)
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/products/${id}`)
         .then((res) => res.json())
         .then((data) => {
           let totalPrice = 0;
@@ -57,7 +57,7 @@ const Purchase = () => {
           setIsLoading(false);
         });
     } else {
-      fetch(`https://server.switchcafebd.com/cyclemart/products/${id}`)
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/products/${id}`)
         .then((res) => res.json())
         .then((data) => {
           setTotalPrice(data.price * quantity);
@@ -114,7 +114,7 @@ const Purchase = () => {
     }
     //post order
     if (cashOnDelivary) {
-      fetch("https://server.switchcafebd.com/cyclemart/orders", {
+      fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/orders", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -150,15 +150,15 @@ const Purchase = () => {
   };
   if (isLoading) {
     return (
-      <div className='spinner-container'>
-        <div className='spinner'></div>
+      <div className="spinner-container">
+        <div className="spinner"></div>
       </div>
     );
   }
   return (
-    <div className='px-3 md:px-0 md:grid grid-cols-2'>
-      <div className='container lg:w-4/6'>
-        <h1 className='header'>Order Summary</h1>
+    <div className="px-3 md:px-0 md:grid grid-cols-2">
+      <div className="container lg:w-4/6">
+        <h1 className="header">Order Summary</h1>
         {singleProduct.length ? (
           singleProduct.map((product) => {
             totalPrice > 25000
@@ -172,21 +172,21 @@ const Purchase = () => {
                           : (sipping = 100)));
             return (
               <div key={product._id}>
-                <div className='col-span-2 flex justify-center'>
+                <div className="col-span-2 flex justify-center">
                   <img
-                    className='w-36 h-32'
+                    className="w-36 h-32"
                     src={product.productImg?.imgUrl}
-                    alt=''
+                    alt=""
                   />
                 </div>
-                <table className='w-full border'>
+                <table className="w-full border">
                   <thead>
                     <tr>
                       <th>
-                        <p className='font-medium text-base'>Product Name: </p>
+                        <p className="font-medium text-base">Product Name: </p>
                       </th>
                       <th>
-                        <p className='font-medium text-base'>{product.name}</p>
+                        <p className="font-medium text-base">{product.name}</p>
                       </th>
                     </tr>
                   </thead>
@@ -209,7 +209,7 @@ const Purchase = () => {
                     </tr>
                     <tr>
                       <td>Total:</td>
-                      <td className='text-secondary font-medium'>
+                      <td className="text-secondary font-medium">
                         {totalPrice + sipping}
                       </td>
                     </tr>
@@ -219,7 +219,7 @@ const Purchase = () => {
             );
           })
         ) : (
-          <div className='flex flex-wrap'>
+          <div className="flex flex-wrap">
             {orders.map((product) => {
               totalPrice > 25000
                 ? (sipping = 250)
@@ -233,28 +233,28 @@ const Purchase = () => {
               return (
                 <div key={product._id}>
                   <img
-                    className='h-20'
+                    className="h-20"
                     src={product.productImg?.imgUrl}
-                    alt=''
+                    alt=""
                   />
                 </div>
               );
             })}
-            <table className='w-full border'>
+            <table className="w-full border">
               <tbody>
                 <tr>
                   <td>Sub-total:</td>
-                  <td className='font-medium text-secondary'>
+                  <td className="font-medium text-secondary">
                     {totalPrice} BDT
                   </td>
                 </tr>
                 <tr>
                   <td>Shipping Cost: </td>
-                  <td className='font-medium text-red-400'>{sipping} BDT</td>
+                  <td className="font-medium text-red-400">{sipping} BDT</td>
                 </tr>
                 <tr>
                   <td>Total: </td>
-                  <td className='font-medium text-secondary'>
+                  <td className="font-medium text-secondary">
                     {totalPrice + sipping} BDT
                   </td>
                 </tr>
@@ -264,93 +264,93 @@ const Purchase = () => {
         )}
       </div>
       <div>
-        <form className='container lg:w-4/6' onSubmit={handleSubmit(onSubmit)}>
-          <h3 className='header'>Shipping Address</h3>
+        <form className="container lg:w-4/6" onSubmit={handleSubmit(onSubmit)}>
+          <h3 className="header">Shipping Address</h3>
 
           {customer?.district &&
             customer?.division &&
             customer?.policeStation &&
             customer?.rodeOrVillage &&
             customer?.phone && (
-              <p className='flex items-center text-base mb-3'>
+              <p className="flex items-center text-base mb-3">
                 <input
                   onClick={(e) => {
                     handleSameAsBilling(e);
                   }}
-                  className='mr-2 block'
-                  type='checkbox'
+                  className="mr-2 block"
+                  type="checkbox"
                 />
                 Same as billing address
               </p>
             )}
           <input
-            className='input'
+            className="input"
             disabled
             {...register("name")}
-            placeholder='Enter name'
+            placeholder="Enter name"
             defaultValue={customer.displayName}
           />
           <input
-            type='email'
+            type="email"
             disabled
-            className='input'
+            className="input"
             {...register("email")}
             defaultValue={customer.email}
-            placeholder='Enter email'
+            placeholder="Enter email"
           />
           <input
-            className='input'
+            className="input"
             {...register("division", { required: !sameAsBilling })}
             defaultValue={sameAsBilling ? customer?.division : ""}
-            placeholder='Enter division'
+            placeholder="Enter division"
           />
           <input
-            className='input'
+            className="input"
             {...register("district", { required: !sameAsBilling })}
             defaultValue={sameAsBilling ? customer?.district : ""}
-            placeholder='Enter district'
+            placeholder="Enter district"
           />
           <input
-            className='input'
+            className="input"
             {...register("policeStation", { required: !sameAsBilling })}
             defaultValue={sameAsBilling ? customer?.policeStation : ""}
-            placeholder='Enter police station'
+            placeholder="Enter police station"
           />
           <input
-            className='input'
+            className="input"
             {...register("rodeOrVillage", { required: !sameAsBilling })}
             defaultValue={sameAsBilling ? customer?.rodeOrVillage : ""}
-            placeholder='Enter road name'
+            placeholder="Enter road name"
           />
           <input
-            type='number'
-            className='input'
+            type="number"
+            className="input"
             {...register("phone", { required: !sameAsBilling })}
             defaultValue={sameAsBilling ? customer?.phone : ""}
-            placeholder='Enter your number'
+            placeholder="Enter your number"
           />
-          <p className='flex items-center text-base'>
+          <p className="flex items-center text-base">
             <input
               onClick={(e) => {
                 handleCashOndelivary(e);
               }}
-              className='mr-2'
-              type='checkbox'
+              className="mr-2"
+              type="checkbox"
             />{" "}
             Cash on delivary
           </p>
-          <div className='flex justify-center'>
+          <div className="flex justify-center">
             {!cashOnDelivary ? (
               <input
-                className='button w-auto text-center'
-                type='submit'
-                value='Procced to Pay'
+                className="button w-auto text-center"
+                type="submit"
+                value="Procced to Pay"
               />
             ) : (
               <button
                 disabled={loading}
-                className='button w-auto text-center'
-                type='submit'
+                className="button w-auto text-center"
+                type="submit"
               >
                 {loading ? "Lading..." : "Place order"}
               </button>
@@ -361,7 +361,7 @@ const Purchase = () => {
       {showPayment && (
         <div
           style={{ position: "absolute" }}
-          className='h-full w-full bg-gray-100'
+          className="h-full w-full bg-gray-100"
         >
           <div>
             <Payment totalPrice={totalPrice} orderDetails={orderDetails} />

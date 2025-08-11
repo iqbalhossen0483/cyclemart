@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAlert } from "react-alert";
 import { useForm } from "react-hook-form";
 
@@ -12,7 +12,7 @@ const HeaderPart = ({ categoryForm, setCategoryForm, setUpdate, update }) => {
 
   const onSubmit = (menu) => {
     setLoading(true);
-    fetch("https://server.switchcafebd.com/cyclemart/menus", {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/cyclemart/menus`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -40,8 +40,8 @@ const HeaderPart = ({ categoryForm, setCategoryForm, setUpdate, update }) => {
   };
 
   return (
-    <div className='bg-primary rounded-t text-gray-200 flex justify-evenly z-50'>
-      <p className='font-medium py-2'>Category Menus</p>
+    <div className="bg-primary rounded-t text-gray-200 flex justify-evenly z-50">
+      <p className="font-medium py-2">Category Menus</p>
       <button onClick={(e) => showCategoryForm(e)}>Add+</button>
 
       <form
@@ -51,13 +51,13 @@ const HeaderPart = ({ categoryForm, setCategoryForm, setUpdate, update }) => {
         className={`${categoryForm ? "block" : "hidden"}`}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className='customize-form w-full'>
+        <div className="customize-form w-full">
           <input
-            className='input w-full'
+            className="input w-full"
             {...register("name", { required: true })}
-            placeholder='Enter category name'
+            placeholder="Enter category name"
           />
-          <button className='button' disabled={loading} type='submit'>
+          <button className="button" disabled={loading} type="submit">
             {loading ? "Loading..." : "Submit"}
           </button>
         </div>
