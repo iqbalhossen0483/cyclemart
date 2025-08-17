@@ -55,8 +55,7 @@
     @apply col-span-5 flex flex-col justify-between;
   }
   .logo-wapper {
-    @apply hidden md:flex md:row-span-1 lg:row-span-2 items-center text-xl font-medium 
-    gap-2 col-span-5 lg:col-span-1 justify-center;
+    @apply hidden md:flex md:row-span-1 lg:row-span-2 items-center text-xl font-medium col-span-5 lg:col-span-1 justify-center;
   }
 
   /* header component */
