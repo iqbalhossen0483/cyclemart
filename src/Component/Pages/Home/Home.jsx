@@ -1,27 +1,22 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Slider from "react-slick";
 
 import useFirebase from "../../Hook/useFirebase";
 import Product from "../../ShareComponent/prooduct/Product";
 import ProductSkelator from "../../ShareComponent/skelator/ProductSkelator";
-import ReviewSkelator from "../../ShareComponent/skelator/ReviewSkelator";
 import BannerSlider from "./BannerSlider";
 import Menus from "./Menus";
 import NewsCarusal from "./NewsCarusal";
-import Reviews from "./Rviews";
-import settings from "./sliderSetting";
+import ReviewCarusal from "./ReviewCarousal";
 
 const Home = () => {
   const [productLoading, setProductLoading] = useState(true);
   const [reviewLoading, setReviewLoading] = useState(true);
-  const [newsLoading, setNewsLoading] = useState(true);
-  const [products, setProduct] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [products, setProduct] = useState([]);
   const { setHideUserInfo } = useFirebase();
   const [offers, setOffers] = useState([]);
   const [error, setError] = useState(null);
-  const [news, setNews] = useState([]);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/cyclemart/products/home`)
@@ -41,16 +36,6 @@ const Home = () => {
         setReviewLoading(false);
       })
       .catch((err) => setError(err.message));
-  }, []);
-
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/cyclemart/news`)
-      .then((res) => res.json())
-      .then((data) => {
-        setNews(data);
-        setNewsLoading(false);
-      })
-      .catch((err) => setError(err.massege));
   }, []);
 
   useEffect(() => {
@@ -115,19 +100,7 @@ const Home = () => {
         {/* reviews */}
         <div className="my-16 md:px-5">
           <h3 className="h1">Our Customer Reviews</h3>
-          {reviewLoading ? (
-            <div className="grid grid-cols-3 gap-5">
-              <ReviewSkelator />
-              <ReviewSkelator />
-              <ReviewSkelator />
-            </div>
-          ) : (
-            <Slider {...settings}>
-              {reviews.map((review) => (
-                <Reviews key={review._id} review={review} />
-              ))}
-            </Slider>
-          )}
+          <ReviewCarusal setError={setError} />
         </div>
 
         {/* news */}

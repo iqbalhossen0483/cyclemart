@@ -27,7 +27,7 @@ const NewsCarusal = ({ setError }) => {
   return (
     <>
       {newsLoading ? (
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           <ReviewSkelator />
           <ReviewSkelator />
           <ReviewSkelator />
@@ -40,7 +40,7 @@ const NewsCarusal = ({ setError }) => {
               return (
                 <div
                   key={_id}
-                  className="single-news flex-shrink-0 w-1/3 pr-5 relative"
+                  className="single-news flex-shrink-0 w-1/3 mr-5 relative"
                 >
                   <img
                     className="rounded-t-md w-full h-32 object-cover"
