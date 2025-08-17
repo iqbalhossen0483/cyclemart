@@ -14,7 +14,6 @@ const Purchase = () => {
   const [singleProduct, setSingleProduct] = useState([]);
   const [showPayment, setShowPayment] = useState(false);
   const [orderDetails, setOderDetails] = useState({});
-  const { register, handleSubmit, reset } = useForm();
   const [isLoading, setIsLoading] = useState(true);
   const [totalPrice, setTotalPrice] = useState(0);
   const [orders, setOrders] = useState([]);
@@ -23,6 +22,14 @@ const Purchase = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   let sipping = 100;
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      name: customer.displayName,
+      email: customer.email,
+    },
+  });
+
+  console.log(customer);
 
   function handleSameAsBilling(e) {
     if (!e.target.checked) {
@@ -155,8 +162,8 @@ const Purchase = () => {
     );
   }
   return (
-    <div className="px-3 md:px-0 md:grid grid-cols-2">
-      <div className="container lg:w-4/6">
+    <div className="px-3 md:px-5 grid grid-cols-1 md:grid-cols-2 gap-5 py-10 ">
+      <div className="bg-white p-5 rounded-md">
         <h1 className="header">Order Summary</h1>
         {singleProduct.length ? (
           singleProduct.map((product) => {
@@ -178,7 +185,7 @@ const Purchase = () => {
                     alt=""
                   />
                 </div>
-                <table className="w-full border">
+                <table className="w-full border border-gray-300">
                   <thead>
                     <tr>
                       <th>
@@ -239,7 +246,7 @@ const Purchase = () => {
                 </div>
               );
             })}
-            <table className="w-full border">
+            <table className="w-full border border-gray-300">
               <tbody>
                 <tr>
                   <td>Sub-total:</td>
@@ -262,8 +269,8 @@ const Purchase = () => {
           </div>
         )}
       </div>
-      <div>
-        <form className="container lg:w-4/6" onSubmit={handleSubmit(onSubmit)}>
+      <div className="bg-white p-5 rounded-md">
+        <form className="" onSubmit={handleSubmit(onSubmit)}>
           <h3 className="header">Shipping Address</h3>
 
           {customer?.district &&
@@ -287,14 +294,12 @@ const Purchase = () => {
             disabled
             {...register("name")}
             placeholder="Enter name"
-            defaultValue={customer.displayName}
           />
           <input
             type="email"
             disabled
             className="input"
             {...register("email")}
-            defaultValue={customer.email}
             placeholder="Enter email"
           />
           <input

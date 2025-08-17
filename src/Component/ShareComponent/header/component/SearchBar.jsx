@@ -38,20 +38,18 @@ const SearchBar = () => {
   }, [debouncedValue]);
 
   return (
-    <div className="col-span-2">
-      <div className=" w-full md:w-3/4 md:ml-auto relative">
-        <input
-          type="text"
-          className="input search-input"
-          placeholder="Search Product..."
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-        <i className="fa fa-search" aria-hidden="true" />
-        {showSearchProduct && (
-          <SearchedProduct searchedProduct={searchedProduct} />
-        )}
-      </div>
+    <div className="relative">
+      <input
+        type="text"
+        className="input search-input"
+        placeholder="Search Product..."
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <i className="fa fa-search" aria-hidden="true" />
+      {showSearchProduct && (
+        <SearchedProduct searchedProduct={searchedProduct} />
+      )}
     </div>
   );
 };

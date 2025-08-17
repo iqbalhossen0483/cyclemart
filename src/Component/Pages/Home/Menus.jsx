@@ -13,7 +13,7 @@ const Menus = () => {
 
   return (
     <div className="category-menu-wrapper px-7">
-      <h2 className="text-xl border-b-2 pb-1 text-center">
+      <h2 className="text-xl border-b-2 border-gray-300 pb-1 text-center">
         Popular Categories
       </h2>
       {categoryMenus.map((menu) => (

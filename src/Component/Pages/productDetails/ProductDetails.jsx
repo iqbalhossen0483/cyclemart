@@ -106,7 +106,9 @@ const ProductDetails = () => {
                 <img
                   key={img.imgId}
                   onClick={() => handleImg(img.imgUrl)}
-                  className="h-16 border rounded"
+                  className={`h-16 border border-gray-300 rounded cursor-pointer ${
+                    img.imgUrl === productImgUrl && "border-secondary"
+                  }`}
                   src={img.imgUrl}
                   alt=""
                 />
@@ -153,7 +155,7 @@ const ProductDetails = () => {
               <span className="font-medium mr-2">Quantity:</span>
               <button
                 onClick={handleMinus}
-                className="border rounded px-2 py-1"
+                className="border border-gray-300 rounded px-2 py-1"
               >
                 -
               </button>
@@ -162,7 +164,7 @@ const ProductDetails = () => {
                 onClick={() => {
                   setQuantity(quantity + 1);
                 }}
-                className="border rounded px-2 py-1"
+                className="border border-gray-300 rounded px-2 py-1"
               >
                 +
               </button>
