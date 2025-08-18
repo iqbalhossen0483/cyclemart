@@ -103,6 +103,7 @@ const Firebase = () => {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
+        await makeUser(user.displayName, user.email);
         await checkUser(user.email);
       } else {
         setUser({});

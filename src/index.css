@@ -6,8 +6,8 @@
   --color-darkWhite: #d1d2d6e8;
 }
 
-.h-90v {
-  height: calc(100vh - 50px);
+button {
+  @apply cursor-pointer disabled:cursor-not-allowed;
 }
 
 .container {

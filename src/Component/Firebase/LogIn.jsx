@@ -9,7 +9,7 @@ const LogIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [formErrors, setFormErrors] = useState({});
-  const { logInWithGoogle, makeUser, logInWithEmail } = useFirebase();
+  const { logInWithGoogle, logInWithEmail } = useFirebase();
   const navigate = useNavigate();
   const location = useLocation();
   const url = location.state?.from.pathname || "/";
@@ -56,11 +56,9 @@ const LogIn = () => {
     setLoading(true);
     const { email, password } = formData;
     logInWithEmail(email, password)
-      .then(async (result) => {
+      .then(async () => {
         setError("");
-        const { displayName, email } = result.user;
-        await makeUser(displayName, email);
-        reset();
+        setFormData({ email: "", password: "" });
         navigate(url, { replace: true });
       })
       .catch((err) => setError(err.message))
@@ -71,10 +69,8 @@ const LogIn = () => {
   const handleGoogleLogin = () => {
     setLoading(true);
     logInWithGoogle()
-      .then(async (result) => {
+      .then(async () => {
         setError("");
-        const { displayName, email } = result.user;
-        await makeUser(displayName, email);
         navigate(url, { replace: true });
       })
       .catch((err) => {
