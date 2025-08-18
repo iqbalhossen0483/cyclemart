@@ -1,10 +1,10 @@
 import { useEffect, useReducer, useRef } from "react";
+import { Link } from "react-router-dom";
 import useFirebase from "../../Hook/useFirebase";
 import useFunc from "../../Hook/useFunc";
-import Logo from "./component/Logo";
+import CartProduct from "./component/CartProduct";
 import MobileView from "./component/MobileView";
 import SearchBar from "./component/SearchBar";
-import TopContact from "./component/TopContact";
 import TopMenus from "./component/TopMenus";
 import UserInfo from "./component/UserInfo";
 const init = {
@@ -42,31 +42,28 @@ const Header = () => {
 
   return (
     <>
-      {/* mobile views */}
-      <MobileView />
       <div
         ref={header}
-        className="hidden md:block py-2 bg-white border-b border-gray-300 px-10"
+        className="hidden sticky top-0 bg-white border-b border-gray-300 px-10 md:flex justify-between items-center z-90"
       >
-        {/* top section */}
-        <div className="flex justify-between items-center">
-          <Logo />
-          <TopContact />
-        </div>
-
-        <div className="flex justify-between items-center relative">
-          {/* search bar */}
-          <div className="hidden md:block min-w-lg">
-            <SearchBar />
+        <Link to="/">
+          <div className="logo-wapper">
+            <img className="size-14" src="/logo.png" alt="" />
+            <span>CYCLE MART</span>
           </div>
-
-          {/* menus */}
-          <TopMenus dispatch={dispatch} />
-          {/* user info  */}
-          {state.userInfo && <UserInfo />}
-          {state.showCart && addedProduct?.length > 0 && <CartProduct />}
+        </Link>
+        <div className="hidden md:block min-w-lg">
+          <SearchBar />
         </div>
+        {/* menus */}
+        <TopMenus dispatch={dispatch} />
+        {/* user info  */}
+        {state.userInfo && <UserInfo />}
+        {state.showCart && addedProduct?.length > 0 && <CartProduct />}
       </div>
+
+      {/* mobile views */}
+      <MobileView />
     </>
   );
 };
